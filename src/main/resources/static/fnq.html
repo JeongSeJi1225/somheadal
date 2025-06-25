@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Edu+SA+Hand:wght@400..700&display=swap" rel="stylesheet">
+  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>솜해달 자주묻는 질문</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #e4e8f0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2em;
+      background: white;
+      border-radius: 15px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1em;
+    }
+
+    nav a {
+      margin: 0 1em;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .hero {
+      font-size: 3em;
+      font-weight: 900;
+      margin-bottom: 1em;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 250px;
+      gap: 1em;
+    }
+
+    .item {
+      background: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.5em;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 0.9em;
+    }
+
+    .tall {
+    grid-row: span 2;
+    grid-column: span 1; /* 너비를 2칸으로 늘림 */
+    }
+
+    .wide {
+    grid-column: span 3;
+    grid-row: span 1.8; /* 높이를 1.3배 정도로 살짝 늘림 */
+    }
+
+    .orange-btn {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      background: #F07822;
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hashtag {
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+      .accordion-button:focus {
+    box-shadow: none;
+    outline: none;
+    background-color: #f1f1f1; /* 클릭 시 회색 배경 */
+    color: #000; /* 텍스트 색 */
+    font-weight: bold;
+  }
+
+  .accordion-button:not(.collapsed) {
+    background-color: #f1f1f1; /* 펼쳐졌을 때 배경 */
+    color: #000;
+  }
+
+  .wash{
+    margin-left: 0.2em;
+    margin-top: 0.3em;
+    font-size: 0.9em;
+    color: dimgrey;
+  }
+
+  a {
+  color: #000 !important;
+  text-decoration: none;
+}
+a:hover {
+  color: #333 !important;
+  text-decoration: underline;
+}
+
+a.btn {
+  color: white !important;
+}
+
+
+a.btn.btn-dark {
+  color: white !important;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-3">
+        <a class="navbar-brand fw-bold" href="main.html">SOMHEADAL</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="#">Type</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="fnq.html">FaQ</a></li>
+          </ul>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeYBd7o3q5g9iuRSybXIEdY1uOi0E0Y7fNwAno5srp3WZ-v-A/viewform?usp=header" class="btn btn-dark ms-3" style="color: white;">Apply now</a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="hero" style="margin-top: 1em;" >SOMHEADAL</div>
+
+    <!--fnq start-->
+        <div class="row">
+            <div class="col">
+                <div class="row" style=" margin-bottom: 1em;">
+                    <div class="col"></div>
+                    <div class="col" style="text-align: center; font-weight: bold; font-size: 1.5em;">자주묻는 질문</div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top: 2em; margin-bottom: 3em;">
+            <div class="col">
+              <img src="img/mainBanner2.png">
+            </div>
+            <div class="col">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          세탁은 어떻게 하나요?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          <span style="font-weight: bold;">만두</span>의 경우 세탁망에 넣어 세탁기 이용이 가능합니다 <br>
+                          <span style="font-weight: bold; ">솜인형</span>의 경우 세탁기 이용 시 인형이 파손될 수 있습니다.<br> 
+                          중성세제 또는 울샴푸로 찬물 손세탁해주세요.<br>
+                          <span class="wash">1. 세제 사용 후 3분 이상 물에 헹궈주세요.</span><br>
+                          <span class="wash">2. 리스토어 혹은 구연산을 물에 푼 뒤 인형이 잠기게 5분 이상 넣어주세요.</span><br>
+                          <span class="wash">3. 건조시 거꾸로 걸어 말려주세요.</span><br>
+                          <span class="wash">4. 인형을 거꾸로 세워 물기를 제거하고 마른수건으로 살살 눌러주세요.</span><br>
+                          <span class="wash">5. 이후 마른수건에 눕혀 건조하세요.</span><br>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                          인형 도안 준비는 어떻게 해야 하나요?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          도안 커미션을 받아오시거나 캐릭터 사진을 보내주시면 도안을 그려드립니다. <br>
+                          도안 제작까지 맡기는 경우 추가금 10000원이 붙습니다.</div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                          원단 색을 바꾸고 싶어요.
+                        </button>
+                      </h2>
+                      <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          원단 색을 조율한 이후 작업에 들어가기 때문에 이후에 원단 색을 변경할 경우 원단 값이 추가로 발생됩니다. 완성 이후엔 수정할 수 없습니다.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseThree">
+                          환불을 하고 싶어요
+                        </button>
+                      </h2>
+                      <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          주문제작 상품이기 때문에 제작 이후에는 환불이 불가능합니다.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseThree">
+                          인형을 빨리 받고 싶어요. / 빠른 제작이 가능할까요?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          빠른 마감의 경우 인형 한 개 당 30000원의 추가금이 붙습니다
+                          인형 개수에 따라 제작기간이 달라질 수 있습니다(빠른마감 시 제작기간 3주→10일 이내.) 
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseThree">
+                          이런 인형도 구현이 될까요?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          문의 주시면 확인 후 답변드립니다.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseThree">
+                          고열사 투톤을 하고 싶어요
+                        </button>
+                      </h2>
+                      <div id="flush-collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          슈퍼론 원사의 경우 염색이 가능하지만 추가금이 많이 붙습니다.
+                          염색약+슈퍼론 원사 가격을 추가로 결제하셔야 합니다.
+                          염색을 제가 하는 관계로 미용실같이 완벽할 순 없습니다.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseThree">
+                          고열사 파마가 될까요?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          저희가 따로 파마 세팅을 해드리지 않습니다.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseThree">
+                          인형 뼈는 무엇인가요?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          인형용 뼈를 삽입해드립니다. 고개 전환형 인형 뼈를 삽입하며 뼈를 추가했을 때 인형의 포즈를 바꿀 수 있습니다.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseThree">
+                          피부색은 어떤 게 가능한가요?
+                        </button>
+                      </h2>
+                      <div id="flush-collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          원단 사진을 참고해주세요! 2mm 벨보아 원단에 있는 경우 가능합니다.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseThree">
+                          오브젝트 헤드 / 퍼리를 맡기고 싶어요.
+                        </button>
+                      </h2>
+                      <div id="flush-collapseEleven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                          현재 솜해달에서 오브젝트 헤드와 퍼리는 불가능합니다.<br> 
+                          중국 공장에 문의 부탁드립니다.
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+            </div>
+     
+        </div>
+
+
+        <div class="row">
+            <div class="col">
+                <div class="row" style=" margin-bottom:2em;">
+                    <div class="col"></div>
+                    <div class="col" style="text-align: center; font-weight: bold; font-size: 1.2em;">Contact</div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!--고정메뉴-->
+
+        <div class="row" style=" text-align: center;  ">
+            <div class="col">
+                <div class="row">
+                  
+                    <div class="col">
+                      <a href="https://www.instagram.com/somhaedal/">
+                        <div class="row">
+                            <div class="col">
+                                <i class="bi bi-instagram"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Instagram
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                      <a href="https://x.com/somhaedal">
+                        <div class="row">
+                            <div class="col">
+                              
+                                <i class="bi bi-twitter-x"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                X
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col">
+                      <a href="https://open.kakao.com/me/somhaedal">
+                        <div class="row">
+                            <div class="col">
+                                <i class="bi bi-chat-dots"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                KaKaoTalk
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+               
+                </div>
+            </div>
+        </div>
+
+        
+        <!--고정메뉴-->
+ 
+
+
+   
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

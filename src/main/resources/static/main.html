@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Edu+SA+Hand:wght@400..700&display=swap" rel="stylesheet">
+  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>솜해달</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #e4e8f0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2em;
+      background: white;
+      border-radius: 15px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1em;
+    }
+
+    nav a {
+      margin: 0 1em;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .hero {
+      font-size: 3em;
+      font-weight: 900;
+      margin-bottom: 1em;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 250px;
+      gap: 1em;
+    }
+
+    .item {
+      background: #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.5em;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 0.9em;
+    }
+
+    .tall {
+    grid-row: span 2;
+    grid-column: span 1; /* 너비를 2칸으로 늘림 */
+    }
+
+    .wide {
+    grid-column: span 3;
+    grid-row: span 1.8; /* 높이를 1.3배 정도로 살짝 늘림 */
+    }
+
+    .orange-btn {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      background: #F07822;
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hashtag {
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-3">
+        <a class="navbar-brand fw-bold" href="main.html">SOMHEADAL</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="#">Type</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="fnq.html">FaQ</a></li>
+          </ul>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeYBd7o3q5g9iuRSybXIEdY1uOi0E0Y7fNwAno5srp3WZ-v-A/viewform?usp=header" class="btn btn-dark ms-3">Apply now</a>
+        </div>
+      </nav>
+    </header>
+
+    <div class="hero" style="margin-top: 1em;" >SOMHEADAL</div>
+
+
+
+    <div class="grid">
+      <!-- 왼쪽 세로 긴 영역 (2행) -->
+      <div class="item tall">
+        <img src="img/main.jpg" alt="Main Doll">
+        <div class="overlay">
+          <div># My cute doll!</div>
+          <div>Look at this lovely and cute thing</div>
+        </div>
+      </div>
+
+      <!-- 오른쪽 상단 가로 3칸 영역 -->
+      <div class="item wide">
+        <img src="img/sew.jpg" alt="Collection">
+        <button class="orange-btn">How work</button>
+      </div>
+
+      <!-- 오른쪽 하단: 작은 카드 3개 (1칸씩) -->
+      
+        <div class="item">
+          <a href="fnq.html" style="text-decoration: none; color: inherit;">
+          <img src="img/test1.jpg" alt="Shoe">
+          <div class="overlay"># FAQ 
+            <div>Frequently Asked Questions</div>
+          </div>
+          </a>
+        </div>
+      
+
+      
+      <div class="item">
+        <a href="fnq.html" style="text-decoration: none; color: inherit;">
+        <img src="img/teru.jpg" alt="Shoe">
+        <div class="overlay">
+          # NEW ARRIVALS
+          <span style="background: #F07822; padding: 0.2em 0.5em; border-radius: 4px; margin-left: 0.2em; float: right;">Popular</span>
+          <div>The new Teruterubozue</div>
+        </div>
+        </a>
+      </div>
+
+      <div class="item">
+        <a href="https://crepe.cm/@somhaedal" style="text-decoration: none; color: inherit;">
+        <img src="img/mainBanner1.png" alt="Shoe">
+        <div class="overlay">
+          42+<br>Show review's in Crepe
+        </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

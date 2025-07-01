@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -126,73 +127,7 @@ body {
 <body>
 
 <div class="container">
-    <header>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-3">
-      <a class="navbar-brand fw-bold" href="main.html">SOMHEADAL</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navMenu">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="product.html">Type</a></li>
-
-          <!-- Contact → 오프캔버스 토글 -->
-          <li class="nav-item">
-            <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#contactOffcanvas" aria-controls="contactOffcanvas">
-              Contact
-            </a>
-          </li>
-
-          <li class="nav-item"><a class="nav-link" href="fnq.html">FaQ</a></li>
-        </ul>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeYBd7o3q5g9iuRSybXIEdY1uOi0E0Y7fNwAno5srp3WZ-v-A/viewform?usp=header" class="btn btn-dark ms-3">Apply now</a>
-      </div>
-    </nav>
-
-    <!-- 오프캔버스 시작 -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="contactOffcanvas" aria-labelledby="contactOffcanvasLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="contactOffcanvasLabel" style="font-weight: bold;">Contact Us</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body bg-light">
-        <p class="text-muted mb-4">
-          SOMHEADAL 소통채널입니다.<br>
-          문의 및 소통은 아래 채널을 통해 가능합니다.
-        </p>
-
-        <div class="row gy-3">
-          <div class="col-12">
-            <div class="border rounded p-3 d-flex align-items-center shadow-sm social-card">
-              <img src="img/insta.png" alt="Instagram" width="32" class="me-3">
-              <div>
-                <h6 class="mb-0">Instagram</h6>
-                <a href="https://www.instagram.com/somhaedal/" target="_blank" class="text-muted small">@somhaedal</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="border rounded p-3 d-flex align-items-center shadow-sm social-card">
-              <img src="img/x.png" alt="X" width="32" class="me-3">
-              <div>
-                <h6 class="mb-0">X (Twitter)</h6>
-                <a href="https://twitter.com/somhaedal" target="_blank" class="text-muted small">@somhaedal</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="border rounded p-3 d-flex align-items-center shadow-sm social-card">
-              <img src="img/kakao.png" alt="KakaoTalk" width="32" class="me-3">
-              <div>
-                <h6 class="mb-0">Open KakaoTalk</h6>
-                <a href="https://open.kakao.com/o/somhaedal" target="_blank" class="text-muted small">Click to Join Chat</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+    <div th:replace="fragments/header :: mainHeader"></div>
 
   <div class="hero" style="margin-top: 1em;">SOMHEADAL</div>
 

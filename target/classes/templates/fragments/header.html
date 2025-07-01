@@ -28,21 +28,26 @@
       color: #000;
       font-weight: bold;
     }
+
+    .worker{
+      text-decoration: none;
+    }
+
 </style>
 <html xmlns:th="http://www.thymeleaf.org">
   <body>
     <div th:fragment="mainHeader">
-    <div class="container">
+
 
     <header>
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white shadow-sm px-4 py-3">
-      <a class="navbar-brand fw-bold" href="main.html">SOMHEADAL</a>
+      <a class="navbar-brand fw-bold" th:href="@{/main}">SOMHEADAL</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="product.html">Type</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/product}">Type</a></li>
 
           <!-- Contact → 오프캔버스 토글 -->
           <li class="nav-item">
@@ -51,7 +56,7 @@
             </a>
           </li>
 
-          <li class="nav-item"><a class="nav-link" href="fnq.html">FaQ</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/fnq}">FaQ</a></li>
         </ul>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSeYBd7o3q5g9iuRSybXIEdY1uOi0E0Y7fNwAno5srp3WZ-v-A/viewform?usp=header" class="btn btn-dark ms-3">Apply now</a>
       </div>
@@ -97,12 +102,19 @@
               </div>
             </div>
           </div>
+
+          <div class="text-center pb-3">
+            <a href="#" class="text-muted small worker">작업자 로그인</a>
+          </div>
+        </div>
+    
         </div>
       </div>
+      
     </div>
   </header>
 
-    </div>
+   
     </div>
   </body>
 </html>

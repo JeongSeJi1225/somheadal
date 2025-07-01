@@ -21,5 +21,24 @@ public class SomhaedalController {
        
     }
 
+    @GetMapping("/fnq")
+    public String fnq(Model model) {
+   
+        return "fnq";
+       
+    }
+    @GetMapping("/howwork")
+    public String howork(Model model) {
+   
+        return "howwork";
+       
+    }
+    @GetMapping("/product")
+    public String product(Model model) {
+   
+        return "product";
+       
+    }
+
     
 }

@@ -15,5 +15,5 @@ import com.somhaedal.somhaedal.enums.NowStatus;
 
 @Mapper
 public interface SomeheadalSqlMapper {
-    
+    public AdminDto adminLoginInfo(AdminDto adminDto);
 }

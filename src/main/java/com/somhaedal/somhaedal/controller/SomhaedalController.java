@@ -65,18 +65,37 @@ public class SomhaedalController {
         AdminDto sessionAdmin = somheadalService.getAdminLoginInfo(params);
         session.setAttribute("sessionAdminInfo", sessionAdmin);
         if (sessionAdmin != null) {
-            return "redirect:./workLoginSuccess";
+            return "redirect:./workerMainPage";
         }else{
-            return "redirect:./fnq";
+            return "redirect:./workLoginFail";
         }
 
         
     }
 
     @GetMapping("/workLoginSuccess")
-    public String getMethodName(Model model) {
+    public String workLoginSuccess(Model model) {
         return "workLoginSuccess";
     }
+
+    @GetMapping("/workerMainPage")
+    public String workerMainPage(HttpSession session) {
+    AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo");
+
+    if (sessionAdmin == null) {
+        return "redirect:./workerLogin";
+    }
+
+    return "workerMainPage";
+    }
+
+
+    @GetMapping("/workLoginFail")
+    public String workLoginFail(Model model) {
+        return "workLoginFail";
+    }
+
+    
     
     
 

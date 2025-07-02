@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>솜해달 작업자 페이지</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f4f7fb;
+    }
+    .sidebar {
+      height: 100vh;
+      background-color: #111;
+      color: #fff;
+      padding-top: 2rem;
+    }
+    .sidebar i {
+      display: block;
+      margin: 2rem auto;
+      font-size: 1.5rem;
+    }
+    .asset-card {
+      border-radius: 12px;
+      padding: 1rem;
+      color: #000;
+    }
+    .market-table img {
+      width: 24px;
+      margin-right: 8px;
+    }
+  </style>
+  <script>
+    const popoverTrigger = document.getElementById('userPopover');
+    new bootstrap.Popover(popoverTrigger);
+  </script>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-md-1 sidebar text-center">
+      <i class="bi bi-house"></i>
+      <i class="bi bi-wallet2"></i>
+      <i class="bi bi-bar-chart"></i>
+      <i class="bi bi-gear"></i>
+    </div>
+
+    <!-- Main content -->
+    <div class="col-md-11 p-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 style="font-weight: bold;">RESULT</h3>
+        <div class="d-flex align-items-center gap-2">
+          
+          000 님 환영합니다.
+        </div>
+      </div>
+
+      <!-- Portfolio Balance -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="bg-light p-4 rounded shadow-sm">
+            <h5>Portfolio balance</h5>
+            <h3>$17,643.41</h3>
+            <small class="text-success">+$27,483.00</small>
+            <!-- Placeholder for graph -->
+            <div class="bg-white mt-3 rounded" style="height: 100px;"></div>
+          </div>
+        </div>
+
+        <!-- Your Assets -->
+        <div class="col-md-8 d-flex gap-3">
+          <div class="asset-card bg-light flex-fill shadow-sm">
+            <small>1.25 BTC</small>
+            <h6>$29,480.4</h6>
+            <span class="text-success">+0.14%</span>
+          </div>
+          <div class="asset-card bg-light flex-fill shadow-sm">
+            <small>0.32 LTC</small>
+            <h6>$29,480.4</h6>
+            <span class="text-success">+0.31%</span>
+          </div>
+          <div class="asset-card bg-light flex-fill shadow-sm">
+            <small>1.25 ETH</small>
+            <h6>$29,480.4</h6>
+            <span class="text-success">+0.27%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Market Section -->
+      <div class="row">
+        <div class="col-md-8">
+          <div class="d-flex justify-content-between mb-2">
+            <h5>Market is down 0.80%</h5>
+            <div>
+              <button class="btn btn-sm btn-outline-secondary">24h</button>
+              <button class="btn btn-sm btn-outline-secondary">Top gainers</button>
+            </div>
+          </div>
+          <table class="table table-hover market-table bg-white rounded shadow-sm">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>Market Cap</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="https://cryptologos.cc/logos/band-protocol-band-logo.png" alt=""> Band Protocol</td>
+                <td>$2.42</td>
+                <td class="text-success">+13.83%</td>
+                <td>$399.8M</td>
+              </tr>
+              <tr>
+                <td><img src="https://cryptologos.cc/logos/vechain-vet-logo.png" alt=""> VeChain</td>
+                <td>$0.748</td>
+                <td class="text-success">+11.97%</td>
+                <td>$152.5M</td>
+              </tr>
+              <tr>
+                <td><img src="https://cryptologos.cc/logos/aave-aave-logo.png" alt=""> Aave</td>
+                <td>$81.84</td>
+                <td class="text-success">+7.57%</td>
+                <td>$1.2B</td>
+              </tr>
+              <tr>
+                <td><img src="https://cryptologos.cc/logos/waves-waves-logo.png" alt=""> Waves</td>
+                <td>$30.68</td>
+                <td class="text-success">+6.80%</td>
+                <td>$399.8M</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Ad Banner -->
+        <div class="col-md-4">
+          <div class="bg-dark text-white p-4 rounded shadow-sm" style="margin-top: 2.3em;">
+            <h5>Earn <span class="text-primary">free</span> crypto<br>with Coinview Earn!</h5>
+            <p class="small">Learn about different cryptocurrencies and earn them for free!</p>
+            <button class="btn btn-primary">Earn Now</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!-- fragments/header.html -->
+<!DOCTYPE html>
+<style>
+    body {
+      background-color: #f4f7fb;
+    }
+    .sidebar {
+      height: 100vh;
+      background-color: #111;
+      color: #fff;
+      padding-top: 2rem;
+    }
+    .sidebar i {
+      display: block;
+      margin: 2rem auto;
+      font-size: 1.5rem;
+    }
+    .asset-card {
+      border-radius: 12px;
+      padding: 1rem;
+      color: #000;
+    }
+    .market-table img {
+      width: 24px;
+      margin-right: 8px;
+    }
+
+</style>
+<html>
+  <body>
+    <div th:fragment="workerHeader">
+      <div class="sidebar text-center">
+        <i class="bi bi-house"></i>
+        <i class="bi bi-wallet2"></i>
+        <i class="bi bi-bar-chart"></i>
+        <i class="bi bi-gear"></i>
+      </div>
+    </div>
+  </body>
+</html>

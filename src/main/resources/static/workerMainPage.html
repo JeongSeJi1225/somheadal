@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>솜해달 작업자 페이지</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
       background-color: #f4f7fb;
@@ -31,9 +32,47 @@
       margin-right: 8px;
     }
   </style>
+
   <script>
-    const popoverTrigger = document.getElementById('userPopover');
-    new bootstrap.Popover(popoverTrigger);
+  window.addEventListener('DOMContentLoaded', () => {
+    const ctx2 = document.getElementById('dollTypeChart').getContext('2d');
+    new Chart(ctx2, {
+      type: 'doughnut',
+      data: {
+        labels: ['만두타입', '사람형(10cm)', '사람형(15cm)', '사람형(20cm)', '테루테루 보오즈'],
+        datasets: [{
+          label: '인형 타입 수',
+          data: [8, 4, 7, 2, 5],
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4BC0C0',
+            '#9966FF'
+          ],
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const label = context.label || '';
+                const value = context.raw || 0;
+                return `${label}: ${value}건`;
+              }
+            }
+          }
+        }
+      }
+    });
+  });
+
   </script>
 </head>
 <body>
@@ -53,50 +92,65 @@
         <h3 style="font-weight: bold;">RESULT</h3>
         <div class="d-flex align-items-center gap-2">
           
-          000 님 환영합니다.
+          <span class="adminName" style="font-weight: bold;">김승연</span> 님 오늘도 안전한 작업되세요.
         </div>
       </div>
 
-      <!-- Portfolio Balance -->
+      <!-- 신청서 -->
       <div class="row mb-4">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="bg-light p-4 rounded shadow-sm">
-            <h5>Portfolio balance</h5>
-            <h3>$17,643.41</h3>
-            <small class="text-success">+$27,483.00</small>
-            <!-- Placeholder for graph -->
-            <div class="bg-white mt-3 rounded" style="height: 100px;"></div>
+            <h5>접수된 신청서</h5>
+            <h3>+7개</h3>
+            <small class="text-success">최근내역</small>
+
           </div>
         </div>
 
-        <!-- Your Assets -->
-        <div class="col-md-8 d-flex gap-3">
-          <div class="asset-card bg-light flex-fill shadow-sm">
-            <small>1.25 BTC</small>
-            <h6>$29,480.4</h6>
-            <span class="text-success">+0.14%</span>
-          </div>
-          <div class="asset-card bg-light flex-fill shadow-sm">
-            <small>0.32 LTC</small>
-            <h6>$29,480.4</h6>
-            <span class="text-success">+0.31%</span>
-          </div>
-          <div class="asset-card bg-light flex-fill shadow-sm">
-            <small>1.25 ETH</small>
-            <h6>$29,480.4</h6>
-            <span class="text-success">+0.27%</span>
+        <!-- 전자자수 컨펌 -->
+        <div class="col-md-3">
+          <div class="bg-light p-4 rounded shadow-sm">
+            <h5>전자자수 컨펌대기</h5>
+            <h3>+7개</h3>
+            <small class="text-success">컨펌내역</small>
+
           </div>
         </div>
+
+        <!--제봉-->
+        <div class="col-md-3">
+          <div class="bg-light p-4 rounded shadow-sm">
+            <h5>제봉작업</h5>
+            <h3>+7개</h3>
+            <small class="text-success">재봉내역</small>
+
+          </div>
+        </div>
+
+        <!--배송-->
+        <div class="col-md-3">
+          <div class="bg-light p-4 rounded shadow-sm">
+            <h5>배송건수</h5>
+            <h3>+7개</h3>
+            <small class="text-success">배송지 확인</small>
+
+          </div>
+        </div>
+
       </div>
 
       <!-- Market Section -->
-      <div class="row">
+      <div class="row" style="text-align: center;" >
         <div class="col-md-8">
           <div class="d-flex justify-content-between mb-2">
-            <h5>Market is down 0.80%</h5>
+            <span style="font-weight: bold; font-size: 1.5em;"> Task List</span>
             <div>
-              <button class="btn btn-sm btn-outline-secondary">24h</button>
-              <button class="btn btn-sm btn-outline-secondary">Top gainers</button>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>Sort</option>
+                <option value="1">마감일순</option>
+                <option value="2">이름순</option>
+                <option value="3">타입별</option>
+              </select>
             </div>
           </div>
           <table class="table table-hover market-table bg-white rounded shadow-sm">
@@ -111,32 +165,32 @@
             </thead>
             <tbody>
               <tr>
-                <td><img src="https://cryptologos.cc/logos/band-protocol-band-logo.png" alt=""> Band Protocol</td>
-                <td>$2.42</td>
-                <td class="text-success">+13.83%</td>
-                <td>$399.8M</td>
-                <td>Tail</td>
+                <td>정세지</td>
+                <td>만두</td>
+                <td class="text-success">찐만두</td>
+                <td>동물귀 추가</td>
+                <td>2025.07.08</td>
               </tr>
               <tr>
-                <td><img src="https://cryptologos.cc/logos/vechain-vet-logo.png" alt=""> VeChain</td>
-                <td>$0.748</td>
-                <td class="text-success">+11.97%</td>
-                <td>$152.5M</td>
-                <td>Tail</td>
+                <td>정세지</td>
+                <td>만두</td>
+                <td class="text-success">찐만두</td>
+                <td>동물귀 추가</td>
+                <td>2025.07.08</td>
               </tr>
               <tr>
-                <td><img src="https://cryptologos.cc/logos/aave-aave-logo.png" alt=""> Aave</td>
-                <td>$81.84</td>
-                <td class="text-success">+7.57%</td>
-                <td>$1.2B</td>
-                <td>Tail</td>
+                <td>정세지</td>
+                <td>만두</td>
+                <td class="text-success">찐만두</td>
+                <td>동물귀 추가</td>
+                <td>2025.07.08</td>
               </tr>
               <tr>
-                <td><img src="https://cryptologos.cc/logos/waves-waves-logo.png" alt=""> Waves</td>
-                <td>$30.68</td>
-                <td class="text-success">+6.80%</td>
-                <td>Tail</td>
-                <td>$399.8M</td>
+                <td>정세지</td>
+                <td>만두</td>
+                <td class="text-success">찐만두</td>
+                <td>동물귀 추가</td>
+                <td>2025.07.08</td>
               </tr>
               
             </tbody>
@@ -145,11 +199,11 @@
 
         <!-- Ad Banner -->
         <div class="col-md-4">
-          <div class="bg-dark text-white p-4 rounded shadow-sm" style="margin-top: 2.3em;">
-            <h5>Earn <span class="text-primary">free</span> crypto<br>with Coinview Earn!</h5>
-            <p class="small">Learn about different cryptocurrencies and earn them for free!</p>
-            <button class="btn btn-primary">Earn Now</button>
-          </div>
+                      <!-- Placeholder for graph -->
+            <div class="bg-white p-4 rounded shadow-sm mb-4">
+              <h6 class="fw-bold">인형 타입별 의뢰 비율</h6>
+              <canvas id="dollTypeChart" width="300" height="300"></canvas>
+            </div>
         </div>
         
       </div>

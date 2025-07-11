@@ -8,8 +8,8 @@
     select * from admin where admin_id = #{admin_id} and admin_passwd =#{admin_passwd};
 </select>
 
-<select id="forCountApply" resultType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+<select id="forCountApply" resultType="int">
     select count(*)  from customer_info ci where  date(ct_apply_date) = current_date; 
-</selct>
+</select>
 
 </mapper>

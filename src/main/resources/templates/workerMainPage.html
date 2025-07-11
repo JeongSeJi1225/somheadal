@@ -1,157 +1,188 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>솜해달 작업자 페이지</title>
+
+  <!-- Bootstrap + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
     body {
       background-color: #f4f7fb;
     }
     .sidebar {
-      height: 100vh;
+      height: auto;
       background-color: #111;
       color: #fff;
       padding-top: 2rem;
+      text-align: center;
     }
-    .sidebar i {
+    .sidebar a i {
+      color: white;
       display: block;
-      margin: 2rem auto;
-      font-size: 1.5rem;
+      margin: 2.5rem auto;
+      font-size: 2rem;
     }
-    .asset-card {
+    .sidebar a:hover i {
+      color: #84aed7;
+    }
+    .card {
       border-radius: 12px;
-      padding: 1rem;
-      color: #000;
     }
     .market-table img {
       width: 24px;
       margin-right: 8px;
     }
+
+    .hover-effect,
+    .hover-effect2,
+    .hover-effect3,
+    .hover-effect4 {
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .hover-effect:hover {
+  background-color: #cde2ff !important;
+}
+
+    .hover-effect2:hover {
+      background-color: #c7e9ce !important;
+    }
+
+    .hover-effect3:hover {
+      background-color: #fff3b8 !important;
+    }
+
+    .hover-effect4:hover {
+      background-color: #cde7fb !important;
+    }
+
+
   </style>
-
-  <script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const ctx2 = document.getElementById('dollTypeChart').getContext('2d');
-    new Chart(ctx2, {
-      type: 'doughnut',
-      data: {
-        labels: ['만두타입', '사람형(10cm)', '사람형(15cm)', '사람형(20cm)', '테루테루 보오즈'],
-        datasets: [{
-          label: '인형 타입 수',
-          data: [8, 4, 7, 2, 5],
-          backgroundColor: [
-            '#FF6384',
-            '#36A2EB',
-            '#FFCE56',
-            '#4BC0C0',
-            '#9966FF'
-          ],
-          hoverOffset: 8
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom'
-          },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                const label = context.label || '';
-                const value = context.raw || 0;
-                return `${label}: ${value}건`;
-              }
-            }
-          }
-        }
-      }
-    });
-  });
-
-  </script>
 </head>
+
 <body>
 <div class="container-fluid">
   <div class="row">
+
     <!-- Sidebar -->
-    <div class="col-md-1 sidebar text-center">
-      <i class="bi bi-house"></i>
-      <i class="bi bi-wallet2"></i>
-      <i class="bi bi-bar-chart"></i>
-      <i class="bi bi-gear"></i>
+    <div class="col-md-1 sidebar">
+      <a th:href="@{/workerMainPage}"><i class="bi bi-house"></i></a>
+      <a th:href="@{/fabricManagerPage}"><i class="bi bi-archive"></i></a>
+      <a th:href="@{/fabricManagerPage}"><i class="bi bi-person-lines-fill"></i></a>
+      <a th:href="@{/fabricManagerPage}"><i class="bi bi-clipboard-check"></i></a>
+      <a th:href="@{/fabricManagerPage}"><i class="bi bi-truck"></i></a>
+      <a th:href="@{/fabricManagerPage}"><i class="bi bi-gear"></i></a>  
     </div>
 
     <!-- Main content -->
     <div class="col-md-11 p-4">
+      <!-- 상단 -->
       <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 style="font-weight: bold;">RESULT</h3>
+        <h3 class="fw-bold">RESULT</h3>
         <div class="d-flex align-items-center gap-2">
-          
-          <span class="adminName" style="font-weight: bold;" th:text=${adminName}></span> 님 오늘도 안전한 작업되세요.
+          <span class="fw-bold" th:text="${adminName}"></span> 님 오늘도 안전한 작업되세요.
         </div>
       </div>
 
-      <!-- 신청서 -->
-      <div class="row mb-4">
-        <div class="col-md-3">
-          <div class="bg-light p-4 rounded shadow-sm">
-            <h5>접수된 신청서</h5>
-            <h3 th:text=${TodayApplyCount}></h3>
-            <small class="text-success">최근내역</small>
-
+      <!-- 카드 영역 -->
+      <div class="row g-3 mb-4">
+        <!-- 접수된 신청서 -->
+        <div class="col-md-3 col-sm-6 mb-3 ">
+          <div class="card shadow-sm border-0 rounded-4 p-3 h-100 hover-effect" style="background-color: #e9f0ff;">
+            <div class="d-flex align-items-center h-100">
+              <!-- 아이콘 (왼쪽) -->
+              <div class="me-3 d-flex justify-content-center align-items-center" style="width: 7em; height: 10em;  border-radius: 12px;">
+                <i class="bi bi-journal-text  text-primary" style="font-size: 5em;"></i>
+              </div>
+              
+              <!-- 텍스트 (오른쪽) -->
+              <div class="flex-grow-1 text-end me-4">
+                <div class="text-muted fs-5" style="font-weight: bold;">신청서 접수</div>
+                <div class="fw-bold fs-3 text-dark" th:text="${TodayApplyCount}">+ 1개</div>
+              </div>
+            </div>
           </div>
         </div>
+
 
         <!-- 전자자수 컨펌 -->
-        <div class="col-md-3">
-          <div class="bg-light p-4 rounded shadow-sm">
-            <h5>전자자수 컨펌대기</h5>
-            <h3>+7개</h3>
-            <small class="text-success">컨펌내역</small>
-
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card shadow-sm border-0 rounded-4 p-3 h-100 hover-effect2" style="background-color: #e6f4ea;">
+            <div class="d-flex align-items-center h-100">
+              <!-- 아이콘 (왼쪽) -->
+              <div class="me-3 d-flex justify-content-center align-items-center"
+                  style="width: 5.5em; height: 5.5em; ">
+                <i class="bi bi-patch-check text-success"  style="font-size: 5em;"></i>
+              </div>
+              
+              <!-- 텍스트 (오른쪽) -->
+              <div class="flex-grow-1 text-end me-4">
+                <div class="text-muted fs-5" style="font-weight: bold;">전자자수 컨펌</div>
+                <div class="fw-bold fs-3 text-dark" th:text="${TodayApplyCount}">+ 1개</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!--제봉-->
-        <div class="col-md-3">
-          <div class="bg-light p-4 rounded shadow-sm">
-            <h5>제봉작업</h5>
-            <h3>+7개</h3>
-            <small class="text-success">재봉내역</small>
-
+        <!-- 제봉작업 -->
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card shadow-sm border-0 rounded-4 p-3 h-100 hover-effect3" style="background-color: #fff8e1;">
+            <div class="d-flex align-items-center h-100">
+              <!-- 아이콘 (왼쪽) -->
+              <div class="me-3 d-flex justify-content-center align-items-center"
+                  style="width: 5.5em; height: 5.5em;">
+                <i class="bi bi-scissors text-warning"  style="font-size: 5em;"></i>
+              </div>
+              
+              <!-- 텍스트 (오른쪽) -->
+              <div class="flex-grow-1 text-end me-4">
+                <div class="text-muted fs-5" style="font-weight: bold;">제봉작업 건수</div>
+                <div class="fw-bold fs-3 text-dark" th:text="${TodayApplyCount}">+ 1개</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!--배송-->
-        <div class="col-md-3">
-          <div class="bg-light p-4 rounded shadow-sm">
-            <h5>배송건수</h5>
-            <h3>+7개</h3>
-            <small class="text-success">배송지 확인</small>
-
+        <!-- 배송건수 -->
+        <div class="col-md-3 col-sm-6 mb-3">
+          <div class="card shadow-sm border-0 rounded-4 p-3 h-100 hover-effect4" style="background-color: #e7f1fb;">
+            <div class="d-flex align-items-center h-100">
+              <!-- 아이콘 (왼쪽) -->
+              <div class="me-3 d-flex justify-content-center align-items-center"
+                  style="width: 5.5em; height: 5.5em;">
+                <i class="bi bi-truck text-info" style="font-size: 5em;"></i>
+              </div>
+              
+              <!-- 텍스트 (오른쪽) -->
+              <div class="flex-grow-1 text-end me-4">
+                <div class="text-muted fs-5" style="font-weight: bold;">배송대기 건수</div>
+                <div class="fw-bold fs-3 text-dark" th:text="${TodayApplyCount}">+ 1개</div>
+              </div>
+            </div>
           </div>
         </div>
 
       </div>
 
-      <!-- Market Section -->
-      <div class="row" style="text-align: center;" >
+      <!-- 리스트 + 그래프 -->
+      <div class="row" style="text-align: center;">
         <div class="col-md-8">
-          <div class="d-flex justify-content-between mb-2">
-            <span style="font-weight: bold; font-size: 1.5em;">Task List</span>
-            <div>
-              <select class="form-select" aria-label="Default select example" style="font-size: medium;">
-                <option selected>Sort</option>
-                <option value="1">DeadLine</option>
-                <option value="2">Name</option>
-                <option value="3">Type</option>
-              </select>
-            </div>
+          <div class="d-flex justify-content-between mb-3">
+            <span class="fw-bold fs-5">Task List</span>
+            <select class="form-select" style="width: 150px;">
+              <option selected>Sort</option>
+              <option value="1">DeadLine</option>
+              <option value="2">Name</option>
+              <option value="3">Type</option>
+            </select>
           </div>
           <table class="table table-hover market-table bg-white rounded shadow-sm">
             <thead>
@@ -171,47 +202,53 @@
                 <td>동물귀 추가</td>
                 <td>2025.07.08</td>
               </tr>
-              <tr>
-                <td>정세지</td>
-                <td>만두</td>
-                <td class="text-success">찐만두</td>
-                <td>동물귀 추가</td>
-                <td>2025.07.08</td>
-              </tr>
-              <tr>
-                <td>정세지</td>
-                <td>만두</td>
-                <td class="text-success">찐만두</td>
-                <td>동물귀 추가</td>
-                <td>2025.07.08</td>
-              </tr>
-              <tr>
-                <td>정세지</td>
-                <td>만두</td>
-                <td class="text-success">찐만두</td>
-                <td>동물귀 추가</td>
-                <td>2025.07.08</td>
-              </tr>
-              
+              <!-- 반복 -->
             </tbody>
           </table>
         </div>
 
-        <!-- Ad Banner -->
-        <div class="col-md-4">
-                      <!-- Placeholder for graph -->
-            <div class="bg-white p-4 rounded shadow-sm mb-4">
-              <h6 class="fw-bold">인형 타입별 의뢰 비율</h6>
-              <canvas id="dollTypeChart" width="300" height="300"></canvas>
-            </div>
+        <!-- 도넛 그래프 -->
+        <div class="col-md-4" >
+          <div class="bg-white p-4 rounded shadow-sm">
+            <h6 class="fw-bold">인형 타입별 의뢰 비율</h6>
+            <canvas id="dollTypeChart" width="300" height="300"></canvas>
+          </div>
         </div>
+
+
         
       </div>
     </div>
   </div>
 </div>
 
-<!-- Bootstrap Icons -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Chart.js -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const ctx = document.getElementById('dollTypeChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['만두타입', '사람형(10cm)', '사람형(15cm)', '사람형(20cm)', '테루테루 보오즈'],
+        datasets: [{
+          data: [8, 4, 7, 2, 5],
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' },
+          tooltip: {
+            callbacks: {
+              label: (context) => `${context.label}: ${context.raw}건`
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
 </body>
 </html>

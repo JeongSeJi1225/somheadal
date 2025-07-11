@@ -98,9 +98,9 @@ public class SomhaedalController {
     }
  
 
-    @GetMapping("/workLoginFail")
-    public String workLoginFail(Model model) {
-        return "workLoginFail";
+    @GetMapping("/fabricManagerPage")
+    public String fabricManagerPage(Model model) {
+        return "fabricManagerPage";
     }
 
     

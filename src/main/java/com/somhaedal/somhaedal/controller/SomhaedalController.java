@@ -103,6 +103,10 @@ public class SomhaedalController {
         return "fabricManagerPage";
     }
 
+    @GetMapping("fabricAddPage")
+    public String fabricAddPage(Model model) {
+        return "fabricAddPage";
+    }
     
     
     

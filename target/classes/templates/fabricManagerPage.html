@@ -9,7 +9,6 @@
   <style>
     body {
       background-color: #f4f7fb;
-      font-family: 'Segoe UI', sans-serif;
     }
     .sidebar {
       height: 100vh;
@@ -18,19 +17,16 @@
       padding-top: 2rem;
       text-align: center;
     }
-    .sidebar a, .sidebar i {
-      color: #fff;
+    .sidebar a i {
+      color: white;
       display: block;
-      margin: 2rem auto;
-      font-size: 1.5rem;
-      text-decoration: none;
+      margin: 2.5rem auto;
+      font-size: 2rem;
     }
-    .sidebar a.active {
-      color: #6f42c1;
+    .sidebar a:hover i {
+      color: #84aed7;
     }
-    .sidebar a:hover {
-      color: #6f42c1;
-    }
+
     .card {
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
@@ -53,9 +49,7 @@
       margin-bottom: 1.5rem;
     }
 
-      .page-link {
-    color: black !important;
-  }
+ 
   </style>
 </head>
 <body>
@@ -64,14 +58,10 @@
     <div class="row">
       
       <!-- Sidebar -->
-      <div class="col-md-1 sidebar">
-        <a href="#" th:href="@{/workerMainPage}"><i class="bi bi-house"></i></a>
-        <a href="#" th:href="@{/fabricManagerPage}" class="active"><i class="bi bi-archive"></i></a>
-        <a href="#"><i class="bi bi-image"></i></a>
-        <a href="#"><i class="bi bi-truck"></i></a>
-        <a href="#"><i class="bi bi-bar-chart"></i></a>
-        <a href="#"><i class="bi bi-gear"></i></a>
-      </div>
+    <div class="col-md-1 sidebar">
+      <div th:replace="~{fragments/workerHeader :: workerHeader}"></div>
+      
+    </div>
 
       <!-- Main Content -->
       <div class="col-md-11 p-4">
@@ -147,7 +137,7 @@
                   <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                   <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                <button type="button" class="btn btn-warning">원단추가</button>
+                <a class="btn btn-warning" th:href="@{/fabricAddPage}">원단추가</a>
               </div>
 
             </div>
@@ -166,8 +156,7 @@
                 <th>사진</th>
                 <th>원단명</th>
                 <th>색상</th>
-                <th>코드</th>
-                <th>재고(m)</th>
+                <th>재고</th>
                 <th>상태</th>
                 <th>수정</th>
               </tr>

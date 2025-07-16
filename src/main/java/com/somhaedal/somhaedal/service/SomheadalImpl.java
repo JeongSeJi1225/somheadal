@@ -1,24 +1,33 @@
 package com.somhaedal.somhaedal.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
+import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.mapper.SomeheadalSqlMapper;
 
 @Service
 public class SomheadalImpl {
     
     @Autowired
-    public SomeheadalSqlMapper SomeheadalSqlMapper;
+    public SomeheadalSqlMapper someheadalSqlMapper;
 
+    //작업자 정보
     public AdminDto getAdminLoginInfo(AdminDto adminDto){
-        return SomeheadalSqlMapper.adminLoginInfo(adminDto);
+        return someheadalSqlMapper.adminLoginInfo(adminDto);
     }
 
+    //작업자 메인페이지 통계, 신청서 접수
     public int getTodayApplyCount(CustomerInfoDto customerInfoDto){
-        return SomeheadalSqlMapper.forCountApply(customerInfoDto);
+        return someheadalSqlMapper.forCountApply(customerInfoDto);
+    }
+    
+    public List<FabricCategoryDto> getFabricCategoryInfo(){
+        return someheadalSqlMapper.readFabricCategory();
     }
 
  

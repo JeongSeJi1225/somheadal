@@ -101,8 +101,14 @@
                 <input type="text" class="form-control" name="fb_name" placeholder="원단명 입력">
               </div>
               <div class="mb-4">
-                <label class="form-label">원단재질</label>
-                <input type="text" class="form-control" name="fb_type" placeholder="원단명 입력">
+                <label class="form-label">원단 재질</label>
+                <select class="form-select" name="fb_name" >
+                  <option selected disabled>원단 재질을 선택하세요.</option>
+                  <option th:each="choiceType : ${fabricCategoryName}"
+                          th:value="${choiceType.fc_id_pk}"
+                          th:text="${choiceType.fc_ct_name}">
+                  </option>
+                </select>
               </div>
 
               <div class="row">

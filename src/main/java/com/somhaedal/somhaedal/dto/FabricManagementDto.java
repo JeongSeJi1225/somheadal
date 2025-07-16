@@ -11,18 +11,19 @@ import lombok.Data;
 @Data
 public class FabricManagementDto {
     private int      fb_id_pk;	
-    private int      seq_num;			
+    private int      seq_num;
+    private int      fb_type;			
     private String   fb_name; 								
     private float    fb_width; 			
     private float    fb_height; 			
     private String   fb_color; 			
     private float    fb_thickness; 		
-    private BigDecimal   fb_price; 			
+    private int      fb_price; 			
     private String   fb_location;
-    private String fb_swatch_img;
+    private String   fb_swatch_img;
     private String   fb_source_supply; 	
     @DateTimeFormat(pattern = "yyyy-MM-dd")	
-    private LocalDateTime    created_at;
+    private LocalDateTime    fb_created_at;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime    fb_last_inert_date_at;
 

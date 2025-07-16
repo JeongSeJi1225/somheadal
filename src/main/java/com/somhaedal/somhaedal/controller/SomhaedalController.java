@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
+import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.service.SomheadalImpl;
 
 import jakarta.servlet.http.HttpSession;
@@ -104,9 +105,30 @@ public class SomhaedalController {
     }
 
     @GetMapping("fabricAddPage")
-    public String fabricAddPage(Model model) {
+    public String fabricAddPage(Model model, HttpSession session) {
+        AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo"); //관리자 정보
+        model.addAttribute("sessionAdminPk", sessionAdmin.getSeq_num());
+        model.addAttribute("sessionAdmin", sessionAdmin.getAdmin_name());
+        model.addAttribute("fabricCategoryName", somheadalService.getFabricCategoryInfo());
+
+        System.out.println("Fabric Category info's fuck..." + somheadalService.getFabricCategoryInfo());
+
         return "fabricAddPage";
     }
+
+    @GetMapping("fabricAddProcess")
+    public String getMethodName(Model model, HttpSession session, AdminDto adminDto, FabricCategoryDto fabricCategoryDto) {
+        AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo"); //관리자 정보
+        model.addAttribute("sessionAdminPk", sessionAdmin.getSeq_num());
+        model.addAttribute("sessionAdmin", sessionAdmin.getAdmin_name());
+        model.addAttribute("fabricCategoryName", somheadalService.getFabricCategoryInfo());
+
+        System.out.println("Fabric Category info's fuck..." + somheadalService.getFabricCategoryInfo());
+
+
+        return "fabricAddPage";
+    }
+    
     
     
     

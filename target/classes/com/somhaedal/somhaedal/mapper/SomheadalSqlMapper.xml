@@ -12,4 +12,8 @@
     select count(*)  from customer_info ci where  date(ct_apply_date) = current_date; 
 </select>
 
+<select id="readFabricCategory" resultType="com.somhaedal.somhaedal.dto.FabricCategoryDto">
+    select * from fabric_category;
+</select>
+
 </mapper>

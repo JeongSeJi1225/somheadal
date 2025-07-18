@@ -16,4 +16,32 @@
     select * from fabric_category;
 </select>
 
+<insert id="fabriAddInsert">
+    insert into fabric_management (
+	seq_num,
+	fb_name,
+	fb_type,
+	fb_width,
+	fb_height,
+	fb_color,
+	fb_thickness,
+	fb_price,
+	fb_location,
+	fb_source_supply,
+	fb_swatch_img_path
+) values(
+	#{seq_num},
+	#{fb_name},
+	#{fb_type},
+	#{fb_width},
+	#{fb_height},
+	#{fb_color},
+	#{fb_thickness},
+	#{fb_price},
+	#{fb_location},
+	#{fb_source_supply},
+	#{fb_swatch_img_path}
+	);
+</insert>
+
 </mapper>

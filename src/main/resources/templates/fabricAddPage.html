@@ -86,13 +86,14 @@
         <div class="header-main">
           <h3 class="fw-bold">원단등록</h3>
           <div>
-            <span class="fw-semibold" th:text="${adminName}">홍길동</span>
+            <span class="fw-semibold" th:text="${sessionAdmin}">홍길동</span>
             <span>님 오늘도 안전히 작업하세요.</span>
           </div>
         </div>
 
         <!-- form  -->
         <form action="./fabricAddProcess" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="seq_num" th:value="${sessionAdminPk}" />
           <div class="row">
             <!-- 왼쪽 입력 영역 -->
             <div class="col-md-7">
@@ -102,10 +103,10 @@
               </div>
               <div class="mb-4">
                 <label class="form-label">원단 재질</label>
-                <select class="form-select" name="fb_name" >
+                <select class="form-select" name="fb_type" >
                   <option selected disabled>원단 재질을 선택하세요.</option>
                   <option th:each="choiceType : ${fabricCategoryName}"
-                          th:value="${choiceType.fc_id_pk}"
+                          th:value="${choiceType.fc_ct_name}"
                           th:text="${choiceType.fc_ct_name}">
                   </option>
                 </select>
@@ -125,17 +126,17 @@
               <div class="mb-4">
                 <label class="form-label">컬러계열 선택</label>
                 <select class="form-select" name="fb_color">
-                  <option selected>컬러계열 선택</option>
-                  <option value="Red">빨강</option>
-                  <option value="Orange">주황</option>
-                  <option value="Yellow">노랑</option>
-                  <option value="Green">초록</option>
-                  <option value="Blue">파랑</option>
-                  <option value="Navy">남색</option>
-                  <option value="Purple">보라</option>
-                  <option value="White">흰색</option>
-                  <option value="Gray">회색</option>
-                  <option value="Black">검정</option>
+                  <option disabled selected th:value="none">컬러계열 선택</option>
+                  <option th:value="Red">빨강</option>
+                  <option th:value="Orange">주황</option>
+                  <option th:value="Yellow">노랑</option>
+                  <option th:value="Green">초록</option>
+                  <option th:value="Blue">파랑</option>
+                  <option th:value="Navy">남색</option>
+                  <option th:value="Purple">보라</option>
+                  <option th:value="White">흰색</option>
+                  <option th:value="Gray">회색</option>
+                  <option th:value="Black">검정</option>
                 </select>
               </div>
 
@@ -158,7 +159,7 @@
 
               <div class="mb-3">
                 <label class="form-label">스와치 이미지 등록</label>
-                <input class="form-control" type="file" name="fb_swatch_img">
+                <input class="form-control" type="file" name="fb_swatch_img_path">
               </div>
             </div>
 

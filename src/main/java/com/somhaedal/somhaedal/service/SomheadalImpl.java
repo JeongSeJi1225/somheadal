@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
+import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.mapper.SomeheadalSqlMapper;
 
 @Service
@@ -26,8 +27,13 @@ public class SomheadalImpl {
         return someheadalSqlMapper.forCountApply(customerInfoDto);
     }
     
+    //원단 카테고리 불러오기
     public List<FabricCategoryDto> getFabricCategoryInfo(){
         return someheadalSqlMapper.readFabricCategory();
+    }
+
+    public void fabriAddInsert (FabricManagementDto fabricManagementDto){
+        someheadalSqlMapper.fabriAddInsert(fabricManagementDto);
     }
 
  

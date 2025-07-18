@@ -1,14 +1,21 @@
 package com.somhaedal.somhaedal.controller;
 
+import java.io.File;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
+import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.service.SomheadalImpl;
 
 import jakarta.servlet.http.HttpSession;
@@ -111,22 +118,49 @@ public class SomhaedalController {
         model.addAttribute("sessionAdmin", sessionAdmin.getAdmin_name());
         model.addAttribute("fabricCategoryName", somheadalService.getFabricCategoryInfo());
 
-        System.out.println("Fabric Category info's fuck..." + somheadalService.getFabricCategoryInfo());
+        // data checking. success
+        //System.out.println("Fabric Category info's fuck..." + somheadalService.getFabricCategoryInfo());
 
         return "fabricAddPage";
     }
 
-    @GetMapping("fabricAddProcess")
-    public String getMethodName(Model model, HttpSession session, AdminDto adminDto, FabricCategoryDto fabricCategoryDto) {
+    @PostMapping("fabricAddProcess")
+    public String getMethodName(Model model, HttpSession session, AdminDto adminDto, FabricCategoryDto fabricCategoryDto, FabricManagementDto fabricManagementDto, MultipartFile imageFiles) {
         AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo"); //관리자 정보
         model.addAttribute("sessionAdminPk", sessionAdmin.getSeq_num());
         model.addAttribute("sessionAdmin", sessionAdmin.getAdmin_name());
         model.addAttribute("fabricCategoryName", somheadalService.getFabricCategoryInfo());
 
-        System.out.println("Fabric Category info's fuck..." + somheadalService.getFabricCategoryInfo());
+        somheadalService.fabriAddInsert(fabricManagementDto);
+        System.out.println("받은 컬러값: " + fabricManagementDto.getFb_color());
+
+                 	    // 대표 이미지 업로드
+            if (imageFiles != null && !imageFiles.isEmpty()) {
+            String rootPath = "C:/uploadFiles/";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+            String todayPath = sdf.format(new Date());
+            File folder = new File(rootPath + todayPath);
+            if (!folder.exists()) folder.mkdirs();
+
+            String originalFileName = imageFiles.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString();
+            long currentTime = System.currentTimeMillis();
+            String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
+            String fullPath = rootPath + todayPath + fileName;
+
+            try {
+                imageFiles.transferTo(new File(fullPath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // String 타입 필드에 저장
+            fabricManagementDto.setFb_swatch_img_path(todayPath + fileName);
+        }
 
 
-        return "fabricAddPage";
+
+        return "redirect:./fabricManagerPage";
     }
     
     

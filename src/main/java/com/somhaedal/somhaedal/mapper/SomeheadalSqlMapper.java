@@ -28,4 +28,7 @@ public interface SomeheadalSqlMapper {
     //원단추가페이지에서 카테고리 불러오기
     public List<FabricCategoryDto> readFabricCategory();
 
+    //원단관리 insert
+    public void fabriAddInsert(FabricManagementDto fabricManagementDto);
+
 }

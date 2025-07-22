@@ -32,8 +32,14 @@ public class SomheadalImpl {
         return someheadalSqlMapper.readFabricCategory();
     }
 
+    //원단 insert
     public void fabriAddInsert (FabricManagementDto fabricManagementDto){
         someheadalSqlMapper.fabriAddInsert(fabricManagementDto);
+    }
+
+    //원단 리스트 불러오기
+    public List<FabricManagementDto> getFabricAdds(){
+        return someheadalSqlMapper.readFabricAdds();
     }
 
  

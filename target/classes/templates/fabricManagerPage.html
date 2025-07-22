@@ -153,26 +153,23 @@
           <table class="table table-hover align-middle">
             <thead class="table-light">
               <tr>
-                <th>사진</th>
+                <th>스와치</th>
                 <th>원단명</th>
                 <th>색상</th>
                 <th>재고</th>
-                <th>상태</th>
-                <th>수정</th>
+                <th>입고처</th>
+                <th>편집</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="fabric : ${fabricList}">
-                <td><img th:src="@{${fabric.imgUrl}}" alt="원단 이미지" width="40" height="40" class="rounded" /></td>
-                <td th:text="${fabric.name}">화이트 면</td>
-                <td th:text="${fabric.color}">화이트</td>
-                <td th:text="${fabric.code}">FB001</td>
-                <td th:text="${fabric.stock}">130</td>
-                <td>
-                  <span th:classappend="${fabric.status == '입고 완료'} ? 'badge bg-success' : 'badge bg-warning text-dark'"
-                    th:text="${fabric.status}">입고 완료</span>
-                </td>
-                <td><button class="btn btn-sm btn-outline-primary">수정</button></td>
+              <tr th:each="fabric : ${readFabricAdds}">
+                <td><img th:src="${fabric.fb_swatch_img_path}" alt="원단 이미지" width="40" height="40" class="rounded" /></td>
+                <td th:text="${fabric.fb_name}"></td>
+                <td th:text="${fabric.fb_color}"></td>
+                <td th:text="${fabric.fb_width + ' x ' + fabric.fb_height}"></td>
+                <td th:text="${fabric.fb_source_supply}">130</td>
+                <td><a class="btn btn-sm btn-outline-primary" th:href="@{/product}" >Edit</a></td>
+                
               </tr>
             </tbody>
           </table>

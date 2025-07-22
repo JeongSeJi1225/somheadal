@@ -16,6 +16,10 @@
     select * from fabric_category;
 </select>
 
+<select id="readFabricAdds" resultType="com.somhaedal.somhaedal.dto.FabricManagementDto">
+select * from fabric_management;
+</select>
+
 <insert id="fabriAddInsert">
     insert into fabric_management (
 	seq_num,

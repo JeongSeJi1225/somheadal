@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -107,7 +108,10 @@ public class SomhaedalController {
  
 
     @GetMapping("/fabricManagerPage")
-    public String fabricManagerPage(Model model) {
+    public String fabricManagerPage(Model model, HttpSession session) {
+        AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo");
+        model.addAttribute("adminName", sessionAdmin.getAdmin_name());
+        model.addAttribute("readFabricAdds", somheadalService.getFabricAdds());
         return "fabricManagerPage";
     }
 
@@ -125,18 +129,19 @@ public class SomhaedalController {
     }
 
     @PostMapping("fabricAddProcess")
-    public String getMethodName(Model model, HttpSession session, AdminDto adminDto, FabricCategoryDto fabricCategoryDto, FabricManagementDto fabricManagementDto, MultipartFile imageFiles) {
-        AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo"); //관리자 정보
+    public String getMethodName(Model model, HttpSession session, AdminDto adminDto,
+                                FabricCategoryDto fabricCategoryDto,
+                                FabricManagementDto fabricManagementDto,
+                                MultipartFile imageFiles) {
+
+        AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo");
         model.addAttribute("sessionAdminPk", sessionAdmin.getSeq_num());
         model.addAttribute("sessionAdmin", sessionAdmin.getAdmin_name());
         model.addAttribute("fabricCategoryName", somheadalService.getFabricCategoryInfo());
 
-        somheadalService.fabriAddInsert(fabricManagementDto);
-        System.out.println("받은 컬러값: " + fabricManagementDto.getFb_color());
-
-                 	    // 대표 이미지 업로드
-            if (imageFiles != null && !imageFiles.isEmpty()) {
-            String rootPath = "C:/uploadFiles/";
+        // 대표 이미지 업로드
+        if (imageFiles != null && !imageFiles.isEmpty()) {
+            String rootPath = "C:/somUploadFiles/";
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
             String todayPath = sdf.format(new Date());
             File folder = new File(rootPath + todayPath);
@@ -154,14 +159,17 @@ public class SomhaedalController {
                 e.printStackTrace();
             }
 
-            // String 타입 필드에 저장
+            // 파일 경로를 DTO에 저장
             fabricManagementDto.setFb_swatch_img_path(todayPath + fileName);
         }
 
-
+        // DTO에 이미지 경로가 세팅된 상태로 insert
+        somheadalService.fabriAddInsert(fabricManagementDto);
+        System.out.println("받은 컬러값: " + fabricManagementDto.getFb_color());
 
         return "redirect:./fabricManagerPage";
     }
+
     
     
     

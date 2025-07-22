@@ -31,4 +31,7 @@ public interface SomeheadalSqlMapper {
     //원단관리 insert
     public void fabriAddInsert(FabricManagementDto fabricManagementDto);
 
+    //원단목록 불러오기
+    public List<FabricManagementDto> readFabricAdds();
+
 }

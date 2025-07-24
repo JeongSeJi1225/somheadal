@@ -67,7 +67,7 @@
       <div class="col-md-11 p-4">
         <div class="header-main">
           <h3 class="fw-bold">원단관리 대시보드</h3>
-          <div class="fw-semibold" th:text="${adminName}"></div><span>님 오늘도 안전히 작업하세요.</span>
+          <div class="fw-semibold" th:text="${sessionAdminInfo}"></div><span>님 오늘도 안전히 작업하세요.</span>
         </div>
 
         <!-- 요약 카드 -->
@@ -163,7 +163,7 @@
             </thead>
             <tbody>
               <tr th:each="fabric : ${readFabricAdds}">
-                <td><img th:src="${fabric.fb_swatch_img_path}" alt="원단 이미지" width="40" height="40" class="rounded" /></td>
+                <td><img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}" alt="원단 이미지" width="40" height="40" class="rounded" /></td>
                 <td th:text="${fabric.fb_name}"></td>
                 <td th:text="${fabric.fb_color}"></td>
                 <td th:text="${fabric.fb_width + ' x ' + fabric.fb_height}"></td>

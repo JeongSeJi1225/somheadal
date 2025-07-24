@@ -109,10 +109,17 @@ public class SomhaedalController {
 
     @GetMapping("/fabricManagerPage")
     public String fabricManagerPage(Model model, HttpSession session) {
-        AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo");
-        model.addAttribute("adminName", sessionAdmin.getAdmin_name());
+        AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo"); //관리자 정보
+        model.addAttribute("adminName", sessionAdmin.getAdmin_name());  
         model.addAttribute("readFabricAdds", somheadalService.getFabricAdds());
+
+            //data checking img path
+        System.out.println("이미지 path : " + somheadalService.getFabricAdds());
+
+
         return "fabricManagerPage";
+
+        
     }
 
     @GetMapping("fabricAddPage")
@@ -124,6 +131,8 @@ public class SomhaedalController {
 
         // data checking. success
         //System.out.println("Fabric Category info's fuck..." + somheadalService.getFabricCategoryInfo());
+
+
 
         return "fabricAddPage";
     }
@@ -161,6 +170,8 @@ public class SomhaedalController {
 
             // 파일 경로를 DTO에 저장
             fabricManagementDto.setFb_swatch_img_path(todayPath + fileName);
+
+ 
         }
 
         // DTO에 이미지 경로가 세팅된 상태로 insert

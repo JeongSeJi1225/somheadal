@@ -2,6 +2,7 @@ package com.somhaedal.somhaedal.controller;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Map;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
@@ -181,6 +182,14 @@ public class SomhaedalController {
         return "redirect:./fabricManagerPage";
     }
 
+    @GetMapping("detailFabricPage")
+    public String getMethodName(HttpSession session, Model model, @RequestParam("fb_id_pk") int fb_id_pk) {
+        AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo"); //관리자 정보
+        model.addAttribute("adminName", sessionAdmin.getAdmin_name());
+        Map<String, Object> fabric = somheadalService.readFabricOnlyOne(fb_id_pk);
+        model.addAttribute("fabric", fabric);
+        return "detailFabricPage";
+    }
     
     
     

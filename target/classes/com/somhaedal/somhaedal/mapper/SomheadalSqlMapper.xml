@@ -48,4 +48,12 @@ select * from fabric_management;
 	);
 </insert>
 
+
+
+
+
+<select id="readFabricOnlyOne" resultType="map">
+select * from fabric_management where fb_id_pk = #{fb_id_pk};
+</select>
+
 </mapper>

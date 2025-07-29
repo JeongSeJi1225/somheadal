@@ -1,6 +1,7 @@
 package com.somhaedal.somhaedal.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.somhaedal.somhaedal.dto.AdminDto;
@@ -33,5 +34,7 @@ public interface SomeheadalSqlMapper {
 
     //원단목록 불러오기
     public List<FabricManagementDto> readFabricAdds();
+
+    public Map<String, Object> readFabricOnlyOne(int fb_id_pk);
 
 }

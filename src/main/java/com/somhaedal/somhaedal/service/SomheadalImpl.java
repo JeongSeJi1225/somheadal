@@ -1,6 +1,7 @@
 package com.somhaedal.somhaedal.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,9 @@ public class SomheadalImpl {
         return someheadalSqlMapper.readFabricAdds();
     }
 
+    public Map<String, Object> readFabricOnlyOne(int fb_id_pk){
+
+        return someheadalSqlMapper.readFabricOnlyOne(fb_id_pk);
+    }
  
 }

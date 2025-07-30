@@ -32,7 +32,8 @@ select * from fabric_management;
 	fb_price,
 	fb_location,
 	fb_source_supply,
-	fb_swatch_img_path
+	fb_swatch_img_path,
+	fb_stock_situation
 ) values(
 	#{seq_num},
 	#{fb_name},
@@ -44,7 +45,8 @@ select * from fabric_management;
 	#{fb_price},
 	#{fb_location},
 	#{fb_source_supply},
-	#{fb_swatch_img_path}
+	#{fb_swatch_img_path},
+	'입고 대기'
 	);
 </insert>
 

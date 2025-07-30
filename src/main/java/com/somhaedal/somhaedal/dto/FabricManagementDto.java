@@ -22,7 +22,8 @@ public class FabricManagementDto {
     private int      fb_price; 			
     private String   fb_location;
     private String   fb_swatch_img_path;
-    private String   fb_source_supply; 	
+    private String   fb_source_supply;
+    private String   fb_stock_situation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")	
     private LocalDateTime    fb_created_at;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

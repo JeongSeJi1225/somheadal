@@ -115,7 +115,7 @@ public class SomhaedalController {
         model.addAttribute("readFabricAdds", somheadalService.getFabricAdds());
 
             //data checking img path
-        System.out.println("이미지 path : " + somheadalService.getFabricAdds());
+       // System.out.println("원단정보확인 : " + somheadalService.getFabricAdds());
 
 
         return "fabricManagerPage";
@@ -184,6 +184,7 @@ public class SomhaedalController {
 
     @GetMapping("detailFabricPage")
     public String getMethodName(HttpSession session, Model model, @RequestParam("fb_id_pk") int fb_id_pk) {
+        //원단상세페이지
         AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo"); //관리자 정보
         model.addAttribute("adminName", sessionAdmin.getAdmin_name());
         Map<String, Object> fabric = somheadalService.readFabricOnlyOne(fb_id_pk);
@@ -191,6 +192,13 @@ public class SomhaedalController {
         return "detailFabricPage";
     }
     
+    @GetMapping("editFabricProcess")
+    public String getMethodName(HttpSession session, Model model) {
+        //원단수정
+        
+        
+        return "editFabrics";
+    }
     
     
     

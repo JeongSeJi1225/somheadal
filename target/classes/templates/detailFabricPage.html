@@ -71,6 +71,14 @@
         }
       });
     });
+
+
+    document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+      e.preventDefault();
+    }
+  });
+
   </script>
 </head>
 <body>
@@ -92,28 +100,34 @@
         </div>
 
         <!-- form  -->
-        <form action="./fabricAddProcess" method="post" enctype="multipart/form-data">
+        <form action="./editFabricProcess" method="post" enctype="multipart/form-data">
           <input type="hidden" name="seq_num" th:value="${sessionAdminPk}" />
           <div class="row">
             <!-- 왼쪽 입력 영역 -->
             <div class="col-md-7">
               <div class="mb-4">
+                <label class="form-label">스와치 이미지</label>
+                        <!--시험 -->
+                    <img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}">
+                        <!--ㅇㅇ-->>
+              </div>
+              <div class="mb-4">
                 <label class="form-label">원단명</label>
-                <input type="text" class="form-control" readonly name="fb_name" th:value="${fabric.fb_name}" >
+                <input type="text" class="form-control"  name="fb_name" th:value="${fabric.fb_name}" >
               </div>
               <div class="mb-4">
                 <label class="form-label">원단 재질</label>
-                <input type="text" class="form-control" readonly  name="fb_type" th:value="${fabric.fb_type}" >
+                <input type="text" class="form-control"  name="fb_type" th:value="${fabric.fb_type}" >
               </div>
 
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <label class="form-label">가로 폭</label>
-                  <input type="text" class="form-control" readonlyname="fb_width" th:value="${fabric.fb_width}">
+                  <input type="text" class="form-control" name="fb_width" th:value="${fabric.fb_width}">
                 </div>
                 <div class="col-md-6 mb-4">
                   <label class="form-label">세로 폭</label>
-                  <input type="text" class="form-control" readonly name="fb_height" th:value="${fabric.fb_height}">
+                  <input type="text" class="form-control" name="fb_height" th:value="${fabric.fb_height}">
                 </div>
               </div>
 
@@ -125,83 +139,49 @@
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <label class="form-label">원단두께</label>
-                  <input type="text" class="form-control" readonly name="fb_thickness" th:value="${fabric.fb_thickness}">
+                  <input type="text" class="form-control" name="fb_thickness" th:value="${fabric.fb_thickness}">
                 </div>
                 <div class="col-md-6 mb-4">
                   <label class="form-label">원단위치</label>
-                  <input type="text" class="form-control" name="fb_location" readonly   th:value="${fabric.fb_location}">
+                  <input type="text" class="form-control" name="fb_location"   th:value="${fabric.fb_location}">
                 </div>
               </div>
 
               <div class="mb-4">
                 <label class="form-label">공급처 및 단가</label>
-                <input type="text" class="form-control" name="fb_source_supply"  readonly th:value="${fabric.fb_source_supply}">
-                <input type="text" class="form-control mt-2" name="fb_price" readonly th:value="${fabric.fb_price}">
+                <input type="text" class="form-control" name="fb_source_supply"  th:value="${fabric.fb_source_supply}">
+                <input type="text" class="form-control mt-2" name="fb_price" th:value="${fabric.fb_price}">
               </div>
 
-              <div class="mb-3">
-                <label class="form-label">스와치 이미지 등록</label>
-                <img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}">
+              <div class="mb-4">
+                <label class="form-label">공급처 및 단가</label>
+                <div class="col">
+                    <button  class="btn btn-outline-dark w-100" onclick="history.back()" >목록으로</button>
+                  </div>
+                  <div class="col">
+                    <a th:href="@{/editFabrics}" class="btn btn-dark w-100" >수정하기</a>
+                  </div>
               </div>
+
             </div>
 
             <!-- 오른쪽 Preview 영역 -->
             <div class="col-md-5">
               <div class="p-4">
-                <h4 class="mb-4">Preview Summary</h4>
-                <ul class="list-group mb-4">
-                  <li class="list-group-item d-flex justify-content-between">
-                    <span>Fabric Name</span>
-                    <strong id="previewName">-</strong>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between">
-                    <span>Fabric Type</span>
-                    <strong id="previewType">-</strong>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between">
-                    <span>Fabric Color</span>
-                    <strong id="previewColor">-</strong>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between">
-                    <span>Fabric thickness</span>
-                    <strong id="previewThickness">-</strong>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between">
-                    <span>Fabric Price</span>
-                    <strong id="previewPrice">-</strong>
-                  </li>
-                </ul>
-
-                <h5>Another information</h5>
-                <div class="check mb-2">
-                  <div class="row">
-                    <div class="col">
-                      <label class="form-check-label">
-                        <span><i class="bi bi-check"></i></span> 공급처 업체
-                      </label>
-                    </div>
-                    <div class="col">
-                      <strong id="previewSupply"></strong>
-                    </div>
+                <h4 class="mb-4">Swatch Image</h4>
+                  <img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}">
+                <div class="row" style="margin-top: 0.9em;">
+                  <div class="col">
+                    <button  class="btn btn-outline-dark w-100" onclick="history.back()" >목록으로</button>
+                  </div>
+                  <div class="col">
+                    <a th:href="@{/editFabrics}" class="btn btn-dark w-100" >수정하기</a>
                   </div>
                 </div>
-                <div class="check mb-3">
-                  <div class="row">
-                    <div class="col">
-                      <label class="form-check-label">
-                        <span><i class="bi bi-check"></i></span> 위치
-                      </label>
-                    </div>
-                    <div class="col">
-                      <strong id="previewLocation"></strong>
-                    </div>
-                  </div>
-                </div>
-
-  
-                <button type="submit" class="btn btn-dark w-100">Fabric Add</button>
               </div>
             </div>
+
+
           </div>
         </form>
       </div>

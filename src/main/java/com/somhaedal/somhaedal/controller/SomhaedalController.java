@@ -177,7 +177,7 @@ public class SomhaedalController {
 
         // DTO에 이미지 경로가 세팅된 상태로 insert
         somheadalService.fabriAddInsert(fabricManagementDto);
-        System.out.println("받은 컬러값: " + fabricManagementDto.getFb_color());
+        //System.out.println("받은 컬러값: " + fabricManagementDto.getFb_color());
 
         return "redirect:./fabricManagerPage";
     }
@@ -193,12 +193,19 @@ public class SomhaedalController {
     }
     
     @GetMapping("editFabricProcess")
-    public String getMethodName(HttpSession session, Model model) {
+    public String getMethodName(FabricManagementDto fabricManagementDto) {
         //원단수정
         
-        
-        return "editFabrics";
+        somheadalService.updateFabrics(fabricManagementDto);
+        return  "redirect:./detailFabricPage?fb_id_pk="+fabricManagementDto.getFb_id_pk();
     }
+
+    @GetMapping("updateStock")
+    public String updateStock(HttpSession session, FabricManagementDto fabricManagementDto) {
+        somheadalService.updateStock(fabricManagementDto);
+        return "redirect:./detailFabricPage?fb_id_pk="+fabricManagementDto.getFb_id_pk();
+    }
+    
     
     
     

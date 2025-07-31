@@ -43,9 +43,20 @@ public class SomheadalImpl {
         return someheadalSqlMapper.readFabricAdds();
     }
 
+    //원단 상세보기
     public Map<String, Object> readFabricOnlyOne(int fb_id_pk){
 
         return someheadalSqlMapper.readFabricOnlyOne(fb_id_pk);
+    }
+
+    //원단 입고대기 or 입고완료
+    public void updateStock(FabricManagementDto fabricManagementDto){
+        someheadalSqlMapper.updateStock(fabricManagementDto);
+    }
+
+    //원단 수정 update
+    public void updateFabrics(FabricManagementDto fabricManagementDto){
+        someheadalSqlMapper.updateFabrics(fabricManagementDto);
     }
  
 }

@@ -46,6 +46,11 @@
       align-items: center;
       margin-bottom: 1.5rem;
     }
+
+    .form-label{
+      font-weight: bold;
+      
+    }
   </style>
 
   <script>
@@ -94,7 +99,7 @@
         <div class="header-main">
           <h3 class="fw-bold">원단상세보기</h3>
           <div>
-            <span class="fw-semibold" th:text="${sessionAdmin}">홍길동</span>
+            <span class="fw-semibold" th:text="${adminName}"></span>
             <span>님 오늘도 안전히 작업하세요.</span>
           </div>
         </div>
@@ -104,13 +109,28 @@
           <input type="hidden" name="seq_num" th:value="${sessionAdminPk}" />
           <div class="row">
             <!-- 왼쪽 입력 영역 -->
-            <div class="col-md-7">
+            <div class="col-md-10 offset-md-1">
               <div class="mb-4">
-                <label class="form-label">스와치 이미지</label>
-                        <!--시험 -->
-                    <img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}">
-                        <!--ㅇㅇ-->>
-              </div>
+                <div class="row align-items-stretch" style="margin-top: 0.8em;">
+                  <!-- 이미지 -->
+                  <div class="col">
+                    <img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}" 
+                        class="img-fluid h-100" style="object-fit: cover;" />
+                  </div>
+
+                  <!-- 오른쪽 정보 및 버튼 -->
+                  <div class="col d-flex flex-column justify-content-between">
+                    <!-- 입고현황 -->
+                    <div>
+                      <span th:text="${fabric.fb_stock_situation}" style="font-weight: bold;"></span>
+                    </div>
+
+                    <!-- 입고완료 버튼 -->
+                    <div>
+                      <a th:href="@{./updateStock(fb_id_pk=${fabric.fb_id_pk})}" class="btn btn-outline-success w-100">입고완료</a>
+                    </div>
+                  </div>
+                </div>
               <div class="mb-4">
                 <label class="form-label">원단명</label>
                 <input type="text" class="form-control"  name="fb_name" th:value="${fabric.fb_name}" >
@@ -133,7 +153,19 @@
 
               <div class="mb-4">
                 <label class="form-label">컬러계열 선택</label>
-                
+                <select class="form-select" name="fb_color">
+                  <option disabled selected th:value="none">컬러계열 선택</option>
+                  <option th:value="Red">빨강</option>
+                  <option th:value="Orange">주황</option>
+                  <option th:value="Yellow">노랑</option>
+                  <option th:value="Green">초록</option>
+                  <option th:value="Blue">파랑</option>
+                  <option th:value="Navy">남색</option>
+                  <option th:value="Purple">보라</option>
+                  <option th:value="White">흰색</option>
+                  <option th:value="Gray">회색</option>
+                  <option th:value="Black">검정</option>
+                </select>
               </div>
 
               <div class="row">
@@ -154,36 +186,47 @@
               </div>
 
               <div class="mb-4">
-                <label class="form-label">공급처 및 단가</label>
-                <div class="col">
-                    <button  class="btn btn-outline-dark w-100" onclick="history.back()" >목록으로</button>
-                  </div>
-                  <div class="col">
-                    <a th:href="@{/editFabrics}" class="btn btn-dark w-100" >수정하기</a>
-                  </div>
+                <label class="form-label">스와치 이미지 등록</label>
+                <input class="form-control" type="file" name="imageFiles">
               </div>
 
-            </div>
+              <div class="mb-4">
+                <label class="form-label">최초 등록일</label>
+                <div class="row">
+                  <div class="col">
+                    <span th:text="${fabric.fb_created_at}"></span>
+                  </div>
+                </div>
+              </div>
 
-            <!-- 오른쪽 Preview 영역 -->
-            <div class="col-md-5">
-              <div class="p-4">
-                <h4 class="mb-4">Swatch Image</h4>
-                  <img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}">
+              <div class="mb-4">
+                <label class="form-label">마지막 수정일</label>
+                <div class="row">
+                  <div class="col">
+                    <div th:if="${fabric['fb_last_inert_date_at'] == null}"><span th:text="${fabric['fb_created_at']}"></span></div>
+                    <div th:unless="${fabric['fb_last_inert_date_at'] == null}"><span th:text="${fabric['fb_last_inert_date_at']}"></span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-4">
                 <div class="row" style="margin-top: 0.9em;">
                   <div class="col">
-                    <button  class="btn btn-outline-dark w-100" onclick="history.back()" >목록으로</button>
+                    <a th:href="@{/fabricManagerPage}" class="btn btn-outline-dark w-100" >목록으로</a>
                   </div>
                   <div class="col">
                     <a th:href="@{/editFabrics}" class="btn btn-dark w-100" >수정하기</a>
                   </div>
                 </div>
               </div>
+
             </div>
+
 
 
           </div>
         </form>
+
       </div>
     </div>
   </div>

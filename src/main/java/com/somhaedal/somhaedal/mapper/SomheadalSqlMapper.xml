@@ -46,10 +46,39 @@ select * from fabric_management;
 	#{fb_location},
 	#{fb_source_supply},
 	#{fb_swatch_img_path},
-	'입고 대기'
+	'입고대기'
 	);
 </insert>
 
+
+<select id="readCategoryFabrics" resultType="map">
+SELECT *
+FROM fabric_management
+WHERE fb_type IN (
+  SELECT fc_ct_name
+  FROM fabric_category
+  WHERE fc_ct_name = #{fc_ct_name}
+);
+</select>
+
+<update id="updateStock">
+update fabric_management set fb_stock_situation = '입고완료' where fb_id_pk = #{fb_id_pk};
+</update>
+
+<update id="updateFabrics">
+update fabric_management set fb_name =#{fb_name}, 
+							 fb_type =#{fb_type}, 
+							 fb_width =#{fb_width}, 
+							 fb_height = #{fb_height}, 
+							 fb_color =#{fb_color}, 
+							 fb_thickness = #{fb_thickness}, 
+							 fb_price = #{fb_price}, 
+							 fb_location =#{fb_location},
+							 fb_swatch_img_path =#{fb_swatch_img_path}, 
+							 fb_source_supply =#{fb_source_supply},
+							 fb_last_inert_date_at = now()
+							where fb_id_pk = #{fb_id_pk};
+</update>
 
 
 

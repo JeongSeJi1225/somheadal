@@ -35,6 +35,13 @@ public interface SomeheadalSqlMapper {
     //원단목록 불러오기
     public List<FabricManagementDto> readFabricAdds();
 
+    //원단 상세보기
     public Map<String, Object> readFabricOnlyOne(int fb_id_pk);
+
+    //입고현황 업데이트
+    public void updateStock(FabricManagementDto fabricManagementDto);
+
+    //원단 수정(update)
+    public void updateFabrics(FabricManagementDto fabricManagementDto);
 
 }

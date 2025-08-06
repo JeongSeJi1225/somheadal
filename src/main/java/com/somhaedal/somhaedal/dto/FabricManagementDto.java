@@ -27,6 +27,6 @@ public class FabricManagementDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")	
     private LocalDateTime    fb_created_at;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime    fb_last_inert_date_at;
+    private LocalDateTime    fb_last_insert_date_at;
 
 }

@@ -106,7 +106,7 @@
 
         <!-- form  -->
         <form action="./editFabricProcess" method="post" enctype="multipart/form-data">
-          <input type="hidden" name="seq_num" th:value="${sessionAdminPk}" />
+          <input type="hidden" name="fb_id_pk" th:value="${fabric.fb_id_pk}" />
           <div class="row">
             <!-- 왼쪽 입력 영역 -->
             <div class="col-md-10 offset-md-1">
@@ -114,8 +114,14 @@
                 <div class="row align-items-stretch" style="margin-top: 0.8em;">
                   <!-- 이미지 -->
                   <div class="col">
-                    <img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}" 
-                        class="img-fluid h-100" style="object-fit: cover;" />
+                      <div th:if="${fabric != null and fabric['fb_swatch_img_path'] != null}">
+                      <img th:src="@{|/somUploadFiles/${fabric['fb_swatch_img_path']}|}" alt="스와치 이미지" class="img-fluid h-100" style="object-fit: cover;" />
+                    </div>
+                    <div th:unless="${fabric != null and fabric['fb_swatch_img_path'] != null}">
+                      이미지 경로가 없습니다.
+                    </div>
+
+
                   </div>
 
                   <!-- 오른쪽 정보 및 버튼 -->
@@ -137,7 +143,14 @@
               </div>
               <div class="mb-4">
                 <label class="form-label">원단 재질</label>
-                <input type="text" class="form-control"  name="fb_type" th:value="${fabric.fb_type}" >
+                <select class="form-select" name="fb_type">
+                <option disabled selected th:text="'현재: ' + ${fabric.fb_type}">현재: -</option>
+                <option th:each="choiceType : ${fabricCategoryName}"
+                        th:if="${choiceType.fc_ct_name != fabric.fb_type}"
+                        th:value="${choiceType.fc_ct_name}"
+                        th:text="${choiceType.fc_ct_name}">
+                </option>
+                </select>
               </div>
 
               <div class="row">
@@ -152,21 +165,23 @@
               </div>
 
               <div class="mb-4">
-                <label class="form-label">컬러계열 선택</label>
-                <select class="form-select" name="fb_color">
-                  <option disabled selected th:value="none">컬러계열 선택</option>
-                  <option th:value="Red">빨강</option>
-                  <option th:value="Orange">주황</option>
-                  <option th:value="Yellow">노랑</option>
-                  <option th:value="Green">초록</option>
-                  <option th:value="Blue">파랑</option>
-                  <option th:value="Navy">남색</option>
-                  <option th:value="Purple">보라</option>
-                  <option th:value="White">흰색</option>
-                  <option th:value="Gray">회색</option>
-                  <option th:value="Black">검정</option>
-                </select>
-              </div>
+                  <label class="form-label">컬러계열 선택</label>
+                  <select class="form-select" name="fb_color">
+                    <option disabled th:selected="${fabric.fb_color == null}">컬러계열 선택</option>
+                    <option th:value="Red" th:selected="${fabric.fb_color == 'Red'}">빨강</option>
+                    <option th:value="Orange" th:selected="${fabric.fb_color == 'Orange'}">주황</option>
+                    <option th:value="Yellow" th:selected="${fabric.fb_color == 'Yellow'}">노랑</option>
+                    <option th:value="Green" th:selected="${fabric.fb_color == 'Green'}">초록</option>
+                    <option th:value="Blue" th:selected="${fabric.fb_color == 'Blue'}">파랑</option>
+                    <option th:value="Navy" th:selected="${fabric.fb_color == 'Navy'}">남색</option>
+                    <option th:value="Purple" th:selected="${fabric.fb_color == 'Purple'}">보라</option>
+                    <option th:value="White" th:selected="${fabric.fb_color == 'White'}">흰색</option>
+                    <option th:value="Gray" th:selected="${fabric.fb_color == 'Gray'}">회색</option>
+                    <option th:value="Black" th:selected="${fabric.fb_color == 'Black'}">검정</option>
+                  </select>
+
+                </div>
+
 
               <div class="row">
                 <div class="col-md-6 mb-4">
@@ -212,10 +227,10 @@
               <div class="mb-4">
                 <div class="row" style="margin-top: 0.9em;">
                   <div class="col">
-                    <a th:href="@{/fabricManagerPage}" class="btn btn-outline-dark w-100" >목록으로</a>
+                    <a th:href="@{./fabricManagerPage}" class="btn btn-outline-dark w-100" >목록으로</a>
                   </div>
                   <div class="col">
-                    <a th:href="@{/editFabrics}" class="btn btn-dark w-100" >수정하기</a>
+                    <button type="submit" class="btn btn-dark w-100">수정하기</button>
                   </div>
                 </div>
               </div>

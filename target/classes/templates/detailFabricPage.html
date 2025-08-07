@@ -107,6 +107,7 @@
         <!-- form  -->
         <form action="./editFabricProcess" method="post" enctype="multipart/form-data">
           <input type="hidden" name="fb_id_pk" th:value="${fabric.fb_id_pk}" />
+          <input type="hidden" name="seq_num" th:value="${adminPk}" />
           <div class="row">
             <!-- 왼쪽 입력 영역 -->
             <div class="col-md-10 offset-md-1">
@@ -118,7 +119,7 @@
                       <img th:src="@{|/somUploadFiles/${fabric['fb_swatch_img_path']}|}" alt="스와치 이미지" class="img-fluid h-100" style="object-fit: cover;" />
                     </div>
                     <div th:unless="${fabric != null and fabric['fb_swatch_img_path'] != null}">
-                      이미지 경로가 없습니다.
+                      이미지가 없습니다.
                     </div>
 
 
@@ -144,7 +145,7 @@
               <div class="mb-4">
                 <label class="form-label">원단 재질</label>
                 <select class="form-select" name="fb_type">
-                <option disabled selected th:text="'현재: ' + ${fabric.fb_type}">현재: -</option>
+                <option selected th:text="'현재: ' + ${fabric.fb_type}" th:value="${fabric.fb_type}">현재: -</option>
                 <option th:each="choiceType : ${fabricCategoryName}"
                         th:if="${choiceType.fc_ct_name != fabric.fb_type}"
                         th:value="${choiceType.fc_ct_name}"

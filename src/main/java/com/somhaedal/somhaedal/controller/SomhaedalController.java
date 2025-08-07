@@ -110,10 +110,12 @@ public class SomhaedalController {
  
 
     @GetMapping("/fabricManagerPage")
-    public String fabricManagerPage(Model model, HttpSession session) {
+    public String fabricManagerPage(Model model, HttpSession session, @RequestParam(required = false) Integer type) {
         AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo"); //관리자 정보
         model.addAttribute("adminName", sessionAdmin.getAdmin_name());  
         model.addAttribute("readFabricAdds", somheadalService.getFabricAdds());
+        model.addAttribute("fabricCategoryName", somheadalService.getFabricCategoryInfo());
+        model.addAttribute("selectedType", type);
 
             //data checking img path
        // System.out.println("원단정보확인 : " + somheadalService.getFabricAdds());
@@ -131,7 +133,6 @@ public class SomhaedalController {
         model.addAttribute("sessionAdmin", sessionAdmin.getAdmin_name());
         model.addAttribute("fabricCategoryName", somheadalService.getFabricCategoryInfo());
 
-        // data checking. success
         //System.out.println("Fabric Category info's fuck..." + somheadalService.getFabricCategoryInfo());
 
 
@@ -187,20 +188,19 @@ public class SomhaedalController {
 public String editFabricProcess(
         FabricManagementDto fabricManagementDto,
         @RequestParam("fb_id_pk") int fbIdPk,
-        @RequestParam("imageFiles") MultipartFile imageFiles) throws IOException {
+        @RequestParam(value = "imageFiles", required = false) MultipartFile imageFiles) throws IOException {
 
-    // 기존 원단 정보 조회 (이미지 경로 유지용)
+    // 1. 기존 원단 정보 불러오기
     Map<String, Object> existingFabric = somheadalService.readFabricOnlyOne(fbIdPk);
     String existingImagePath = (String) existingFabric.get("fb_swatch_img_path");
 
-    // pk 세팅
-    fabricManagementDto.setFb_id_pk(fbIdPk);
+    fabricManagementDto.setFb_id_pk(fbIdPk); // 기본 PK 세팅
 
-    // 이미지 업로드 처리
+    // 2. 새 이미지가 업로드 되었는지 확인
     if (imageFiles != null && !imageFiles.isEmpty()) {
+        // 새 이미지 업로드 및 저장 경로 생성
         String rootPath = "C:/somUploadFiles/";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
-        String todayPath = sdf.format(new Date());
+        String todayPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
         File folder = new File(rootPath + todayPath);
         if (!folder.exists()) folder.mkdirs();
 
@@ -212,18 +212,19 @@ public String editFabricProcess(
 
         imageFiles.transferTo(new File(fullPath));
 
+        // 새 이미지 경로 저장
         fabricManagementDto.setFb_swatch_img_path(todayPath + fileName);
     } else {
-        // 이미지 없으면 기존 이미지 경로 유지
+        // 이미지가 없다면 기존 이미지 경로 유지
         fabricManagementDto.setFb_swatch_img_path(existingImagePath);
     }
 
-    // DB 업데이트
+    // 3. DB 업데이트
     somheadalService.updateFabrics(fabricManagementDto);
 
-    // 상세페이지로 리다이렉트
     return "redirect:./detailFabricPage?fb_id_pk=" + fbIdPk;
 }
+
 
 @GetMapping("detailFabricPage")
 public String detailFabricPage(HttpSession session, Model model, @RequestParam("fb_id_pk") int fb_id_pk) {

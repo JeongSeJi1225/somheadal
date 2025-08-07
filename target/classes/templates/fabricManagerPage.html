@@ -73,7 +73,7 @@
       <div class="col-md-11 p-4">
         <div class="header-main">
           <h3 class="fw-bold">원단관리 대시보드</h3>
-          <div class="fw-semibold" th:text="${sessionAdminInfo}"></div><span>님 오늘도 안전히 작업하세요.</span>
+          <div class="fw-semibold" th:text="${sessionAdmin}"></div><span>님 오늘도 안전히 작업하세요.</span>
         </div>
 
         <!-- 요약 카드 -->
@@ -124,18 +124,27 @@
               
               <!-- 탭 -->
               <ul class="nav nav-tabs">
+                <!-- 전체보기 탭 -->
                 <li class="nav-item">
-                  <a class="nav-link active text-black" href="./fabricManagerPage">전체보기</a>
+                  <a class="nav-link"
+                    th:classappend="${selectedType} == null ? 'active text-black' : 'text-secondary'"
+                    th:href="@{/fabricManagerPage}">
+                    전체보기
+                  </a>
                 </li>
-                <c:forEach var="fabricType" items="${fabricTypeList}">
-                  <li class="nav-item">
-                    <a class="nav-link text-secondary"
-                      href="./fabricManagerPage?type=${fabricType}">
-                      ${fabricType}
-                    </a>
-                  </li>
-                </c:forEach>
+
+                <!-- 카테고리별 탭 -->
+                <li class="nav-item" th:each="fabricType : ${fabricCategoryName}">
+                  <a class="nav-link"
+                    th:classappend="${selectedType} == ${fabricType.fc_id_pk} ? 'active text-black' : 'text-secondary'"
+                    th:href="@{/fabricManagerPage(type=${fabricType.fc_id_pk})}"
+                    th:text="${fabricType.fc_ct_name}">
+                  </a>
+                </li>
               </ul>
+
+
+
 
               <!-- 검색 + 버튼 -->
               <div class="d-flex align-items-center gap-2">

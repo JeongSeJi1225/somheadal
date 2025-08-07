@@ -66,7 +66,8 @@ update fabric_management set fb_stock_situation = '입고완료' where fb_id_pk 
 </update>
 
 <update id="updateFabrics">
-update fabric_management set fb_name =#{fb_name}, 
+update fabric_management set fb_name =#{fb_name},
+							 seq_num =#{seq_num},
 							 fb_type =#{fb_type}, 
 							 fb_width =#{fb_width}, 
 							 fb_height = #{fb_height}, 

@@ -88,4 +88,25 @@ update fabric_management set fb_name =#{fb_name},
 select * from fabric_management where fb_id_pk = #{fb_id_pk};
 </select>
 
+<select id="countFabrics" resultType="int">
+select count(*) from fabric_management fm; 
+</select>
+
+<select id="countStocks" resultType="int">
+select count(*)  from fabric_management fm where fm.fb_stock_situation = '입고완료';
+</select>
+
+<select id="countStocksWait" resultType="int">
+select count(*)  from fabric_management fm where fm.fb_stock_situation = '입고대기';
+</select>
+
+<select id="sumFabrics" resultType="int">
+SELECT sum(fb_width * fb_height) as total
+FROM fabric_management;
+</select>
+
+<delete id="deleteFabrics">
+delete from fabric_management where fb_id_pk =#{fb_id_pk};
+</delete>
+
 </mapper>

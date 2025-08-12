@@ -58,5 +58,25 @@ public class SomheadalImpl {
     public void updateFabrics(FabricManagementDto fabricManagementDto){
         someheadalSqlMapper.updateFabrics(fabricManagementDto);
     }
+
+    //fabric 관리 count
+    public int countFabrics(FabricManagementDto fabricManagementDto){
+        return someheadalSqlMapper.countFabrics(fabricManagementDto);
+    }
+
+    //입고완료 count
+    public int countStocks(FabricManagementDto fabricManagementDto){
+        return someheadalSqlMapper.countStocks(fabricManagementDto);
+    }
+
+    //입고 대기 count
+    public int countStocksWait(FabricManagementDto fabricManagementDto){
+        return someheadalSqlMapper.countStocksWait(fabricManagementDto);
+    }
+
+    //원단 sum
+    public int sumFabrics(FabricManagementDto fabricManagementDto){
+        return someheadalSqlMapper.sumFabrics(fabricManagementDto);
+    }
  
 }

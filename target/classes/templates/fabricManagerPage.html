@@ -84,7 +84,7 @@
                 <span class="text-muted">총 원단 종류</span>
                 <i class="bi bi-layers fs-4 text-primary"></i>
               </div>
-              <h5 class="mt-2 fw-bold" th:text="${totalFabricCount}">34</h5>
+              <h5 class="mt-2 fw-bold" th:text="${countFabrics}">34</h5>
             </div>
           </div>
           <div class="col-md-3">
@@ -93,7 +93,7 @@
                 <span class="text-muted">입고 완료</span>
                 <i class="bi bi-check-circle fs-4 text-success"></i>
               </div>
-              <h5 class="mt-2 fw-bold" th:text="${finishedStockCount}">22</h5>
+              <h5 class="mt-2 fw-bold" th:text="${countStocks}">22</h5>
             </div>
           </div>
           <div class="col-md-3">
@@ -102,7 +102,7 @@
                 <span class="text-muted">입고 대기</span>
                 <i class="bi bi-clock-history fs-4 text-warning"></i>
               </div>
-              <h5 class="mt-2 fw-bold" th:text="${pendingStockCount}">12</h5>
+              <h5 class="mt-2 fw-bold" th:text="${countStocksWait}">12</h5>
             </div>
           </div>
           <div class="col-md-3">
@@ -111,7 +111,7 @@
                 <span class="text-muted">전체 재고량</span>
                 <i class="bi bi-boxes fs-4 text-info"></i>
               </div>
-              <h5 class="mt-2 fw-bold" th:text="${totalMeterCount}">980 m</h5>
+              <h5 class="mt-2 fw-bold" th:text="${sumFabrics}">980 m</h5>
             </div>
           </div>
         </div>

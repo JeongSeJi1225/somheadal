@@ -110,12 +110,18 @@ public class SomhaedalController {
  
 
     @GetMapping("/fabricManagerPage")
-    public String fabricManagerPage(Model model, HttpSession session, @RequestParam(required = false) Integer type) {
+    public String fabricManagerPage(Model model, HttpSession session, @RequestParam(required = false) Integer type,
+                                        FabricManagementDto fabricManagementDto) {
         AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo"); //관리자 정보
         model.addAttribute("adminName", sessionAdmin.getAdmin_name());  
         model.addAttribute("readFabricAdds", somheadalService.getFabricAdds());
         model.addAttribute("fabricCategoryName", somheadalService.getFabricCategoryInfo());
         model.addAttribute("selectedType", type);
+        model.addAttribute("countFabrics", somheadalService.countFabrics(fabricManagementDto));
+        model.addAttribute("countStocks", somheadalService.countStocks(fabricManagementDto));
+        model.addAttribute("countStocksWait", somheadalService.countStocksWait(fabricManagementDto));
+        model.addAttribute("sumFabrics", somheadalService.sumFabrics(fabricManagementDto));
+
 
             //data checking img path
        // System.out.println("원단정보확인 : " + somheadalService.getFabricAdds());

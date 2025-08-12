@@ -43,5 +43,18 @@ public interface SomeheadalSqlMapper {
 
     //원단 수정(update)
     public void updateFabrics(FabricManagementDto fabricManagementDto);
+    
+    //총 원단 종류 count
+    public int countFabrics(FabricManagementDto fabricManagementDto);
+
+    //입고완료 count
+    public int countStocks(FabricManagementDto fabricManagementDto);
+    
+    //입고대기 count
+    public int countStocksWait(FabricManagementDto fabricManagementDto);
+    
+    //전체 재고량 sum
+    public int sumFabrics(FabricManagementDto fabricManagementDto);
+
 
 }

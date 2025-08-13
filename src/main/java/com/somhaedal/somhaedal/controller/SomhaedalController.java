@@ -249,6 +249,13 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         somheadalService.updateStock(fabricManagementDto);
         return "redirect:./detailFabricPage?fb_id_pk="+fabricManagementDto.getFb_id_pk();
     }
+
+    @GetMapping("deleteFabricsProcess")
+    public String deleteFabricsProcess(int fb_id_pk) {
+        somheadalService.deleteFabrics(fb_id_pk);
+        return "redirect:./fabricManagerPage";
+    }
+    
     
     
     

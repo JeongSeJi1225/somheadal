@@ -56,5 +56,7 @@ public interface SomeheadalSqlMapper {
     //전체 재고량 sum
     public int sumFabrics(FabricManagementDto fabricManagementDto);
 
+    //원단 삭제
+    public void deleteFabrics(int fb_id_pk);
 
 }

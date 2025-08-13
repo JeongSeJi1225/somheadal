@@ -78,5 +78,11 @@ public class SomheadalImpl {
     public int sumFabrics(FabricManagementDto fabricManagementDto){
         return someheadalSqlMapper.sumFabrics(fabricManagementDto);
     }
+
+    //원단 delete
+    public void deleteFabrics(int fb_id_pk){
+
+        someheadalSqlMapper.deleteFabrics(fb_id_pk);
+    }
  
 }

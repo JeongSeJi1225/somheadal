@@ -233,6 +233,13 @@
                   <div class="col">
                     <button type="submit" class="btn btn-dark w-100">수정하기</button>
                   </div>
+                  <div class="col">
+                    <a th:href="@{./deleteFabricsProcess(fb_id_pk=${fabric.fb_id_pk})}"
+                      class="btn btn-outline-danger w-100"
+                      onclick="return confirm('정말 삭제하시겠습니까?')">
+                      원단삭제
+                    </a>
+                  </div>
                 </div>
               </div>
 

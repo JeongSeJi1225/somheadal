@@ -256,6 +256,18 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         return "redirect:./fabricManagerPage";
     }
     
+    @GetMapping("customerManagerPage")
+    public String customerManagerPage(HttpSession session, Model model) {
+        AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo");
+        model.addAttribute("adminName", sessionAdmin.getAdmin_name());
+        model.addAttribute("adminPk", sessionAdmin.getSeq_num());
+        return "customerManagerPage";
+    }
+    
+    @GetMapping("customerAddPage")
+    public String customerAddPage(HttpSession session, Model model) {
+        return "customerAddPage";
+    }
     
     
     

@@ -19,7 +19,9 @@ public class CustomerInfoDto {
     private String ct_char;
     private String ct_char_explain;
     private int ct_how_many;
-    private String ct_face_design;
+    private String ct_face_cf;
+    private String ct_design_cf;
+    private String ct_deleivery;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime ct_apply_date;

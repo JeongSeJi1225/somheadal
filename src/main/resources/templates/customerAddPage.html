@@ -96,14 +96,20 @@
           <input type="hidden" name="seq_num" th:value="${sessionAdminPk}" />
           <div class="row">
             <!-- 왼쪽 입력 영역 -->
-            <div class="col-md-10 offset-md-1">
-              <div class="mb-4">
-                <label class="form-label">신청자명</label>
-                <input type="text" class="form-control" name="ct_name" placeholder="신청자 닉네임 / 성함 입력">
-              </div>
-              <div class="mb-4">
-                <label class="form-label">신청자 연락처</label>
-                <input type="text" class="form-control" name="ct_phone" placeholder="숫자만 입력">
+            <div class="col-md-10 offset-md-1"> 
+              <div class="row">
+                <div class="col">
+                  <div class="mb-4">
+                    <label class="form-label">신청자명</label>
+                    <input type="text" class="form-control" name="ct_name" placeholder="신청자 닉네임 / 성함 입력">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-4">
+                    <label class="form-label">신청자 연락처</label>
+                    <input type="text" class="form-control" name="ct_phone" placeholder="숫자만 입력">
+                  </div>
+                </div>
               </div>
 
               <div class="row">
@@ -114,9 +120,9 @@
 
               </div>
 
-              <div class="mb-4">
+              <div class="mb-4 ">
                 <div class="row">
-                  <div class="col-6 mb-4">
+                  <div class="col-6">
                   <label class="form-label">타입지정</label>
                 <select class="form-select" name="fb_color">
                   <option disabled selected th:value="none">타입을 지정하세요.</option>
@@ -125,13 +131,14 @@
                   <option th:value="teruteru">테루테루 보오즈</option>
                 </select>
                 </div>
-                <div class="col-6">
+                <div class="col-6 ">
                   <label class="form-label">개수</label>
-                  <input type="text" class="form-control" name="fb_source_supply" placeholder="공급처 명 입력">
+                  <input type="text" class="form-control" name="ct_how_many" placeholder="공급처 명 입력">
                 </div>
                 </div>
               </div>
 
+             
               <div class="mb-4">
                 <label class="form-label">도안 이미지 등록</label>
                 <input class="form-control" type="file" name="imageFiles">
@@ -140,22 +147,31 @@
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <label class="form-label">캐릭터 이름</label>
-                  <input type="text" class="form-control" name="fb_thickness" placeholder="캐릭터 이름 입력">
+                  <input type="text" class="form-control" name="ct_char" placeholder="캐릭터 이름 입력">
                 </div>
                 <div class="col-md-6 mb-4">
                   <label class="form-label">캐릭터 관련 메모</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="작업관련 메모"  rows="3"></textarea>
+                  <textarea class="form-control" id="ct_memo" placeholder="작업관련 메모"  rows="3"></textarea>
                 </div>
               </div>
 
-              
+               <div class="mb-4">
+                <div class="row">
+                  <div class="col">
+                    <label class="form-label">신청날짜</label>
+                    <input type="datetime-local" name="ct_apply_date" required>
+                  </div>
+                  <div class="col">
+                    <label class="form-label">마감날짜</label>
+                    <input type="datetime-local" name="ct_end_date" required>
+                  </div>
+                </div>
+              </div>
 
-
-              <button type="submit" class="btn btn-dark w-100 my-3">신청서 등록</button>
+              <button type="submit" class="btn btn-dark w-100 my-3 mb-4">신청서 등록</button>
             </div>
 
-  
-                
+                  
               </div>
             </div>
 

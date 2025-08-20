@@ -109,4 +109,38 @@ FROM fabric_management;
 delete from fabric_management where fb_id_pk =#{fb_id_pk};
 </delete>
 
+<insert id="insertCustomerInfo">
+insert into customer_info(
+	ct_name, 
+	ct_phone, 
+	ct_address, 
+	ct_type, 
+	ct_option, 
+	ct_memo, 
+	ct_char, 
+	ct_char_explain, 
+	ct_how_many,
+	ct_end_date,
+	ct_apply_date,
+	ct_face_cf,
+	ct_design_cf,
+	ct_deleivery
+) values(
+	#{ct_name},
+	#{ct_phone},
+	#{ct_address},
+	#{ct_type},
+	#{ct_option},
+	#{ct_memo},
+	#{ct_char},
+	#{ct_char_explain},
+	#{ct_how_many},
+	#{ct_end_date},
+	now(),
+	"미완료",
+	"미완료",
+	"미배송"
+);
+</insert>
+
 </mapper>

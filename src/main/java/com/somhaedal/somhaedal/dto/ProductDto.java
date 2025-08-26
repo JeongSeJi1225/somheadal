@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class ProductDto {
     private int mp_id_pk;
+    private String mp_charge;
     private String mp_name;
     private String mp_explain;
     private String mp_category;

@@ -267,11 +267,15 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
     
     @GetMapping("customerAddPage")
     public String customerAddPage(HttpSession session, Model model) {
+        model.addAttribute("readProducts", somheadalService.readProducts());
+        model.addAttribute("readOptions", somheadalService.readOptions());
         return "customerAddPage";
     }
     
     @PostMapping("customerAddProcess")
-    public String postMethodName(MultipartFile imageFiles, CustomerImgDto customerImgDto) {
+    public String postMethodName(MultipartFile imageFiles, CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto) {
+
+        somheadalService.insertCustomerInfo(customerInfoDto);
         
         if (imageFiles != null && !imageFiles.isEmpty()) {
             String rootPath = "C:/somUploadFiles/";
@@ -298,7 +302,7 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
  
         }
         
-        return "redirect:./customerAddPage";
+        return "redirect:./customerManagerPage";
     }
     
     

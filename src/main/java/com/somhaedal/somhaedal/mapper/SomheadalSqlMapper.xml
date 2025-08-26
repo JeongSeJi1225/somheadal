@@ -143,4 +143,12 @@ insert into customer_info(
 );
 </insert>
 
+<select id="readOptions" resultType="com.somhaedal.somhaedal.dto.ProducOptiontDto">
+	select * from product_option po;
+</select>
+
+<select id="readMainProduct" resultType="com.somhaedal.somhaedal.dto.ProductDto">
+	select * from main_product;
+</select>
+
 </mapper>

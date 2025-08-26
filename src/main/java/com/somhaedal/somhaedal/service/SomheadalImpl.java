@@ -10,6 +10,8 @@ import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
+import com.somhaedal.somhaedal.dto.ProducOptiontDto;
+import com.somhaedal.somhaedal.dto.ProductDto;
 import com.somhaedal.somhaedal.mapper.SomeheadalSqlMapper;
 
 @Service
@@ -83,6 +85,21 @@ public class SomheadalImpl {
     public void deleteFabrics(int fb_id_pk){
 
         someheadalSqlMapper.deleteFabrics(fb_id_pk);
+    }
+
+    //신청서 insert
+    public void insertCustomerInfo(CustomerInfoDto customerInfoDto){
+        someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
+    }
+
+    //상품리스트
+    public List<ProductDto> readProducts(){
+        return someheadalSqlMapper.readProducts();
+    }
+
+    //유료 옵션 리스트
+    public List<ProducOptiontDto> readOptions(){
+        return someheadalSqlMapper.readOptions();
     }
  
 }

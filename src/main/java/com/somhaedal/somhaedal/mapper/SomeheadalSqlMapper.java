@@ -11,6 +11,7 @@ import com.somhaedal.somhaedal.dto.FabricLogDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.FabricSwatchDto;
 import com.somhaedal.somhaedal.dto.OptionCategoryDto;
+import com.somhaedal.somhaedal.dto.ProducOptiontDto;
 import com.somhaedal.somhaedal.dto.ProductionTaskDto;
 import com.somhaedal.somhaedal.dto.ProductDto;
 import com.somhaedal.somhaedal.dto.SubMaterialDto;
@@ -59,4 +60,12 @@ public interface SomeheadalSqlMapper {
     //원단 삭제
     public void deleteFabrics(int fb_id_pk);
 
+    //고객 신청서 insert
+    public void insertCustomerInfo(CustomerInfoDto customerInfoDto);
+
+    //상품 list
+    public List<ProductDto> readProducts();
+
+    //상품 추가금 옵션
+    public List<ProducOptiontDto> readOptions();
 }

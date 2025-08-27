@@ -93,8 +93,8 @@ public class SomheadalImpl {
     }
 
     //상품리스트
-    public List<ProductDto> readProducts(){
-        return someheadalSqlMapper.readProducts();
+    public List<ProductDto> readMainProduct(){
+        return someheadalSqlMapper.readMainProduct();
     }
 
     //유료 옵션 리스트

@@ -151,4 +151,8 @@ insert into customer_info(
 	select * from main_product;
 </select>
 
+<insert id="checkOptions">
+	insert into customer_choice_option(ct_id_pk, mp_id_pk, po_id_pk) values(#{ct_id_pk}, #{mp_id_pk}, #{po_id_pk});
+</insert>
+
 </mapper>

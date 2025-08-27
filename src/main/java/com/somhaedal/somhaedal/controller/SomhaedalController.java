@@ -267,7 +267,7 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
     
     @GetMapping("customerAddPage")
     public String customerAddPage(HttpSession session, Model model) {
-        model.addAttribute("readProducts", somheadalService.readProducts());
+        model.addAttribute("readProducts", somheadalService.readMainProduct());
         model.addAttribute("readOptions", somheadalService.readOptions());
         return "customerAddPage";
     }

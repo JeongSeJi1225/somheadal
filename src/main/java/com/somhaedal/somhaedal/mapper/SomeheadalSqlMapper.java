@@ -6,11 +6,11 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
+import com.somhaedal.somhaedal.dto.CustomerOption;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricLogDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.FabricSwatchDto;
-import com.somhaedal.somhaedal.dto.OptionCategoryDto;
 import com.somhaedal.somhaedal.dto.ProducOptiontDto;
 import com.somhaedal.somhaedal.dto.ProductionTaskDto;
 import com.somhaedal.somhaedal.dto.ProductDto;
@@ -64,8 +64,12 @@ public interface SomeheadalSqlMapper {
     public void insertCustomerInfo(CustomerInfoDto customerInfoDto);
 
     //상품 list
-    public List<ProductDto> readProducts();
+    public List<ProductDto> readMainProduct();
 
     //상품 추가금 옵션
     public List<ProducOptiontDto> readOptions();
+
+    //옵션 insert
+    public CustomerOption checkOptions(CustomerOption customerOption);
+
 }

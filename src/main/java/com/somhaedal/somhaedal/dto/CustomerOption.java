@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-public class OptionCategoryDto {
+public class CustomerOption {
     private int oc_id_pk;
     private int mp_id_pk;
     private int po_id_pk;

@@ -104,11 +104,12 @@
                     <input type="text" class="form-control" name="ct_name" placeholder="신청자 닉네임 / 성함 입력">
                   </div>
                 </div>
-                <div class="col">
-                  <div class="mb-4">
-                    <label class="form-label">신청자 연락처</label>
+              </div>
+
+              <div class="row">
+                <div class="col mb-4">
+                  <label class="form-label">신청자 연락처</label>
                     <input type="text" class="form-control" name="ct_phone" placeholder="숫자만 입력">
-                  </div>
                 </div>
               </div>
 
@@ -117,45 +118,44 @@
                   <label class="form-label">신청자 주소지</label>
                   <input type="text" class="form-control" name="ct_address" placeholder="배송받을 주소지 입력">
                 </div>
-
               </div>
 
               <div class="mb-4 ">
-                <div class="row">
-                  <div class="col-6">
                   <label class="form-label">타입지정</label>
                   <select class="form-select" name="fb_color">
                     <option selected disabled>상품 유형을 선택하세요.</option>
                     <option th:each="choiceProduct : ${readProducts}"
                             th:value="${choiceProduct.mp_id_pk}"
-                            th:text="${choiceProduct.mp_name}">
+                            th:text="${choiceProduct.mp_explain}">
                     </option>
                   </select>
-                </div>
-                <div class="col-6 ">
-                  <label class="form-label">개수</label>
-                  <input type="text" class="form-control" name="ct_how_many" placeholder="공급처 명 입력">
-                </div>
-                </div>
               </div>
 
-              <div class="mb-4 ">
-                <div class="row">
-                  <div class="col-6">
-                  <label class="form-label">유료옵션</label>
-                  <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-                  <label class="form-check-label" for="checkDefault">
-                    Default checkbox
-                  </label>
-                  </div>
-                </div>
-                <div class="col-6 ">
-                  <label class="form-label">개수</label>
-                  <input type="text" class="form-control" name="ct_how_many" placeholder="공급처 명 입력">
-                </div>
-                </div>
+              <div class="mb-4">
+                <label class="form-label">개수</label>
+                <input type="text" class="form-control"  name="ct_how_many" placeholder="숫자만 입력">
               </div>
+
+<div class="mb-4">
+  <label class="form-label">유료옵션</label>
+  <div class="row">
+    
+    <div class="col-6 mb-2" th:each="op : ${readOptions}">
+      <div class="form-check">
+        <input class="form-check-input"
+               type="checkbox"
+               th:id="'check_' + ${op.po_id_pk}"
+               th:value="${op.po_id_pk}">
+        <label class="form-check-label" th:for="'check_' + ${op.po_id_pk}">
+          <span th:text="${op.po_name}"></span>
+          (<span th:text="${op.po_extra_price}"></span> 원)
+        </label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
              
               <div class="mb-4">

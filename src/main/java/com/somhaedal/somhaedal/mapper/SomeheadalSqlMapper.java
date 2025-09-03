@@ -60,8 +60,7 @@ public interface SomeheadalSqlMapper {
     //원단 삭제
     public void deleteFabrics(int fb_id_pk);
 
-    //고객 신청서 insert
-    public void insertCustomerInfo(CustomerInfoDto customerInfoDto);
+
 
     //상품 list
     public List<ProductDto> readMainProduct();
@@ -69,7 +68,14 @@ public interface SomeheadalSqlMapper {
     //상품 추가금 옵션
     public List<ProducOptiontDto> readOptions();
 
-    //옵션 insert
-    public CustomerOption checkOptions(CustomerOption customerOption);
+    // //옵션 insert
+    // public CustomerOption checkOptions(CustomerOption customerOption);
+    
+    // //고객 신청서 insert
+    // public void insertCustomerInfo(CustomerInfoDto customerInfoDto);
+
+    void insertCustomerInfo(CustomerInfoDto customerInfoDto);
+
+    void checkOptions(CustomerOption customerOption);
 
 }

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
+import com.somhaedal.somhaedal.dto.CustomerOption;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.service.SomheadalImpl;
@@ -273,9 +274,9 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
     }
     
     @PostMapping("customerAddProcess")
-    public String postMethodName(MultipartFile imageFiles, CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto) {
+    public String postMethodName(MultipartFile imageFiles, CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto, CustomerOption customerOption) {
 
-        somheadalService.insertCustomerInfo(customerInfoDto);
+        somheadalService.insertCustomerAndOptions(customerInfoDto, customerOption);
         
         if (imageFiles != null && !imageFiles.isEmpty()) {
             String rootPath = "C:/somUploadFiles/";

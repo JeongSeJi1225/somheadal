@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
+import com.somhaedal.somhaedal.dto.CustomerOption;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.ProducOptiontDto;
@@ -87,11 +89,30 @@ public class SomheadalImpl {
         someheadalSqlMapper.deleteFabrics(fb_id_pk);
     }
 
-    //신청서 insert
-    public void insertCustomerInfo(CustomerInfoDto customerInfoDto){
+// @Transactional
+// public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto, CustomerOption customerOption) {
+    
+//     // 1️⃣ customer_info insert → PK를 customerInfoDto.ct_id_pk에 세팅
+//     someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
+
+//     // 2️⃣ CustomerOption에 생성된 PK 세팅
+//     customerOption.setCt_id_pk(customerInfoDto.getCt_id_pk());
+
+//     // 3️⃣ customer_choice_option insert
+//     someheadalSqlMapper.checkOptions(customerOption);
+// }
+
+
+    @Transactional
+    public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto, CustomerOption customerOption) {
+        // 고객 정보 insert
         someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
+
+        // 옵션 insert (void 반환)
+        someheadalSqlMapper.checkOptions(customerOption);
     }
 
+    
     //상품리스트
     public List<ProductDto> readMainProduct(){
         return someheadalSqlMapper.readMainProduct();
@@ -101,5 +122,7 @@ public class SomheadalImpl {
     public List<ProducOptiontDto> readOptions(){
         return someheadalSqlMapper.readOptions();
     }
+
+    
  
 }

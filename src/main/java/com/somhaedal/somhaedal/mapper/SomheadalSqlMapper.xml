@@ -109,38 +109,11 @@ FROM fabric_management;
 delete from fabric_management where fb_id_pk =#{fb_id_pk};
 </delete>
 
-<insert id="insertCustomerInfo">
-insert into customer_info(
-	ct_name, 
-	ct_phone, 
-	ct_address, 
-	ct_type, 
-	ct_option, 
-	ct_memo, 
-	ct_char, 
-	ct_char_explain, 
-	ct_how_many,
-	ct_end_date,
-	ct_apply_date,
-	ct_face_cf,
-	ct_design_cf,
-	ct_deleivery
-) values(
-	#{ct_name},
-	#{ct_phone},
-	#{ct_address},
-	#{ct_type},
-	#{ct_option},
-	#{ct_memo},
-	#{ct_char},
-	#{ct_char_explain},
-	#{ct_how_many},
-	#{ct_end_date},
-	now(),
-	"미완료",
-	"미완료",
-	"미배송"
-);
+
+
+
+<insert id="insertCtChoiceType">
+	insert into customer_choice_option(ct_id_pk, mp_id_pk, po_id_pk) values(#{ct_id_pk}, #{mp_id_pk}, #{po_id_pk});
 </insert>
 
 <select id="readOptions" resultType="com.somhaedal.somhaedal.dto.ProducOptiontDto">
@@ -151,8 +124,23 @@ insert into customer_info(
 	select * from main_product;
 </select>
 
-<insert id="checkOptions">
-	insert into customer_choice_option(ct_id_pk, mp_id_pk, po_id_pk) values(#{ct_id_pk}, #{mp_id_pk}, #{po_id_pk});
+
+<insert id="insertCustomerInfo" parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+    insert into customer_info(
+        ct_name, ct_phone, ct_address, ct_type, ct_option,
+        ct_memo, ct_char, ct_char_explain, ct_how_many,
+        ct_end_date, ct_apply_date, ct_face_cf, ct_design_cf, ct_deleivery
+    ) values (
+        #{ct_name}, #{ct_phone}, #{ct_address}, #{ct_type}, #{ct_option},
+        #{ct_memo}, #{ct_char}, #{ct_char_explain}, #{ct_how_many},
+        #{ct_end_date}, now(), "미완료", "미완료", "미배송"
+    )
 </insert>
+
+<insert id="checkOptions" parameterType="com.somhaedal.somhaedal.dto.CustomerOption">
+    insert into customer_choice_option(ct_id_pk, mp_id_pk, po_id_pk)
+    values(#{ct_id_pk}, #{mp_id_pk}, #{po_id_pk})
+</insert>
+
 
 </mapper>

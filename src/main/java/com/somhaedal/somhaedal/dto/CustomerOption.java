@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 public class CustomerOption {
     private int oc_id_pk;
+    private int ct_id_pk;
     private int mp_id_pk;
     private int po_id_pk;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

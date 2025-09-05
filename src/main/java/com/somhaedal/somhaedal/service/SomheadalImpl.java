@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.somhaedal.somhaedal.dto.AdminDto;
+import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
@@ -103,15 +104,29 @@ public class SomheadalImpl {
 // }
 
 
-    @Transactional
-    public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto, CustomerOption customerOption) {
-        // 고객 정보 insert
-        someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
+ @Transactional
+public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
+                                     CustomerOption customerOption,
+                                     CustomerImgDto customerImgDto) {
+    // 고객 정보 insert (여기서 ct_id_pk가 세팅됨)
+    someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
 
-        // 옵션 insert (void 반환)
+    Integer customerId = customerInfoDto.getCt_id_pk();
+
+    // 옵션 처리 (여러 개라면 loop 돌려야 함)
+    if (customerOption != null) {
+        customerOption.setCt_id_pk(customerId);
+        customerOption.setMp_id_pk(Integer.parseInt(customerInfoDto.getCt_type())); // 상품타입을 mp_id_pk로 매핑
+        customerOption.setPo_id_pk(Integer.parseInt(customerInfoDto.getCt_option()));
         someheadalSqlMapper.checkOptions(customerOption);
     }
 
+    // 이미지 처리
+    if (customerImgDto != null && customerImgDto.getCi_img_url() != null) {
+        customerImgDto.setCt_id_pk(customerId);
+        someheadalSqlMapper.insertFaceDesign(customerImgDto);
+    }
+}
     
     //상품리스트
     public List<ProductDto> readMainProduct(){

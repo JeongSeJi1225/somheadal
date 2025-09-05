@@ -145,7 +145,8 @@
                         <input class="form-check-input"
                               type="checkbox"
                               th:id="'check_' + ${op.po_id_pk}"
-                              th:value="${op.po_id_pk}">
+                              th:value="${op.po_id_pk}"
+                              name="ct_option">
                         <label class="form-check-label" th:for="'check_' + ${op.po_id_pk}">
                           <span th:text="${op.po_name}"></span>
                           (<span th:text="${op.po_extra_price}"></span> 원)
@@ -156,8 +157,15 @@
                   </div>
                 </div>
 
+                <div class="mb-4">
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                    <label class="form-label">작업 시 유의사항</label>
+                    <textarea class="form-control" name="ct_memo" placeholder="작업관련 메모"  rows="3"></textarea>
+                    </div>
+                  </div>
+                </div>
 
-             
               <div class="mb-4">
                 <label class="form-label">도안 이미지 등록</label>
                 <input class="form-control" type="file" name="imageFiles">
@@ -169,8 +177,8 @@
                   <input type="text" class="form-control" name="ct_char" placeholder="캐릭터 이름 입력">
                 </div>
                 <div class="col-md-6 mb-4">
-                  <label class="form-label">캐릭터 관련 메모</label>
-                  <textarea class="form-control" id="ct_memo" placeholder="작업관련 메모"  rows="3"></textarea>
+                  <label class="form-label">캐릭터 관련 설명</label>
+                  <textarea class="form-control" name="ct_char_explain" placeholder="작업관련 메모"  rows="3"></textarea>
                 </div>
               </div>
 

@@ -125,7 +125,10 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
 </select>
 
 
-<insert id="insertCustomerInfo" parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+<insert id="insertCustomerInfo"
+        parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto"
+        useGeneratedKeys="true"
+        keyProperty="ct_id_pk">
     insert into customer_info(
         ct_name, ct_phone, ct_address, ct_type, ct_option,
         ct_memo, ct_char, ct_char_explain, ct_how_many,
@@ -142,5 +145,8 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
     values(#{ct_id_pk}, #{mp_id_pk}, #{po_id_pk})
 </insert>
 
+<insert id="insertFaceDesign" parameterType="com.somhaedal.somhaedal.dto.CustomerImgDto">
+insert into customer_img (ct_id_pk, ci_img_url) values (#{ct_id_pk}, #{ci_img_url});
+</insert>
 
 </mapper>

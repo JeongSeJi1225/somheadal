@@ -276,7 +276,7 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
     @PostMapping("customerAddProcess")
     public String postMethodName(MultipartFile imageFiles, CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto, CustomerOption customerOption) {
 
-        somheadalService.insertCustomerAndOptions(customerInfoDto, customerOption);
+        somheadalService.insertCustomerAndOptions(customerInfoDto, customerOption, customerImgDto);
         
         if (imageFiles != null && !imageFiles.isEmpty()) {
             String rootPath = "C:/somUploadFiles/";

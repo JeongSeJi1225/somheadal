@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.somhaedal.somhaedal.dto.AdminDto;
+import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
@@ -78,4 +79,5 @@ public interface SomeheadalSqlMapper {
 
     void checkOptions(CustomerOption customerOption);
 
+    public void insertFaceDesign(CustomerImgDto customerImgDto);
 }

@@ -140,13 +140,18 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
     )
 </insert>
 
-<insert id="checkOptions" parameterType="com.somhaedal.somhaedal.dto.CustomerOption">
-    insert into customer_choice_option(ct_id_pk, mp_id_pk, po_id_pk)
-    values(#{ct_id_pk}, #{mp_id_pk}, #{po_id_pk})
+<insert id="insertCustomerChoiceOption"
+        parameterType="com.somhaedal.somhaedal.dto.CustomerOption">
+    INSERT INTO customer_choice_option (ct_id_pk, mp_id_pk, po_id_pk)
+    VALUES (#{ct_id_pk}, #{mp_id_pk}, #{po_id_pk})
 </insert>
 
 <insert id="insertFaceDesign" parameterType="com.somhaedal.somhaedal.dto.CustomerImgDto">
 insert into customer_img (ct_id_pk, ci_img_url) values (#{ct_id_pk}, #{ci_img_url});
 </insert>
+
+<select id="readCustomerList" resultType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+select * from customer_info ci;
+</select>
 
 </mapper>

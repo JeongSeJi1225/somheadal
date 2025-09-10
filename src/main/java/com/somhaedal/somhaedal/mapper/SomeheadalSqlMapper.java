@@ -77,7 +77,9 @@ public interface SomeheadalSqlMapper {
 
     void insertCustomerInfo(CustomerInfoDto customerInfoDto);
 
-    void checkOptions(CustomerOption customerOption);
+    void insertCustomerChoiceOption(CustomerOption customerOption);
 
     public void insertFaceDesign(CustomerImgDto customerImgDto);
+
+    public List<CustomerInfoDto> readCustomerList();
 }

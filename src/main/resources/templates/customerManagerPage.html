@@ -177,7 +177,18 @@
               </tr>
             </thead>
             <tbody>
-              
+              <tr th:each="fabric : ${readFabricAdds}">
+                <td><img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}" alt="원단 이미지" width="40" height="40" class="rounded" /></td>
+                <td>
+                  <a th:href="@{'/detailFabricPage?fb_id_pk=' + ${fabric.fb_id_pk}}" style="color: inherit; text-decoration: none;">
+                    <span th:text="${fabric.fb_name}"></span>
+                  </a>
+                </td>
+                <td th:text="${fabric.fb_color}"></td>
+                <td th:text="${fabric.fb_width + ' x ' + fabric.fb_height}"></td>
+                <td th:text="${fabric.fb_source_supply}">130</td>
+                <td><a class="btn btn-sm btn-outline-primary" th:href="@{/detailFabricPage}" >Edit</a></td>
+              </tr>
             </tbody>
           </table>
         </div>

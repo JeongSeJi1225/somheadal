@@ -3,6 +3,7 @@ package com.somhaedal.somhaedal.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
@@ -263,6 +264,7 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         AdminDto sessionAdmin = (AdminDto) session.getAttribute("sessionAdminInfo");
         model.addAttribute("adminName", sessionAdmin.getAdmin_name());
         model.addAttribute("adminPk", sessionAdmin.getSeq_num());
+        model.addAttribute("customerSamllList", somheadalService.readCustomerList());
         return "customerManagerPage";
     }
     
@@ -274,37 +276,40 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
     }
     
     @PostMapping("customerAddProcess")
-    public String postMethodName(MultipartFile imageFiles, CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto, CustomerOption customerOption) {
+public String postMethodName(MultipartFile imageFiles,
+                             CustomerImgDto customerImgDto,
+                             CustomerInfoDto customerInfoDto,
+                             @RequestParam(value = "ct_option", required = false) List<Integer> ctOptions) {
 
-        somheadalService.insertCustomerAndOptions(customerInfoDto, customerOption, customerImgDto);
-        
-        if (imageFiles != null && !imageFiles.isEmpty()) {
-            String rootPath = "C:/somUploadFiles/";
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
-            String todayPath = sdf.format(new Date());
-            File folder = new File(rootPath + todayPath);
-            if (!folder.exists()) folder.mkdirs();
+    if (imageFiles != null && !imageFiles.isEmpty()) {
+        String rootPath = "C:/somUploadFiles/";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+        String todayPath = sdf.format(new Date());
+        File folder = new File(rootPath + todayPath);
+        if (!folder.exists()) folder.mkdirs();
 
-            String originalFileName = imageFiles.getOriginalFilename();
-            String uuid = UUID.randomUUID().toString();
-            long currentTime = System.currentTimeMillis();
-            String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
-            String fullPath = rootPath + todayPath + fileName;
+        String originalFileName = imageFiles.getOriginalFilename();
+        String uuid = UUID.randomUUID().toString();
+        long currentTime = System.currentTimeMillis();
+        String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
+        String fullPath = rootPath + todayPath + fileName;
 
-            try {
-                imageFiles.transferTo(new File(fullPath));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            // 파일 경로를 DTO에 저장
-            customerImgDto.setCi_img_url(todayPath + fileName);
-
- 
+        try {
+            imageFiles.transferTo(new File(fullPath));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
-        return "redirect:./customerManagerPage";
+
+        // 먼저 DTO에 세팅
+        customerImgDto.setCi_img_url(todayPath + fileName);
     }
+
+    // 이제 insert 호출
+    somheadalService.insertCustomerAndOptions(customerInfoDto, ctOptions, customerImgDto);
+
+    return "redirect:./customerManagerPage";
+    }
+
     
     
     

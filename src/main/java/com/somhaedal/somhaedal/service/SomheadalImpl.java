@@ -106,27 +106,32 @@ public class SomheadalImpl {
 
  @Transactional
 public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
-                                     CustomerOption customerOption,
+                                     List<Integer> ctOptions,
                                      CustomerImgDto customerImgDto) {
-    // 고객 정보 insert (여기서 ct_id_pk가 세팅됨)
+
+    // 1. 고객 기본 정보 insert
     someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
 
-    Integer customerId = customerInfoDto.getCt_id_pk();
+    int customerId = customerInfoDto.getCt_id_pk();
 
-    // 옵션 처리 (여러 개라면 loop 돌려야 함)
-    if (customerOption != null) {
-        customerOption.setCt_id_pk(customerId);
-        customerOption.setMp_id_pk(Integer.parseInt(customerInfoDto.getCt_type())); // 상품타입을 mp_id_pk로 매핑
-        customerOption.setPo_id_pk(Integer.parseInt(customerInfoDto.getCt_option()));
-        someheadalSqlMapper.checkOptions(customerOption);
+    // 2. 옵션 insert
+    if (ctOptions != null && !ctOptions.isEmpty()) {
+        for (Integer poId : ctOptions) {
+            CustomerOption choice = new CustomerOption();
+            choice.setCt_id_pk(customerId);
+            choice.setMp_id_pk(customerId); // 상품 타입 연결
+            choice.setPo_id_pk(poId);
+            someheadalSqlMapper.insertCustomerChoiceOption(choice);
+        }
     }
 
-    // 이미지 처리
+    // 3. 이미지 insert
     if (customerImgDto != null && customerImgDto.getCi_img_url() != null) {
         customerImgDto.setCt_id_pk(customerId);
         someheadalSqlMapper.insertFaceDesign(customerImgDto);
     }
 }
+
     
     //상품리스트
     public List<ProductDto> readMainProduct(){
@@ -139,5 +144,8 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
     }
 
     
+    public List<CustomerInfoDto> readCustomerList(){
+        return someheadalSqlMapper.readCustomerList();
+    }
  
 }

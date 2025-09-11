@@ -171,24 +171,28 @@
                 <th>신청자</th>
                 <th>타입</th>
                 <th>갯수</th>
-                <th>컨펌현황</th>
+                <th>작업현황</th>
                 <th>신청일</th>
                 <th>마감일</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="fabric : ${readFabricAdds}">
-                <td><img th:src="@{'/somUploadFiles/' + ${fabric.fb_swatch_img_path}}" alt="원단 이미지" width="40" height="40" class="rounded" /></td>
-                <td>
-                  <a th:href="@{'/detailFabricPage?fb_id_pk=' + ${fabric.fb_id_pk}}" style="color: inherit; text-decoration: none;">
-                    <span th:text="${fabric.fb_name}"></span>
-                  </a>
-                </td>
-                <td th:text="${fabric.fb_color}"></td>
-                <td th:text="${fabric.fb_width + ' x ' + fabric.fb_height}"></td>
-                <td th:text="${fabric.fb_source_supply}">130</td>
-                <td><a class="btn btn-sm btn-outline-primary" th:href="@{/detailFabricPage}" >Edit</a></td>
-              </tr>
+              <tr th:each="customer : ${customerSamllList}">
+              <td>
+                <a th:href="@{'/detailCustomerPage?ct_id_pk=' + ${customer.ct_id_pk}}" style="color: inherit; text-decoration: none;">
+                  <span th:text="${customer.ct_name}"></span>
+                </a>
+              </td>
+              <td th:text="${customer.ct_type}"></td>
+              <td th:text="${customer.ct_how_many}"></td>
+              <td>
+                <span th:if="${customer.ct_face_cf} == '미완료'">도안컨펌</span>
+                <span th:if="${customer.ct_face_cf} != '미완료' and ${customer.ct_design_cf} == '미완료'">면피컨펌</span>
+                <span th:if="${customer.ct_face_cf} != '미완료' and ${customer.ct_design_cf} != '미완료' and ${customer.ct_deleivery} == '미완료'">배송예정</span>
+              </td>
+              <td th:text="${#temporals.format(customer.ct_apply_date, 'yyyy-MM-dd')}"></td>
+              <td th:text="${#temporals.format(customer.ct_end_date, 'yyyy-MM-dd')}"></td>
+            </tr>
             </tbody>
           </table>
         </div>

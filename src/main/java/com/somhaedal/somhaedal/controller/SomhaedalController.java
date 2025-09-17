@@ -276,7 +276,7 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
     }
     
     @PostMapping("customerAddProcess")
-public String postMethodName(MultipartFile imageFiles,
+    public String postMethodName(MultipartFile imageFiles,
                              CustomerImgDto customerImgDto,
                              CustomerInfoDto customerInfoDto,
                              @RequestParam(value = "ct_option", required = false) List<Integer> ctOptions) {
@@ -310,6 +310,13 @@ public String postMethodName(MultipartFile imageFiles,
     return "redirect:./customerManagerPage";
     }
 
+    @GetMapping("customerDetailPage")
+    public String customerDetailPage(HttpSession session, Model model, @RequestParam("ct_id_pk") int ct_id_pk,
+                                        CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto,
+                                        CustomerOption customerOption) {
+        model.getAttribute("cusotmerOneRead",somheadalService.readOptions());
+        return "customerDetailPage";
+    }
     
     
     

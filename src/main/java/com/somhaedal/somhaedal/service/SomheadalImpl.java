@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.somhaedal.somhaedal.dto.AdminDto;
+import com.somhaedal.somhaedal.dto.CustomerAddress;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
@@ -130,6 +131,9 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
         customerImgDto.setCt_id_pk(customerId);
         someheadalSqlMapper.insertFaceDesign(customerImgDto);
     }
+
+    //고객 배송정보 insert
+
 }
 
     
@@ -138,7 +142,7 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
         return someheadalSqlMapper.readMainProduct();
     }
 
-    //유료 옵션 리스트
+    //유료 옵션 리스트 고객 개인 거
     public List<ProducOptiontDto> readOptions(){
         return someheadalSqlMapper.readOptions();
     }

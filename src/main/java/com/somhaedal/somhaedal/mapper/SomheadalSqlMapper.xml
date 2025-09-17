@@ -154,4 +154,19 @@ insert into customer_img (ct_id_pk, ci_img_url) values (#{ct_id_pk}, #{ci_img_ur
 select * from customer_info ci;
 </select>
 
+
+
+<select id="readCustomerOptions"  resultType="map">
+select po_name, po_extra_price  from customer_choice_option cco 
+inner join product_option po on po.po_id_pk = cco.po_id_pk 
+where cco.ct_id_pk = #{ct_id_pk};
+</select>
+
+<select id="readCustomerAdds" resultType="map">
+select * from customer_info ci 
+inner join customer_img ci2 on ci.ct_id_pk = ci2.ct_id_pk 
+where ci.ct_id_pk = #{ct_id_pk};
+</select>
+
+
 </mapper>

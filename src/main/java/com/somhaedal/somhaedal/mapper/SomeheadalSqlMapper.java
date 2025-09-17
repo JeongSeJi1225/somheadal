@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.somhaedal.somhaedal.dto.AdminDto;
+import com.somhaedal.somhaedal.dto.CustomerAddress;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
@@ -82,4 +83,15 @@ public interface SomeheadalSqlMapper {
     public void insertFaceDesign(CustomerImgDto customerImgDto);
 
     public List<CustomerInfoDto> readCustomerList();
+
+    void insertCustomerAddress(CustomerAddress customerAddress);
+
+    //고객정보 상세보기
+    public Map<String, Object> readCustomerAdds(int ct_id_pk);
+
+    //고객이 선택한 유료 옵션들
+    public List<Map<String, Object>>  readCustomerOptions(int ct_id_pk);
+
+
+    
 }

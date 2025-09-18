@@ -142,14 +142,25 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
         return someheadalSqlMapper.readMainProduct();
     }
 
-    //유료 옵션 리스트 고객 개인 거
-    public List<ProducOptiontDto> readOptions(){
-        return someheadalSqlMapper.readOptions();
-    }
-
-    
     public List<CustomerInfoDto> readCustomerList(){
         return someheadalSqlMapper.readCustomerList();
     }
+
+    public List<ProducOptiontDto> readOptions(){
+        return someheadalSqlMapper.readOptions();
+    };
+
+
+    //이거 고객이 선택한 유료옵션s
+    public List<Map<String, Object>> readCustomerOptions(int ct_id_pk){
+    return someheadalSqlMapper.readCustomerOptions(ct_id_pk);
+    }
+    
+    //고객님 신청서 상세보기인데
+    public Map<String, Object> readCustomerAdds(int ct_id_pk){
+        return someheadalSqlMapper.readCustomerAdds(ct_id_pk);
+    }
+
+    
  
 }

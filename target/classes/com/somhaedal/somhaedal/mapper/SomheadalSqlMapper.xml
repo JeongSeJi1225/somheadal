@@ -168,5 +168,19 @@ inner join customer_img ci2 on ci.ct_id_pk = ci2.ct_id_pk
 where ci.ct_id_pk = #{ct_id_pk};
 </select>
 
+<update id="updateFaceCf">
+	update customer_info set ct_face_cf = "완료" where ct_id_pk =#{ct_id_pk};
+</update>
+
+<update id="updateDesignCf">
+	update customer_info set ct_design_cf = "완료" where ct_design_cf =#{ct_id_pk};
+</update>
+
+<update id="updateDeliveryOk">
+	update customer_info set ct_deleivery = "완료" where ct_deleivery =#{ct_id_pk};
+</update>
+
+
+
 
 </mapper>

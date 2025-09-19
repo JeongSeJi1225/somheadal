@@ -92,6 +92,14 @@ public interface SomeheadalSqlMapper {
     //고객이 선택한 유료 옵션들
     public List<Map<String, Object>>  readCustomerOptions(int ct_id_pk);
 
+    //도안컨펌 버튼
+    public void updateFaceCf(CustomerInfoDto customerInfoDto);
+    
+    //면피컨펌 버튼
+    public void updateDesignCf(CustomerInfoDto customerInfoDto);
+    
+    //배송완료 버튼
+    public void updateDeliveryOk(CustomerInfoDto customerInfoDto);
 
     
 }

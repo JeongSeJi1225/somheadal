@@ -111,9 +111,7 @@
         </div>
 
         <div class="card">
-          <div class="row">
-            <div class="col">
-              <!-- 신청자 기본 정보 -->
+          <!-- 신청자 기본 정보 -->
           <div class="section-title">신청자 정보</div>
           <div class="row mb-3">
             <div class="col-md-4">
@@ -130,20 +128,12 @@
             </div>
           </div>
 
-          <div class="row mb-3">
-
-            <div class="col">
-              <label class="form-label">주소</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_address']}">주소</p>
-            </div>
-          </div>
-
           <!-- 신청서 상세 정보 -->
           <div class="section-title">신청서 내용</div>
           <div class="row mb-3">
             <div class="col-md-3">
               <label class="form-label">타입</label>
-              <p class="form-control-plaintext" th:text="${customerReadOptions['po_name']}">타입</p>
+              <p class="form-control-plaintext" th:text="${customerReadApply['ct_type']}">타입</p>
             </div>
             <div class="col-md-3">
               <label class="form-label">개수</label>
@@ -154,47 +144,6 @@
               <div>
                 <span th:each="opt : ${customerReadOptions}" class="option-badge" th:text="${opt['po_name']}">옵션</span>
               </div>
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-md-3">
-              <label class="form-label">타입</label>
-              <p class="form-control-plaintext" th:text="${customerReadOptions['po_name']}">타입</p>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label">개수</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_how_many']}">개수</p>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">유료 옵션</label>
-              <div>
-                <span th:each="opt : ${customerReadOptions}" class="option-badge" th:text="${opt['po_name']}">옵션</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-md-3">
-              <label class="form-label">가격</label>
-              <p class="form-control-plaintext" th:text="${customerReadOptions['po_name']}">가격</p>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label">개수</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_how_many']}">추가비용</p>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">택배비</label>
-              <div>
-                <span th:each="opt : ${customerReadOptions}" class="option-badge" th:text="${opt['po_name']}">택배비</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="row mb-3">
-            <div class="col-md-3">
-              <label class="form-label">최종 금액</label>
-              <p class="form-control-plaintext" th:text="${customerReadOptions['po_name']}">최종 금액</p>
             </div>
           </div>
 
@@ -215,54 +164,22 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">신청일</label>
-              <p class="form-control-plaintext" th:text="${#temporals.format(customerReadApply['ct_apply_date'], 'yyyy-MM-dd')}">2025-09-10 15:06</p>
+              <p class="form-control-plaintext" th:text="${#dates.format(customerReadApply['ct_apply_date'], 'yyyy-MM-dd HH:mm')}">2025-09-10 15:06</p>
             </div>
             <div class="col-md-6">
               <label class="form-label">마감일</label>
-              <p class="form-control-plaintext" th:text="${#temporals.format(customerReadApply['ct_end_date'], 'yyyy-MM-dd')}">2025-09-13 15:06</p>
+              <p class="form-control-plaintext" th:text="${#dates.format(customerReadApply['ct_end_date'], 'yyyy-MM-dd HH:mm')}">2025-09-13 15:06</p>
             </div>
           </div>
 
-          
-          </div>
-          <div class="col">
-            <div class="row">
-              <div class="mb-3">
-              <label class="form-label">도안 이미지</label>
-              <div th:if="${customerReadApply['ci_img_url'] != null}">
-                <img th:src="@{'/images/' + ${customerReadApply['ci_img_url']}}" class="img-fluid rounded" alt="도안 이미지">
-              </div>
-              <div th:if="${customerReadApply['ci_img_url'] == null}">
-                <p class="text-muted">이미지 없음</p>
-                 <a th:href="@{./updateStock(fb_id_pk=${fabric.fb_id_pk})}" class="btn btn-outline-success w-100">도안컨펌 완료</a>
-              </div>
-              </div> 
+          <div class="mb-3">
+            <label class="form-label">도안 이미지</label>
+            <div th:if="${customerReadApply['ci_img_url'] != null}">
+              <img th:src="@{'/images/' + ${customerReadApply['ci_img_url']}}" class="img-fluid rounded" alt="도안 이미지">
             </div>
-            <div class="row">
-              <div class="mb-3">
-              <label class="form-label">면피 이미지</label>
-              <div th:if="${customerReadApply['ci_img_url'] != null}">
-                <input class="form-control" type="file" name="imageFiles">
-              </div>
-              <div th:if="${customerReadApply['ci_img_url'] == null}">
-                <input class="form-control" type="file" name="imageFiles">
-                 <a th:href="@{./updateStock(fb_id_pk=${fabric.fb_id_pk})}" class="btn btn-outline-success w-100">면피컨펌 완료</a>
-              </div>
-              </div> 
+            <div th:if="${customerReadApply['ci_img_url'] == null}">
+              <p class="text-muted">이미지 없음</p>
             </div>
-            <div class="row">
-              <div class="mb-3">
-              <label class="form-label">제작완료 이미지</label>
-              <div th:if="${customerReadApply['ci_img_url'] != null}">
-                <img th:src="@{'/images/' + ${customerReadApply['ci_img_url']}}" class="img-fluid rounded" alt="도안 이미지">
-                 <a th:href="@{./updateStock(fb_id_pk=${fabric.fb_id_pk})}" class="btn btn-outline-success w-100">배송준비 완료</a>
-              </div>
-              <div th:if="${customerReadApply['ci_img_url'] == null}">
-                <p class="text-muted">이미지 없음</p>
-              </div>
-              </div> 
-            </div>
-          </div>
           </div>
 
         </div> <!-- card -->

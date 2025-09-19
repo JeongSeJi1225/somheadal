@@ -161,6 +161,21 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
         return someheadalSqlMapper.readCustomerAdds(ct_id_pk);
     }
 
+    public void updateFaceCf (CustomerInfoDto customerInfoDto){
+        someheadalSqlMapper.updateFaceCf(customerInfoDto);
+    }
+
+    public void updateDesignCf (CustomerInfoDto customerInfoDto){
+        someheadalSqlMapper.updateDesignCf(customerInfoDto);
+    }
+
+    public void updateDeliveryOk (CustomerInfoDto customerInfoDto){
+        someheadalSqlMapper.updateDeliveryOk(customerInfoDto);
+    }
+
+
+
+
     
  
 }

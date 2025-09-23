@@ -156,10 +156,12 @@ select * from customer_info ci;
 
 
 
-<select id="readCustomerOptions"  resultType="map">
-select po_name, po_extra_price  from customer_choice_option cco 
-inner join product_option po on po.po_id_pk = cco.po_id_pk 
-where cco.ct_id_pk = #{ct_id_pk};
+<select id="readCustomerOptions" resultType="com.somhaedal.somhaedal.dto.CustomerOption">
+  select po_name as poName,
+         po_extra_price as poExtraPrice
+  from customer_choice_option cco
+  inner join product_option po on po.po_id_pk = cco.po_id_pk
+  where cco.ct_id_pk = #{ct_id_pk}
 </select>
 
 <select id="readCustomerAdds" resultType="map">

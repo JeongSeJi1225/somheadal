@@ -318,7 +318,7 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         model.addAttribute("customerReadApply", somheadalService.readCustomerAdds(ct_id_pk));
 
         System.out.println("ct _ id _ pk =" + somheadalService.readCustomerAdds(ct_id_pk));
-
+        System.out.println("options : " + somheadalService.readCustomerOptions(ct_id_pk));
         return "customerDetailPage";
     }
     

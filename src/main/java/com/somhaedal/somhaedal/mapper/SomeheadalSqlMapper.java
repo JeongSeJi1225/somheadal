@@ -89,8 +89,9 @@ public interface SomeheadalSqlMapper {
     //고객정보 상세보기
     public Map<String, Object> readCustomerAdds(int ct_id_pk);
 
+
     //고객이 선택한 유료 옵션들
-    public List<Map<String, Object>>  readCustomerOptions(int ct_id_pk);
+    public List<CustomerOption>  readCustomerOptions(int ct_id_pk);
 
     //도안컨펌 버튼
     public void updateFaceCf(CustomerInfoDto customerInfoDto);

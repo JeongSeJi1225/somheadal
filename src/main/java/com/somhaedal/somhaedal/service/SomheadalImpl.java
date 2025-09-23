@@ -152,7 +152,7 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
 
 
     //이거 고객이 선택한 유료옵션s
-    public List<Map<String, Object>> readCustomerOptions(int ct_id_pk){
+    public List<CustomerOption> readCustomerOptions(int ct_id_pk){
     return someheadalSqlMapper.readCustomerOptions(ct_id_pk);
     }
     

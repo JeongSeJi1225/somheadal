@@ -13,7 +13,7 @@ import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricLogDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.FabricSwatchDto;
-import com.somhaedal.somhaedal.dto.ProducOptiontDto;
+import com.somhaedal.somhaedal.dto.ProductOptiontDto;
 import com.somhaedal.somhaedal.dto.ProductionTaskDto;
 import com.somhaedal.somhaedal.dto.ProductDto;
 import com.somhaedal.somhaedal.dto.SubMaterialDto;
@@ -68,7 +68,7 @@ public interface SomeheadalSqlMapper {
     public List<ProductDto> readMainProduct();
 
     //상품 추가금 옵션
-    public List<ProducOptiontDto> readOptions();
+    public List<ProductOptiontDto> readOptions();
 
     // //옵션 insert
     // public CustomerOption checkOptions(CustomerOption customerOption);
@@ -92,6 +92,7 @@ public interface SomeheadalSqlMapper {
 
     //고객이 선택한 유료 옵션들
     public List<CustomerOption>  readCustomerOptions(int ct_id_pk);
+    
 
     //도안컨펌 버튼
     public void updateFaceCf(CustomerInfoDto customerInfoDto);

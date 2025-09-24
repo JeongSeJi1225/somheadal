@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-public class ProducOptiontDto {
+public class ProductOptiontDto {
     private int po_id_pk;
     private String po_name;
     private String po_extra_price;

@@ -14,7 +14,7 @@ import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
-import com.somhaedal.somhaedal.dto.ProducOptiontDto;
+import com.somhaedal.somhaedal.dto.ProductOptiontDto;
 import com.somhaedal.somhaedal.dto.ProductDto;
 import com.somhaedal.somhaedal.mapper.SomeheadalSqlMapper;
 
@@ -146,7 +146,7 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
         return someheadalSqlMapper.readCustomerList();
     }
 
-    public List<ProducOptiontDto> readOptions(){
+    public List<ProductOptiontDto> readOptions(){
         return someheadalSqlMapper.readOptions();
     };
 

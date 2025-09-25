@@ -121,6 +121,18 @@
               </div>
 
               <div class="mb-4 ">
+                <label class="form-label">배송선택</label>
+                <select class="form-select" name="ct_delivery_op">
+                  <option selected disabled>배송옵션을 선택하세요.</option>
+                  <option th:each="deli : ${deliverys}"
+                          th:value="${deli.do_id_pk}"
+                          th:text="${deli.do_name}"
+                          >
+                  </option>
+                </select>
+            </div>
+
+              <div class="mb-4 ">
                   <label class="form-label">타입지정</label>
                   <select class="form-select" name="ct_type">
                     <option selected disabled>상품 유형을 선택하세요.</option>

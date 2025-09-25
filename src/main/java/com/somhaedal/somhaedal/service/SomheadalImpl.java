@@ -12,6 +12,7 @@ import com.somhaedal.somhaedal.dto.CustomerAddress;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
+import com.somhaedal.somhaedal.dto.DeliveryOptionDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.ProductOptiontDto;
@@ -173,6 +174,9 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
         someheadalSqlMapper.updateDeliveryOk(customerInfoDto);
     }
 
+    public List<DeliveryOptionDto> readDeliveryOptions(){
+        return someheadalSqlMapper.readDeliveryOp();
+    }
 
 
 

@@ -9,6 +9,7 @@ import com.somhaedal.somhaedal.dto.CustomerAddress;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
+import com.somhaedal.somhaedal.dto.DeliveryOptionDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricLogDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
@@ -102,6 +103,9 @@ public interface SomeheadalSqlMapper {
     
     //배송완료 버튼
     public void updateDeliveryOk(CustomerInfoDto customerInfoDto);
+
+    //배송옵션
+    public List<DeliveryOptionDto> readDeliveryOp();
 
     
 }

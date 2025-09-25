@@ -132,11 +132,11 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
     insert into customer_info(
         ct_name, ct_phone, ct_address, ct_type, ct_option,
         ct_memo, ct_char, ct_char_explain, ct_how_many,
-        ct_end_date, ct_apply_date, ct_face_cf, ct_design_cf, ct_deleivery
+        ct_end_date, ct_apply_date, ct_face_cf, ct_design_cf, ct_deleivery, ct_delivery_op
     ) values (
         #{ct_name}, #{ct_phone}, #{ct_address}, #{ct_type}, #{ct_option},
         #{ct_memo}, #{ct_char}, #{ct_char_explain}, #{ct_how_many},
-        #{ct_end_date}, now(), "미완료", "미완료", "미배송"
+        #{ct_end_date}, now(), "미완료", "미완료", "미배송", #{ct_delivery_op}
     )
 </insert>
 
@@ -183,6 +183,28 @@ where ci.ct_id_pk = #{ct_id_pk};
 	update customer_info set ct_deleivery = "완료" where ct_deleivery =#{ct_id_pk};
 </update>
 
+<select id="readDeliveryOp" resultType="com.somhaedal.somhaedal.dto.DeliveryOptionDto">
+select * from delivery_option;
+</select>
+
+<select id="getCustomerOrderTotal" resultType="map">
+    SELECT 
+        ci.ct_id_pk,
+        ci.ct_name,
+        mp.mp_name,
+        mp.mp_charge AS base_price,
+        COALESCE(SUM(po.po_extra_price), 0) AS option_price,
+        COALESCE(do.do_price, 0) AS delivery_price,
+        ci.ct_how_many,
+        (mp.mp_charge + COALESCE(SUM(po.po_extra_price), 0) + COALESCE(do.do_price, 0)) * ci.ct_how_many AS total_price
+    FROM customer_info ci
+    JOIN customer_choice_option cco ON ci.ct_id_pk = cco.ct_id_pk
+    JOIN main_product mp ON cco.mp_id_pk = mp.mp_id_pk
+    LEFT JOIN product_option po ON cco.po_id_pk = po.po_id_pk
+    LEFT JOIN delivery_option do ON ci.ct_delivery_op = do.do_id_pk
+    WHERE ci.ct_id_pk = #{ct_id_pk}
+    GROUP BY ci.ct_id_pk, ci.ct_name, mp.mp_name, mp.mp_charge, do.do_price, ci.ct_how_many
+</select>
 
 
 

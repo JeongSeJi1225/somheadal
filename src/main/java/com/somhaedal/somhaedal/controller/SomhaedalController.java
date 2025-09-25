@@ -20,6 +20,7 @@ import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
+import com.somhaedal.somhaedal.dto.DeliveryOptionDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.service.SomheadalImpl;
@@ -272,6 +273,7 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
     public String customerAddPage(HttpSession session, Model model) {
         model.addAttribute("readProducts", somheadalService.readMainProduct());
         model.addAttribute("readOptions", somheadalService.readOptions());
+        model.addAttribute("deliverys", somheadalService.readDeliveryOptions());
         return "customerAddPage";
     }
     
@@ -326,10 +328,11 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         @GetMapping("another")
     public String another(HttpSession session, Model model, @RequestParam("ct_id_pk") int ct_id_pk,
                                         CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto,
-                                        CustomerOption customerOption) {
+                                        CustomerOption customerOption,
+                                        DeliveryOptionDto deliveryOptionDto) {
         model.addAttribute("customerReadOptions",somheadalService.readCustomerOptions(ct_id_pk));
         model.addAttribute("customerReadApply", somheadalService.readCustomerAdds(ct_id_pk));
-
+        model.addAttribute("deliverys", somheadalService.readDeliveryOptions());
         System.out.println("ct _ id _ pk =" + somheadalService.readCustomerAdds(ct_id_pk));
 
 

@@ -11,7 +11,7 @@ import lombok.Data;
 public class ProductOptiontDto {
     private int po_id_pk;
     private String po_name;
-    private String po_extra_price;
+    private int po_extra_price;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime po_created_at;

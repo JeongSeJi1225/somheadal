@@ -2,6 +2,7 @@ package com.somhaedal.somhaedal.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -278,10 +279,12 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
     }
     
     @PostMapping("customerAddProcess")
-    public String postMethodName(MultipartFile imageFiles,
+    public String postMethodName(@RequestParam("imageFiles") List<MultipartFile> imageFiles,
                              CustomerImgDto customerImgDto,
                              CustomerInfoDto customerInfoDto,
                              @RequestParam(value = "ct_option", required = false) List<Integer> ctOptions) {
+
+    List<CustomerImgDto> imgList = new ArrayList<>();
 
     if (imageFiles != null && !imageFiles.isEmpty()) {
         String rootPath = "C:/somUploadFiles/";
@@ -290,27 +293,35 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         File folder = new File(rootPath + todayPath);
         if (!folder.exists()) folder.mkdirs();
 
-        String originalFileName = imageFiles.getOriginalFilename();
-        String uuid = UUID.randomUUID().toString();
-        long currentTime = System.currentTimeMillis();
-        String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
-        String fullPath = rootPath + todayPath + fileName;
+        for (MultipartFile file : imageFiles) {
+            if (file.isEmpty()) continue;
 
-        try {
-            imageFiles.transferTo(new File(fullPath));
-        } catch (Exception e) {
-            e.printStackTrace();
+            String originalFileName = file.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString();
+            long currentTime = System.currentTimeMillis();
+            String fileName = uuid + "_" + currentTime 
+                                + originalFileName.substring(originalFileName.lastIndexOf("."));
+            String fullPath = rootPath + todayPath + fileName;
+
+            try {
+                file.transferTo(new File(fullPath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            CustomerImgDto imgDto = new CustomerImgDto();
+            imgDto.setCi_img_url(todayPath + fileName);
+            imgList.add(imgDto);
         }
-
-        // 먼저 DTO에 세팅
-        customerImgDto.setCi_img_url(todayPath + fileName);
     }
 
-    // 이제 insert 호출
-    somheadalService.insertCustomerAndOptions(customerInfoDto, ctOptions, customerImgDto);
+    // 여러 장 이미지도 서비스로 넘김
+    somheadalService.insertCustomerAndOptions(customerInfoDto, ctOptions, imgList);
 
     return "redirect:./customerManagerPage";
-    }
+}
+
+    
 
     @GetMapping("customerDetailPage")
     public String customerDetailPage(HttpSession session, Model model, @RequestParam("ct_id_pk") int ct_id_pk,
@@ -318,6 +329,8 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
                                         CustomerOption customerOption) {
         model.addAttribute("customerReadOptions",somheadalService.readCustomerOptions(ct_id_pk));
         model.addAttribute("customerReadApply", somheadalService.readCustomerAdds(ct_id_pk));
+        model.addAttribute("totalSums", somheadalService.readSumOptionsOne(ct_id_pk));
+        model.addAttribute("readCustomerImgData", somheadalService.readCustomerImgData(ct_id_pk));
 
         System.out.println("ct _ id _ pk =" + somheadalService.readCustomerAdds(ct_id_pk));
         System.out.println("options : " + somheadalService.readCustomerOptions(ct_id_pk));

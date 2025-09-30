@@ -109,11 +109,10 @@ public class SomheadalImpl {
  @Transactional
 public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
                                      List<Integer> ctOptions,
-                                     CustomerImgDto customerImgDto) {
+                                     List<CustomerImgDto> customerImgDtos) {
 
     // 1. 고객 기본 정보 insert
     someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
-
     int customerId = customerInfoDto.getCt_id_pk();
 
     // 2. 옵션 insert
@@ -121,20 +120,18 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
         for (Integer poId : ctOptions) {
             CustomerOption choice = new CustomerOption();
             choice.setCt_id_pk(customerId);
-            choice.setMp_id_pk(customerId); // 상품 타입 연결
             choice.setPo_id_pk(poId);
             someheadalSqlMapper.insertCustomerChoiceOption(choice);
         }
     }
 
-    // 3. 이미지 insert
-    if (customerImgDto != null && customerImgDto.getCi_img_url() != null) {
-        customerImgDto.setCt_id_pk(customerId);
-        someheadalSqlMapper.insertFaceDesign(customerImgDto);
+    // 3. 여러 장 이미지 insert
+    if (customerImgDtos != null && !customerImgDtos.isEmpty()) {
+        for (CustomerImgDto imgDto : customerImgDtos) {
+            imgDto.setCt_id_pk(customerId);
+            someheadalSqlMapper.insertFaceDesign(imgDto);
+        }
     }
-
-    //고객 배송정보 insert
-
 }
 
     
@@ -158,9 +155,16 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
     }
     
     //고객님 신청서 상세보기인데
-    public Map<String, Object> readCustomerAdds(int ct_id_pk){
+    public List<CustomerImgDto> readCustomerImgData(int ct_id_pk){
+        return someheadalSqlMapper.readCustomerImgData(ct_id_pk);
+    }
+
+        public Map<String, Object> readCustomerAdds(int ct_id_pk){
         return someheadalSqlMapper.readCustomerAdds(ct_id_pk);
     }
+	
+
+    
 
     public void updateFaceCf (CustomerInfoDto customerInfoDto){
         someheadalSqlMapper.updateFaceCf(customerInfoDto);
@@ -176,6 +180,10 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
 
     public List<DeliveryOptionDto> readDeliveryOptions(){
         return someheadalSqlMapper.readDeliveryOp();
+    }
+
+    public Map<String, Object> readSumOptionsOne(int ct_id_pk){
+        return someheadalSqlMapper.readSumOptionsOne(ct_id_pk);
     }
 
 

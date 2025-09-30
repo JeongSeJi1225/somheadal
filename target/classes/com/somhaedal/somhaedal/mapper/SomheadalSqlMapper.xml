@@ -117,7 +117,7 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
 </insert>
 
 <select id="readOptions" resultType="com.somhaedal.somhaedal.dto.ProductOptiontDto">
-	select * from product_option po;
+	select * from product_option po group by po_name asc;
 </select>
 
 <select id="readMainProduct" resultType="com.somhaedal.somhaedal.dto.ProductDto">
@@ -171,6 +171,11 @@ inner join customer_img ci2 on ci.ct_id_pk = ci2.ct_id_pk
 where ci.ct_id_pk = #{ct_id_pk};
 </select>
 
+<select id="readCustomerImgData" resultType="com.somhaedal.somhaedal.dto.CustomerImgDto">
+select * from customer_img where ct_id_pk = #{ct_id_pk};
+</select>
+
+
 <update id="updateFaceCf">
 	update customer_info set ct_face_cf = "완료" where ct_id_pk =#{ct_id_pk};
 </update>
@@ -187,25 +192,37 @@ where ci.ct_id_pk = #{ct_id_pk};
 select * from delivery_option;
 </select>
 
-<select id="getCustomerOrderTotal" resultType="map">
-    SELECT 
-        ci.ct_id_pk,
-        ci.ct_name,
-        mp.mp_name,
-        mp.mp_charge AS base_price,
-        COALESCE(SUM(po.po_extra_price), 0) AS option_price,
-        COALESCE(do.do_price, 0) AS delivery_price,
-        ci.ct_how_many,
-        (mp.mp_charge + COALESCE(SUM(po.po_extra_price), 0) + COALESCE(do.do_price, 0)) * ci.ct_how_many AS total_price
-    FROM customer_info ci
-    JOIN customer_choice_option cco ON ci.ct_id_pk = cco.ct_id_pk
-    JOIN main_product mp ON cco.mp_id_pk = mp.mp_id_pk
-    LEFT JOIN product_option po ON cco.po_id_pk = po.po_id_pk
-    LEFT JOIN delivery_option do ON ci.ct_delivery_op = do.do_id_pk
-    WHERE ci.ct_id_pk = #{ct_id_pk}
-    GROUP BY ci.ct_id_pk, ci.ct_name, mp.mp_name, mp.mp_charge, do.do_price, ci.ct_how_many
-</select>
 
+
+<select id="readSumOptionsOne" resultType="map">
+SELECT 
+    ci.ct_id_pk,
+    ci.ct_name,
+    ci.ct_phone,
+    ci.ct_how_many,
+    do.do_name,
+    do.do_price,
+    mp.mp_explain,
+    mp.mp_charge,
+    GROUP_CONCAT(po.po_name SEPARATOR ', ') AS option_names,
+    GROUP_CONCAT(po.po_extra_price SEPARATOR ', ') AS option_prices,
+    MIN(cco.oc_created_at) AS created_at,
+    (ci.ct_how_many * mp.mp_charge 
+     + SUM(po.po_extra_price) 
+     + do.do_price) AS total_price
+FROM customer_info ci 
+INNER JOIN main_product mp 
+    ON mp.mp_id_pk = ci.ct_type
+INNER JOIN delivery_option do 
+    ON do.do_id_pk = ci.ct_delivery_op
+INNER JOIN customer_choice_option cco 
+    ON cco.ct_id_pk = ci.ct_id_pk
+INNER JOIN product_option po 
+    ON po.po_id_pk = cco.po_id_pk
+WHERE ci.ct_id_pk = #{ct_id_pk}
+GROUP BY ci.ct_id_pk, ci.ct_name, ci.ct_phone, ci.ct_how_many,
+         do.do_name, do.do_price, mp.mp_explain, mp.mp_charge;
+</select>
 
 
 </mapper>

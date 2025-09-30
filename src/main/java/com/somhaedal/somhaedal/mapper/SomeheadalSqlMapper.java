@@ -89,7 +89,7 @@ public interface SomeheadalSqlMapper {
 
     //고객정보 상세보기
     public Map<String, Object> readCustomerAdds(int ct_id_pk);
-
+    public List<CustomerImgDto> readCustomerImgData(int ct_id_pk);
 
     //고객이 선택한 유료 옵션들
     public List<CustomerOption>  readCustomerOptions(int ct_id_pk);
@@ -106,6 +106,8 @@ public interface SomeheadalSqlMapper {
 
     //배송옵션
     public List<DeliveryOptionDto> readDeliveryOp();
+
+    public Map<String, Object> readSumOptionsOne(int ct_id_pk);
 
     
 }

@@ -127,17 +127,26 @@
               <p class="form-control-plaintext" th:text="${customerReadApply['ct_phone']}">010-0000-0000</p>
             </div>
             <div class="col-md-4">
+              <label class="form-label">택배</label>
+              <p class="form-control-plaintext" th:text="${totalSums['do_name']}">택배</p>
+            </div>
+          </div>
+
+
+          <div class="row mb-3">
+            <div class="col">
               <label class="form-label">주소</label>
               <p class="form-control-plaintext" th:text="${customerReadApply['ct_address']}">주소</p>
             </div>
           </div>
+          
 
           <!-- 신청서 상세 정보 -->
           <div class="section-title">신청서 내용</div>
           <div class="row mb-3">
             <div class="col-md-3">
               <label class="form-label">타입</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_type']}">타입</p>
+              <p class="form-control-plaintext" th:text="${totalSums['mp_explain']}">타입</p>
             </div>
             <div class="col-md-3">
               <label class="form-label">개수</label>
@@ -158,26 +167,11 @@
 
           <div class="section-title">총 가격</div>
           <div class="row mb-3">
-            <div class="col-md-3">
-              <label class="form-label">타입</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_type']}">타입</p>
-              가격
+            <div class="col">
+              <label class="form-label">가격</label>
+              <p class="form-control-plaintext" th:text="${totalSums['total_price']}">가격</p>
+              
             </div>
-            <div class="col-md-3">
-              <label class="form-label">개수</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_how_many']}">개수</p>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">유료 옵션</label>
-              <div>
-                <span th:each="opt : ${customerReadOptions}" 
-                      class="option-badge">
-                  <span th:text="${opt.po_name}">옵션명</span>
-                  (<span th:text="${opt.po_extra_price}">0</span>원)
-                </span>
-              </div>
-            </div>
-            (타입x개수)+유료옵션
 
           </div>
 
@@ -206,18 +200,27 @@
             </div>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label">도안 이미지</label>
-            <div th:if="${customerReadApply['ci_img_url'] != null}">
-              <img th:src="@{'/images/' + ${customerReadApply['ci_img_url']}}" class="img-fluid rounded" alt="도안 이미지">
+          
             </div>
-            <div th:if="${customerReadApply['ci_img_url'] == null}">
-              <p class="text-muted">이미지 없음</p>
-            </div>
-          </div>
-            </div>
-            <div class="col">
 
+
+            <div class="col">
+              <div class="row">
+                <div class="mb-3">
+                <label class="form-label">자료 이미지</label>
+                  <div th:each="data : ${readCustomerImgData}">
+                      <img th:src="@{|/somUploadFiles/${data.ci_img_url}|}" alt="도안 이미지" class="img-fluid" />
+                  </div>
+                
+                </div>
+              </div>
+
+              
+
+
+
+
+              
             </div>
           </div>
 

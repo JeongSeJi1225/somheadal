@@ -120,7 +120,7 @@
           <div class="row mb-3">
             <div class="col-md-4">
               <label class="form-label">신청자명</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_name']}">이름</p>
+              <p class="form-control-plaintext" th:text="${customerReadApply.ct_name}">이름</p>
             </div>
             <div class="col-md-4">
               <label class="form-label">연락처</label>
@@ -192,14 +192,13 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">신청일</label>
-              <p class="form-control-plaintext" th:text="${#dates.format(customerReadApply['ct_apply_date'], 'yyyy-MM-dd HH:mm')}">2025-09-10 15:06</p>
+              <p class="form-control-plaintext" th:text="${customerReadApply.ct_apply_date.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}"></p>
             </div>
             <div class="col-md-6">
               <label class="form-label">마감일</label>
-              <p class="form-control-plaintext" th:text="${#dates.format(customerReadApply['ct_end_date'], 'yyyy-MM-dd HH:mm')}">2025-09-13 15:06</p>
+              <p class="form-control-plaintext" th:text="${customerReadApply.ct_end_date.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}"></p>
             </div>
           </div>
-
           
             </div>
 
@@ -209,8 +208,32 @@
                 <div class="mb-3">
                 <label class="form-label">자료 이미지</label>
                   <div th:each="data : ${readCustomerImgData}">
-                      <img th:src="@{|/somUploadFiles/${data.ci_img_url}|}" alt="도안 이미지" class="img-fluid" />
+                      <img th:src="@{|/somUploadFiles/${data.ci_img_url}|}" alt="도안 이미지" class="img-fluid my-2" />
                   </div>
+                
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="mb-3">
+                <label class="form-label">도안 이미지</label>
+                  도안 이미지 파일 업로드 / 버튼
+                
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="mb-3">
+                <label class="form-label">도안 이미지</label>
+                  도안 이미지 파일 업로드 / 버튼
+                
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="mb-3">
+                <label class="form-label">도안 이미지</label>
+                  도안 이미지 파일 업로드 / 버튼
                 
                 </div>
               </div>

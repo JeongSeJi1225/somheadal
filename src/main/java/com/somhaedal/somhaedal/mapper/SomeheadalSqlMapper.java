@@ -88,7 +88,7 @@ public interface SomeheadalSqlMapper {
     void insertCustomerAddress(CustomerAddress customerAddress);
 
     //고객정보 상세보기
-    public Map<String, Object> readCustomerAdds(int ct_id_pk);
+    public List<CustomerInfoDto> readCustomerAdds(int ct_id_pk);
     public List<CustomerImgDto> readCustomerImgData(int ct_id_pk);
 
     //고객이 선택한 유료 옵션들

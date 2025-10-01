@@ -159,10 +159,17 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
         return someheadalSqlMapper.readCustomerImgData(ct_id_pk);
     }
 
-        public Map<String, Object> readCustomerAdds(int ct_id_pk){
-        return someheadalSqlMapper.readCustomerAdds(ct_id_pk);
-    }
+    //     public List<CustomerInfoDto> readCustomerAdds(int ct_id_pk){
+    //     return someheadalSqlMapper.readCustomerAdds(ct_id_pk);
+    // }
 	
+    public CustomerInfoDto readCustomerAdds(int ct_id_pk){
+    List<CustomerInfoDto> list = someheadalSqlMapper.readCustomerAdds(ct_id_pk);
+    if(list != null && !list.isEmpty()) {
+        return list.get(0); // 첫 번째 객체 반환
+    }
+    return null;
+}
 
     
 

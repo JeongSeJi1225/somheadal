@@ -165,9 +165,8 @@ select * from customer_info ci;
 </select>
 
 
-<select id="readCustomerAdds" resultType="map">
+<select id="readCustomerAdds" resultType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
 select * from customer_info ci 
-inner join customer_img ci2 on ci.ct_id_pk = ci2.ct_id_pk 
 where ci.ct_id_pk = #{ct_id_pk};
 </select>
 

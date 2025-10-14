@@ -2,267 +2,183 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>신청자 상세보기</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>신청자 상세보기 - 탭형</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
     body {
-      background-color: #f4f7fb;
-      font-family: 'Noto Sans KR', sans-serif;
-      height: 100%;
-      margin: 0;
-      padding: 0;
+      background:#f6f8fb;
+      font-family:'Noto Sans KR',sans-serif;
     }
-  
-    .sidebar {
-      background-color: #111;
-      color: #fff;
-      padding-top: 2rem;
-      text-align: center;
-      min-height: 100vh;
+    .tab-content {
+      background:white;
+      padding:2rem;
+      border-radius:12px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.05);
     }
-  
-    .sidebar a i {
-      color: white;
-      display: block;
-      margin: 2.5rem auto;
-      font-size: 2rem;
-    }
-  
-    .sidebar a:hover i {
-      color: #84aed7;
-    }
-  
-    .card {
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      background-color: #fff;
-      color: #000;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
-    }
-  
-    .section-title {
-      font-weight: bold;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-  
-    .form-label {
-      font-weight: bold;
-    }
-  
-    .option-badge {
-      display: inline-block;
-      background-color: #444; /* 기존 단색 배지 */
-      color: white;
-      border-radius: 12px;
-      padding: 0.35rem 0.8rem;
-      margin: 0.25rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-  
-    .option-badge:hover {
-      opacity: 0.85;
-    }
-  
     .form-control-plaintext {
       background-color: #f9f9f9;
       padding: 0.5rem 1rem;
-      border-radius: 12px;
+      border-radius: 8px;
       border: 1px solid #ddd;
       color: #333;
     }
-  
-    img {
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.2s, box-shadow 0.2s;
+    .option-badge {
+      display:inline-block;
+      background-color:#444;
+      color:white;
+      border-radius:12px;
+      padding:0.35rem 0.8rem;
+      margin:0.25rem;
+      font-size:0.9rem;
     }
-  
+    img {
+      border-radius:12px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.1);
+      transition:transform 0.2s;
+    }
     img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transform:scale(1.03);
     }
   </style>
-  
 </head>
-<body>
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Sidebar -->
-      <div class="col-md-1 sidebar">
-        <div th:replace="~{fragments/workerHeader :: workerHeader}"></div>
-      </div>
+<body class="p-4">
+  <div class="container">
+    <h3 class="fw-bold mb-4">신청자 상세보기</h3>
 
-      <!-- Main Content -->
-      <div class="col-md-11 p-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h3 class="fw-bold">신청서 상세보기</h3>
-          <div>
-            <span class="fw-semibold" th:text="${sessionAdmin}"></span>님, 오늘도 안전히 작업하세요.
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mb-3" role="tablist">
+      <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#info">신청자 정보</a></li>
+      <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#content">신청 내용</a></li>
+      <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#image">이미지 관리</a></li>
+      <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#delivery">배송</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- ✅ 신청자 정보 -->
+      <div class="tab-pane fade show active" id="info">
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label class="form-label">신청자명</label>
+            <p class="form-control-plaintext" th:text="${customerReadApply.ct_name}">이름</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">연락처</label>
+            <p class="form-control-plaintext" th:text="${customerReadApply.ct_phone}">010-0000-0000</p>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">택배</label>
+            <p class="form-control-plaintext" th:text="${totalSums['do_name']}">택배</p>
           </div>
         </div>
 
-        <div class="card">
-          <div class="row">
-            <div class="col">
+        <label class="form-label">주소</label>
+        <p class="form-control-plaintext" th:text="${customerReadApply.ct_address}">서울특별시 강남구 신사동</p>
+      </div>
 
-              <!-- 신청자 기본 정보 -->
-          <div class="section-title">신청자 정보</div>
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <label class="form-label">신청자명</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply.ct_name}">이름</p>
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">연락처</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_phone']}">010-0000-0000</p>
-            </div>
-            <div class="col-md-4">
-              <label class="form-label">택배</label>
-              <p class="form-control-plaintext" th:text="${totalSums['do_name']}">택배</p>
+      <!-- ✅ 신청 내용 -->
+      <div class="tab-pane fade" id="content">
+        <div class="row mb-3">
+          <div class="col-md-3">
+            <label class="form-label">타입</label>
+            <p class="form-control-plaintext" th:text="${totalSums['mp_explain']}">타입</p>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">개수</label>
+            <p class="form-control-plaintext" th:text="${customerReadApply.ct_how_many}">3개</p>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">유료 옵션</label>
+            <div>
+              <span th:each="opt : ${customerReadOptions}" class="option-badge">
+                <span th:text="${opt.po_name}">옵션명</span>
+                (<span th:text="${opt.po_extra_price}">0</span>원)
+              </span>
             </div>
           </div>
+        </div>
 
-
-          <div class="row mb-3">
-            <div class="col">
-              <label class="form-label">주소</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_address']}">주소</p>
-            </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label class="form-label">신청일</label>
+            <p class="form-control-plaintext"
+               th:text="${customerReadApply.ct_apply_date.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}"></p>
           </div>
-          
-
-          <!-- 신청서 상세 정보 -->
-          <div class="section-title">신청서 내용</div>
-          <div class="row mb-3">
-            <div class="col-md-3">
-              <label class="form-label">타입</label>
-              <p class="form-control-plaintext" th:text="${totalSums['mp_explain']}">타입</p>
-            </div>
-            <div class="col-md-3">
-              <label class="form-label">개수</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply['ct_how_many']}">개수</p>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">유료 옵션</label>
-              <div>
-                <span th:each="opt : ${customerReadOptions}" 
-                      class="option-badge">
-                  <span th:text="${opt.po_name}">옵션명</span>
-                  (<span th:text="${opt.po_extra_price}">0</span>원)
-                </span>
-              </div>
-            </div>
+          <div class="col-md-6">
+            <label class="form-label">마감일</label>
+            <p class="form-control-plaintext"
+               th:text="${customerReadApply.ct_end_date.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}"></p>
           </div>
+        </div>
 
+        <div class="mb-3">
+          <label class="form-label">작업 시 유의사항</label>
+          <p class="form-control-plaintext" th:text="${customerReadApply.ct_memo}">메모</p>
+        </div>
 
-          <div class="section-title">총 가격</div>
-          <div class="row mb-3">
-            <div class="col">
-              <label class="form-label">가격</label>
-              <p class="form-control-plaintext" th:text="${totalSums['total_price']}">가격</p>
-              
-            </div>
-
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">작업 시 유의사항</label>
-            <p class="form-control-plaintext" th:text="${customerReadApply['ct_memo']}">메모</p>
-          </div>
-
-          <div class="mb-3">
+        <div class="row mb-3">
+          <div class="col-md-6">
             <label class="form-label">캐릭터 이름</label>
-            <p class="form-control-plaintext" th:text="${customerReadApply['ct_char']}">캐릭터 이름</p>
+            <p class="form-control-plaintext" th:text="${customerReadApply.ct_char}">캐릭터</p>
           </div>
-          <div class="mb-3">
+          <div class="col-md-6">
             <label class="form-label">캐릭터 설명</label>
-            <p class="form-control-plaintext" th:text="${customerReadApply['ct_char_explain']}">설명</p>
+            <p class="form-control-plaintext" th:text="${customerReadApply.ct_char_explain}">설명</p>
           </div>
+        </div>
 
-          <div class="row mb-3">
-            <div class="col-md-6">
-              <label class="form-label">신청일</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply.ct_apply_date.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}"></p>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">마감일</label>
-              <p class="form-control-plaintext" th:text="${customerReadApply.ct_end_date.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}"></p>
-            </div>
+        <div>
+          <label class="form-label">총 가격</label>
+          <p class="form-control-plaintext fw-bold text-primary fs-5" th:text="${totalSums['total_price']}">₩120,000</p>
+        </div>
+      </div>
+
+      <!-- ✅ 이미지 관리 -->
+      <div class="tab-pane fade" id="image">
+        <div class="mb-3">
+          <label class="form-label">자료 이미지</label>
+          <div th:each="data : ${readCustomerImgData}">
+            <img th:src="@{|/somUploadFiles/${data.ci_img_url}|}" alt="도안 이미지" class="img-fluid my-2" />
           </div>
-          
-            </div>
+        </div>
 
-
-            <div class="col">
-              <div class="row">
-                <div class="mb-3">
-                <label class="form-label">자료 이미지</label>
-                  <div th:each="data : ${readCustomerImgData}">
-                      <img th:src="@{|/somUploadFiles/${data.ci_img_url}|}" alt="도안 이미지" class="img-fluid my-2" />
-                  </div>
-                
-                </div>
-              </div>
-
-              <div class="row mb-3">
-              <label class="form-label">도안 이미지</label>
-              <div class="row mb-4 align-items-center">
-                <div class="col-9">
-                  <input class="form-control" type="file" name="imageFiles" multiple>
-                </div>
-                <div class="col">
-                  <a href="#" class="btn btn-success w-100">도안컨펌 완료</a>
-                </div>
-              </div>
-            </div>
-
-
-              <div class="row mb-3">
-              <label class="form-label">면피 이미지</label>
-              <div class="row mb-4 align-items-center">
-                <div class="col-9">
-                  <input class="form-control" type="file" name="imageFiles" multiple>
-                </div>
-                <div class="col">
-                  <a href="#" class="btn btn-success w-100">면피컨펌 완료</a>
-                </div>
-              </div>
-            </div>
-
-              <div class="row mb-3">
-              <label class="form-label">완성 이미지</label>
-              <div class="row mb-4 align-items-center">
-                <div class="col-9">
-                  <input class="form-control" type="file" name="imageFiles" multiple>
-                </div>
-                <div class="col">
-                  <a href="#" class="btn btn-success w-100">완성컨펌 완료</a>
-                </div>
-              </div>
-            </div>
-
-              
-
-
-
-
-              
-            </div>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">도안 이미지</label>
+            <input class="form-control" type="file" name="imageFiles" multiple>
+            <button class="btn btn-primary w-100 mt-2">도안컨펌 완료</button>
           </div>
+          <div class="col-md-4">
+            <label class="form-label">면피 이미지</label>
+            <input class="form-control" type="file" name="imageFiles" multiple>
+            <button class="btn btn-primary w-100 mt-2">면피컨펌 완료</button>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">완성 이미지</label>
+            <input class="form-control" type="file" name="imageFiles" multiple>
+            <button class="btn btn-primary w-100 mt-2">완성컨펌 완료</button>
+          </div>
+        </div>
+      </div>
 
-        </div> <!-- card -->
-      </div> <!-- col-md-11 -->
-    </div> <!-- row -->
-  </div> <!-- container-fluid -->
+      <!-- ✅ 배송 -->
+      <div class="tab-pane fade" id="delivery">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-9">
+            <input class="form-control" type="text" placeholder="운송장 번호 입력">
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-success w-100">배송완료</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-end mt-4">
+      <button class="btn btn-secondary px-4">수정</button>
+      <button class="btn btn-danger px-4">삭제</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

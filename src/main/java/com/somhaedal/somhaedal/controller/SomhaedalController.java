@@ -357,6 +357,14 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
 
         return "another";
     }
+
+    @PostMapping("path")
+    public String postMethodName(@RequestBody String entity) {
+        //TODO: process POST request
+        
+        return "redirect:./customerDetailPage?ct_id_pk="+;
+    }
+    
     
 
 

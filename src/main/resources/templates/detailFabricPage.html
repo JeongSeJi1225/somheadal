@@ -2,122 +2,89 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>신청자 상세보기</title>
+  <title>원단 상세보기</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
   <style>
     body {
       background-color: #f4f7fb;
-      font-family: 'Noto Sans KR', sans-serif;
-      height: 100%;
-      margin: 0;
-      padding: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     }
-
     .sidebar {
-      background-color: #111;
-      color: #fff;
-      padding-top: 2rem;
-      text-align: center;
-      min-height: 100vh;
-    }
-
+  background-color: #111;
+  color: #fff;
+  padding-top: 2rem;
+  text-align: center;
+  min-height: 100vh;
+}
     .sidebar a i {
       color: white;
       display: block;
       margin: 2.5rem auto;
       font-size: 2rem;
     }
-
     .sidebar a:hover i {
       color: #84aed7;
     }
-
     .card {
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
       background-color: #fff;
       color: #000;
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-      transition: transform 0.15s, box-shadow 0.15s;
     }
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-    }
-
     .section-title {
-      font-weight: 700;
-      font-size: 1.05rem;
-      margin-bottom: 0.75rem;
-      color: #222;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .header-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
     }
 
-    .form-label {
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      display:block;
-    }
-
-    .option-badges {
-      display:flex;
-      flex-wrap:wrap;
-      gap:0.4rem;
-    }
-
-    .option-badge {
-      display: inline-block;
-      background-color: #444;
-      color: white;
-      border-radius: 10px;
-      padding: 0.25rem 0.6rem;
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    .form-control-plaintext {
-      background-color: #fff;
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
-      border: 1px solid #eef0f3;
-      color: #333;
-      min-height: 44px;
-      display:flex;
-      align-items:center;
-    }
-
-    .thumb {
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-      transition: transform 0.12s;
-      max-height: 120px;
-      object-fit: cover;
-    }
-    .thumb:hover { transform: scale(1.03); }
-
-    .file-card {
-      border: 1px dashed #e6e9ee;
-      border-radius: 10px;
-      padding: 0.6rem;
-      background: #fbfcfe;
-    }
-
-    .card-footer-actions {
-      background: transparent;
-      border-top: 1px solid #f0f2f5;
-      padding-top: 1rem;
-      display:flex;
-      justify-content:flex-end;
-      gap:0.75rem;
-    }
-
-    /* 반응형: 작은 화면에서 컬럼 쌓이도록 */
-    @media (max-width: 767.98px) {
-      .thumb { max-width: 100%; height: auto; }
+    .form-label{
+      font-weight: bold;
+      
     }
   </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const previewMap = {
+        fb_name: 'previewName',
+        fb_color: 'previewColor',
+        fb_type : 'previewType',
+        fb_thickness: 'previewThickness',
+        fb_price: 'previewPrice',
+        fb_source_supply : 'previewSupply',
+        fb_location : 'previewLocation'
+      };
+
+      Object.entries(previewMap).forEach(([inputName, previewId]) => {
+        const input = document.querySelector(`[name="${inputName}"]`);
+        const preview = document.getElementById(previewId);
+
+        if (input && preview) {
+          input.addEventListener('input', function () {
+            preview.textContent = input.value || '-';
+          });
+        }
+      });
+    });
+
+
+    document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+      e.preventDefault();
+    }
+  });
+
+  </script>
 </head>
 <body>
   <div class="container-fluid">
@@ -129,167 +96,162 @@
 
       <!-- Main Content -->
       <div class="col-md-11 p-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-          <h3 class="fw-bold">신청서 상세보기</h3>
+        <div class="header-main">
+          <h3 class="fw-bold">원단상세보기</h3>
           <div>
-            <span class="fw-semibold" th:text="${sessionAdmin}"></span>님, 오늘도 안전히 작업하세요.
+            <span class="fw-semibold" th:text="${adminName}"></span>
+            <span>님 오늘도 안전히 작업하세요.</span>
           </div>
-        </div>
+       </div>
 
-        <!-- 카드: 전체 컨테이너 -->
-        <div class="card">
-          <div class="row gx-4">
-            <!-- 왼쪽: 신청자 정보 (넓게) -->
-            <div class="col-lg-7">
-              <!-- 신청자 기본정보 -->
-              <div class="section-title">신청자 정보</div>
-              <div class="row mb-3">
-                <div class="col-md-6 mb-2">
-                  <label class="form-label">신청자명</label>
-                  <div class="form-control-plaintext" th:text="${customerReadApply.ct_name}">이름</div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <label class="form-label">연락처</label>
-                  <div class="form-control-plaintext" th:text="${customerReadApply['ct_phone']}">010-0000-0000</div>
-                </div>
+        <!-- form  -->
+        <form action="./editFabricProcess" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="fb_id_pk" th:value="${fabric.fb_id_pk}" />
+          <input type="hidden" name="seq_num" th:value="${adminPk}" />
+          <div class="row">
+            <!-- 왼쪽 입력 영역 -->
+            <div class="col-md-10 offset-md-1">
+              <div class="mb-4">
+                <div class="row align-items-stretch" style="margin-top: 0.8em;">
+                  <!-- 이미지 -->
+                  <div class="col">
+                      <div th:if="${fabric != null and fabric['fb_swatch_img_path'] != null}">
+                      <img th:src="@{|/somUploadFiles/${fabric['fb_swatch_img_path']}|}" alt="스와치 이미지" class="img-fluid h-100" style="object-fit: cover;" />
+                    </div>
+                    <div th:unless="${fabric != null and fabric['fb_swatch_img_path'] != null}">
+                      이미지가 없습니다.
+                    </div>
 
-                <div class="col-12 mb-2">
-                  <label class="form-label">택배</label>
-                  <div class="form-control-plaintext" th:text="${totalSums['do_name']}">택배</div>
-                </div>
 
-                <div class="col-12 mb-2">
-                  <label class="form-label">주소</label>
-                  <div class="form-control-plaintext" th:text="${customerReadApply['ct_address']}">주소</div>
+                  </div>
+
+                  <!-- 오른쪽 정보 및 버튼 -->
+                  <div class="col d-flex flex-column justify-content-between">
+                    <!-- 입고현황 -->
+                    <div>
+                      <span th:text="${fabric.fb_stock_situation}" style="font-weight: bold;"></span>
+                    </div>
+
+                    <!-- 입고완료 버튼 -->
+                    <div>
+                      <a th:href="@{./updateStock(fb_id_pk=${fabric.fb_id_pk})}" class="btn btn-outline-success w-100">입고완료</a>
+                    </div>
+                  </div>
+                </div>
+              <div class="mb-4">
+                <label class="form-label">원단명</label>
+                <input type="text" class="form-control"  name="fb_name" th:value="${fabric.fb_name}" >
+              </div>
+              <div class="mb-4">
+                <label class="form-label">원단 재질</label>
+                <select class="form-select" name="fb_type">
+                <option selected th:text="'현재: ' + ${fabric.fb_type}" th:value="${fabric.fb_type}">현재: -</option>
+                <option th:each="choiceType : ${fabricCategoryName}"
+                        th:if="${choiceType.fc_ct_name != fabric.fb_type}"
+                        th:value="${choiceType.fc_ct_name}"
+                        th:text="${choiceType.fc_ct_name}">
+                </option>
+                </select>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <label class="form-label">가로 폭</label>
+                  <input type="text" class="form-control" name="fb_width" th:value="${fabric.fb_width}">
+                </div>
+                <div class="col-md-6 mb-4">
+                  <label class="form-label">세로 폭</label>
+                  <input type="text" class="form-control" name="fb_height" th:value="${fabric.fb_height}">
                 </div>
               </div>
 
-              <!-- 신청서 내용 -->
-              <div class="section-title mt-3">신청서 내용</div>
-              <div class="row mb-3">
-                <div class="col-md-4 mb-2">
-                  <label class="form-label">타입</label>
-                  <div class="form-control-plaintext" th:text="${totalSums['mp_explain']}">타입</div>
-                </div>
-                <div class="col-md-4 mb-2">
-                  <label class="form-label">개수</label>
-                  <div class="form-control-plaintext" th:text="${customerReadApply['ct_how_many']}">개수</div>
-                </div>
-                <div class="col-md-4 mb-2">
-                  <label class="form-label">총 가격</label>
-                  <div class="form-control-plaintext" th:text="${totalSums['total_price']}">가격</div>
+              <div class="mb-4">
+                  <label class="form-label">컬러계열 선택</label>
+                  <select class="form-select" name="fb_color">
+                    <option disabled th:selected="${fabric.fb_color == null}">컬러계열 선택</option>
+                    <option th:value="Red" th:selected="${fabric.fb_color == 'Red'}">빨강</option>
+                    <option th:value="Orange" th:selected="${fabric.fb_color == 'Orange'}">주황</option>
+                    <option th:value="Yellow" th:selected="${fabric.fb_color == 'Yellow'}">노랑</option>
+                    <option th:value="Green" th:selected="${fabric.fb_color == 'Green'}">초록</option>
+                    <option th:value="Blue" th:selected="${fabric.fb_color == 'Blue'}">파랑</option>
+                    <option th:value="Navy" th:selected="${fabric.fb_color == 'Navy'}">남색</option>
+                    <option th:value="Purple" th:selected="${fabric.fb_color == 'Purple'}">보라</option>
+                    <option th:value="White" th:selected="${fabric.fb_color == 'White'}">흰색</option>
+                    <option th:value="Gray" th:selected="${fabric.fb_color == 'Gray'}">회색</option>
+                    <option th:value="Black" th:selected="${fabric.fb_color == 'Black'}">검정</option>
+                  </select>
+
                 </div>
 
-                <div class="col-12 mt-2">
-                  <label class="form-label">유료 옵션</label>
-                  <div class="option-badges">
-                    <span th:each="opt : ${customerReadOptions}" class="option-badge">
-                      <span th:text="${opt.po_name}">옵션명</span>
-                      (<span th:text="${opt.po_extra_price}">0</span>원)
-                    </span>
-                    <!-- 옵션이 없을 때 표시 -->
-                    <span th:if="${#lists.isEmpty(customerReadOptions)}" class="text-muted small">선택된 유료 옵션이 없습니다.</span>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <label class="form-label">원단두께</label>
+                  <input type="text" class="form-control" name="fb_thickness" th:value="${fabric.fb_thickness}">
+                </div>
+                <div class="col-md-6 mb-4">
+                  <label class="form-label">원단위치</label>
+                  <input type="text" class="form-control" name="fb_location"   th:value="${fabric.fb_location}">
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label">공급처 및 단가</label>
+                <input type="text" class="form-control" name="fb_source_supply"  th:value="${fabric.fb_source_supply}">
+                <input type="text" class="form-control mt-2" name="fb_price" th:value="${fabric.fb_price}">
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label">스와치 이미지 등록</label>
+                <input class="form-control" type="file" name="imageFiles">
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label">최초 등록일</label>
+                <div class="row">
+                  <div class="col">
+                    <span th:text="${fabric.fb_created_at}"></span>
                   </div>
                 </div>
               </div>
 
-              <!-- 메모 / 캐릭터 -->
-              <div class="section-title mt-3">추가 정보</div>
-              <div class="mb-3">
-                <label class="form-label">작업 시 유의사항</label>
-                <div class="form-control-plaintext" th:text="${customerReadApply['ct_memo']}">메모</div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-md-6 mb-2">
-                  <label class="form-label">캐릭터 이름</label>
-                  <div class="form-control-plaintext" th:text="${customerReadApply['ct_char']}">캐릭터 이름</div>
-                </div>
-                <div class="col-md-6 mb-2">
-                  <label class="form-label">캐릭터 설명</label>
-                  <div class="form-control-plaintext" th:text="${customerReadApply['ct_char_explain']}">설명</div>
+              <div class="mb-4">
+                <label class="form-label">마지막 수정일</label>
+                <div class="row">
+                  <div class="col">
+                    <div th:if="${fabric['fb_last_inert_date_at'] == null}"><span th:text="${fabric['fb_created_at']}"></span></div>
+                    <div th:unless="${fabric['fb_last_inert_date_at'] == null}"><span th:text="${fabric['fb_last_inert_date_at']}"></span></div>
+                  </div>
                 </div>
               </div>
 
-              <div class="row mb-1">
-                <div class="col-md-6">
-                  <label class="form-label">신청일</label>
-                  <div class="form-control-plaintext" th:text="${customerReadApply.ct_apply_date.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}"></div>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">마감일</label>
-                  <div class="form-control-plaintext" th:text="${customerReadApply.ct_end_date.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}"></div>
+              <div class="mb-4">
+                <div class="row" style="margin-top: 0.9em;">
+                  <div class="col">
+                    <a th:href="@{./fabricManagerPage}" class="btn btn-outline-dark w-100" >목록으로</a>
+                  </div>
+                  <div class="col">
+                    <button type="submit" class="btn btn-dark w-100">수정하기</button>
+                  </div>
+                  <div class="col">
+                    <a th:href="@{./deleteFabricsProcess(fb_id_pk=${fabric.fb_id_pk})}"
+                      class="btn btn-outline-danger w-100"
+                      onclick="return confirm('정말 삭제하시겠습니까?')">
+                      원단삭제
+                    </a>
+                  </div>
                 </div>
               </div>
+
             </div>
 
-            <!-- 오른쪽: 이미지와 작업 버튼 (컴팩트) -->
-            <div class="col-lg-5">
-              <div class="section-title">자료 이미지</div>
-              <div class="mb-3">
-                <div class="row g-2">
-                  <div class="col-12" th:if="${#lists.isEmpty(readCustomerImgData)}">
-                    <div class="text-muted small">등록된 이미지가 없습니다.</div>
-                  </div>
-                  <div class="col-6 col-md-12 col-lg-6" th:each="data : ${readCustomerImgData}">
-                    <img th:src="@{|/somUploadFiles/${data.ci_img_url}|}" alt="도안 이미지" class="thumb w-100" />
-                  </div>
-                </div>
-              </div>
 
-              <!-- 파일 업로드 블록: 도안 / 면피 / 완성 -->
-              <div class="section-title mt-3">파일 업로드 / 컨펌</div>
 
-              <!-- 도안 이미지 -->
-              <div class="mb-3 file-card">
-                <label class="form-label">도안 이미지</label>
-                <div class="d-flex gap-2 align-items-center">
-                  <input class="form-control" type="file" name="designFiles" multiple>
-                  <a href="#" class="btn btn-primary">도안컨펌 완료</a>
-                </div>
-              </div>
-
-              <!-- 면피 이미지 -->
-              <div class="mb-3 file-card">
-                <label class="form-label">면피 이미지</label>
-                <div class="d-flex gap-2 align-items-center">
-                  <input class="form-control" type="file" name="faceFiles" multiple>
-                  <a href="#" class="btn btn-primary">면피컨펌 완료</a>
-                </div>
-              </div>
-
-              <!-- 완성 이미지 -->
-              <div class="mb-3 file-card">
-                <label class="form-label">완성 이미지</label>
-                <div class="d-flex gap-2 align-items-center">
-                  <input class="form-control" type="file" name="completeFiles" multiple>
-                  <a href="#" class="btn btn-primary">완성컨펌 완료</a>
-                </div>
-              </div>
-
-              <!-- 운송장 -->
-              <div class="mb-3 file-card">
-                <label class="form-label">운송장 번호</label>
-                <div class="d-flex gap-2 align-items-center">
-                  <input class="form-control" type="text" placeholder="운송장 번호 입력" aria-label="운송장 번호 입력">
-                  <a href="#" class="btn btn-outline-success">배송완료</a>
-                </div>
-              </div>
-            </div>
           </div>
+        </form>
 
-          <!-- card footer: 액션 버튼 -->
-          <div class="card-footer-actions mt-3">
-            <a th:href="@{./fabricManagerPage}" class="btn btn-outline-dark">목록으로</a>
-            <a href="#" class="btn btn-secondary">수정</a>
-            <a href="#" class="btn btn-danger"
-               onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
-          </div>
-        </div> <!-- card -->
-      </div> <!-- col-md-11 -->
-    </div> <!-- row -->
-  </div> <!-- container-fluid -->
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -223,5 +223,9 @@ GROUP BY ci.ct_id_pk, ci.ct_name, ci.ct_phone, ci.ct_how_many,
          do.do_name, do.do_price, mp.mp_explain, mp.mp_charge;
 </select>
 
+<insert id="insertCustomerDeliInfo">
+    insert into delivery_info (ct_id_pk, di_delivery_nb) values (#{ct_id_pk}, #{di_delivery_nb});
+</insert>
+
 
 </mapper>

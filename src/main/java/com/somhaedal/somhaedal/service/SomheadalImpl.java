@@ -12,6 +12,7 @@ import com.somhaedal.somhaedal.dto.CustomerAddress;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
+import com.somhaedal.somhaedal.dto.DeliveryInfo;
 import com.somhaedal.somhaedal.dto.DeliveryOptionDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
@@ -193,6 +194,13 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
         return someheadalSqlMapper.readSumOptionsOne(ct_id_pk);
     }
 
+    public void insertCustomerDeliInfo(DeliveryInfo deliveryInfo){
+        someheadalSqlMapper.insertCustomerDeliInfo(deliveryInfo);
+    }
+
+    public DeliveryInfo readCustomerDeliInfo(int ct_id_pk){
+        return someheadalSqlMapper.readCustomerDeliInfo(ct_id_pk);
+    }
 
 
     

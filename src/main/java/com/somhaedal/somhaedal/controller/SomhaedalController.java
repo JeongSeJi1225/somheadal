@@ -22,6 +22,7 @@ import com.somhaedal.somhaedal.dto.AdminDto;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
+import com.somhaedal.somhaedal.dto.DeliveryInfo;
 import com.somhaedal.somhaedal.dto.DeliveryOptionDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
@@ -327,7 +328,7 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
     @GetMapping("customerDetailPage")
     public String customerDetailPage(HttpSession session, Model model, @RequestParam("ct_id_pk") int ct_id_pk,
                                         CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto,
-                                        CustomerOption customerOption) {
+                                        CustomerOption customerOption, DeliveryInfo deliveryInfo) {
 
                                             
 
@@ -336,10 +337,10 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         model.addAttribute("customerReadApply", somheadalService.readCustomerAdds(ct_id_pk));
         model.addAttribute("totalSums", somheadalService.readSumOptionsOne(ct_id_pk));
         model.addAttribute("readCustomerImgData", somheadalService.readCustomerImgData(ct_id_pk));
-
-        System.out.println("ct _ id _ pk =" + somheadalService.readCustomerAdds(ct_id_pk));
-        System.out.println("options : " + somheadalService.readCustomerOptions(ct_id_pk));
-        System.out.println("이미지 데이터 = " + somheadalService.readCustomerImgData(ct_id_pk));
+        model.addAttribute("readCustomerDeliNb", somheadalService.readCustomerDeliInfo(ct_id_pk));
+        //System.out.println("ct _ id _ pk =" + somheadalService.readCustomerAdds(ct_id_pk));
+        //System.out.println("options : " + somheadalService.readCustomerOptions(ct_id_pk));
+        //System.out.println("이미지 데이터 = " + somheadalService.readCustomerImgData(ct_id_pk));
         return "customerDetailPage";
     }
     
@@ -358,13 +359,16 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         return "another";
     }
 
-    @PostMapping("path")
-    public String postMethodName(@RequestBody String entity) {
-        //TODO: process POST request
-        
-        return "redirect:./customerDetailPage?ct_id_pk="+;
+    @PostMapping("/insertCustomerDeliInfo")
+    public String insertCustomerDeliInfo(DeliveryInfo deliveryInfo,
+                                        @RequestParam("ct_id_pk") int ct_id_pk, Model model) {
+
+        model.addAttribute("ct_id_pk", ct_id_pk);
+        somheadalService.insertCustomerDeliInfo(deliveryInfo);
+        return "redirect:/customerDetailPage?ct_id_pk=" + deliveryInfo.getCt_id_pk();
+
     }
-    
+        
     
 
 

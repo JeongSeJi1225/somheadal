@@ -113,5 +113,9 @@ public interface SomeheadalSqlMapper {
     //운송장번호 insert
     public void insertCustomerDeliInfo(DeliveryInfo deliveryInfo);
 
+    //운송장번호 select
+    //public Map<String, Object> readCustomerDeliInfo(int ct_id_pk);
+
+    public DeliveryInfo readCustomerDeliInfo(int ct_id_pk);
     
 }

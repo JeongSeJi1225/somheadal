@@ -227,5 +227,9 @@ GROUP BY ci.ct_id_pk, ci.ct_name, ci.ct_phone, ci.ct_how_many,
     insert into delivery_info (ct_id_pk, di_delivery_nb) values (#{ct_id_pk}, #{di_delivery_nb});
 </insert>
 
+<select id="readCustomerDeliInfo" resultType="com.somhaedal.somhaedal.dto.DeliveryInfo">
+select * from delivery_info where ct_id_pk = #{ct_id_pk};
+</select>
+
 
 </mapper>

@@ -126,7 +126,15 @@
               </div>
             </div>
 
-            <form action="./customerDeliInfo" method="post" enctype="multipart/form-data">
+            <div class="row mb-3">
+              <div class="col">
+                <label class="form-label">운송장 번호</label>
+                <p class="form-control-plaintext" th:text="${readCustomerDeliNb.di_delivery_nb}"></p>
+              </div>
+            </div>
+
+            <form action="./insertCustomerDeliInfo" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="ct_id_pk"  th:value="${customerReadApply.ct_id_pk}" />
             <div class="row mb-3">
               <div class="col-md-9">
                 <input class="form-control" name="di_delivery_nb" type="text" placeholder="운송장 번호 입력">

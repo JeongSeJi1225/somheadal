@@ -15,7 +15,7 @@ import lombok.Data;
 public class DeliveryInfo {
     private int di_id_pk;
     private int ct_id_pk;
-    private int di_delivery_nb;
+    private String di_delivery_nb;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime di_created_at;
 

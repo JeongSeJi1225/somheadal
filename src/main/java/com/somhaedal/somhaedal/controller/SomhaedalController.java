@@ -330,9 +330,6 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
                                         CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto,
                                         CustomerOption customerOption, DeliveryInfo deliveryInfo) {
 
-                                            
-
-
         model.addAttribute("customerReadOptions",somheadalService.readCustomerOptions(ct_id_pk));
         model.addAttribute("customerReadApply", somheadalService.readCustomerAdds(ct_id_pk));
         model.addAttribute("totalSums", somheadalService.readSumOptionsOne(ct_id_pk));
@@ -343,6 +340,26 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         //System.out.println("이미지 데이터 = " + somheadalService.readCustomerImgData(ct_id_pk));
         return "customerDetailPage";
     }
+
+    @GetMapping("customerEditPage")
+    public String customerEditPage(HttpSession session, Model model, @RequestParam("ct_id_pk") int ct_id_pk,
+                                        CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto,
+                                        CustomerOption customerOption, DeliveryInfo deliveryInfo) {
+
+                                            
+        model.addAttribute("readProducts", somheadalService.readMainProduct());
+        model.addAttribute("readOptions", somheadalService.readOptions());
+        model.addAttribute("deliverys", somheadalService.readDeliveryOptions());
+        
+        model.addAttribute("customerReadOptions",somheadalService.readCustomerOptions(ct_id_pk));
+        model.addAttribute("customerReadApply", somheadalService.readCustomerAdds(ct_id_pk));
+        model.addAttribute("readCustomerImgData", somheadalService.readCustomerImgData(ct_id_pk));
+        //System.out.println("ct _ id _ pk =" + somheadalService.readCustomerAdds(ct_id_pk));
+        //System.out.println("options : " + somheadalService.readCustomerOptions(ct_id_pk));
+        //System.out.println("이미지 데이터 = " + somheadalService.readCustomerImgData(ct_id_pk));
+        return "customerEditPage";
+    }
+    
     
     
         @GetMapping("another")

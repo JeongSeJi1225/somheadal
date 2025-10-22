@@ -14,7 +14,7 @@ public class CustomerInfoDto {
     private String ct_phone;
     private String ct_address;
     private int ct_delivery_op;
-    private String ct_type;
+    private int ct_type;
     private String ct_option;
     private String ct_memo;
     private String ct_char;

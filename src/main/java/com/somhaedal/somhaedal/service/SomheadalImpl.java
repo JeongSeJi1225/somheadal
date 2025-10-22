@@ -107,33 +107,68 @@ public class SomheadalImpl {
 // }
 
 
- @Transactional
-public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
-                                     List<Integer> ctOptions,
-                                     List<CustomerImgDto> customerImgDtos) {
+    // @Transactional
+    // public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
+    //                                     List<Integer> ctOptions,
+    //                                     List<CustomerImgDto> customerImgDtos) {
 
-    // 1. 고객 기본 정보 insert
-    someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
-    int customerId = customerInfoDto.getCt_id_pk();
+    //     // 1. 고객 기본 정보 insert
+    //     someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
+    //     int customerId = customerInfoDto.getCt_id_pk();
 
-    // 2. 옵션 insert
-    if (ctOptions != null && !ctOptions.isEmpty()) {
-        for (Integer poId : ctOptions) {
-            CustomerOption choice = new CustomerOption();
-            choice.setCt_id_pk(customerId);
-            choice.setPo_id_pk(poId);
-            someheadalSqlMapper.insertCustomerChoiceOption(choice);
+    //     // 2. 옵션 insert
+    //     if (ctOptions != null && !ctOptions.isEmpty()) {
+    //         for (Integer poId : ctOptions) {
+    //             CustomerOption choice = new CustomerOption();
+    //             choice.setCt_id_pk(customerId);
+    //             choice.setPo_id_pk(poId);
+    //             someheadalSqlMapper.insertCustomerChoiceOption(choice);
+    //         }
+    //     }
+
+    //     // 3. 여러 장 이미지 insert
+    //     if (customerImgDtos != null && !customerImgDtos.isEmpty()) {
+    //         for (CustomerImgDto imgDto : customerImgDtos) {
+    //             imgDto.setCt_id_pk(customerId);
+    //             someheadalSqlMapper.insertFaceDesign(imgDto);
+    //         }
+    //     }
+    // }
+
+        @Transactional
+        public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
+                                            List<Integer> ctOptions,
+                                            List<CustomerImgDto> customerImgDtos) {
+
+            // 1. 고객 기본 정보 insert
+            someheadalSqlMapper.insertCustomerInfo(customerInfoDto);
+            int customerId = customerInfoDto.getCt_id_pk();
+
+            // 2. 옵션 insert (mp_id_pk 포함)
+            if (ctOptions != null && !ctOptions.isEmpty()) {
+                for (Integer poId : ctOptions) {
+                    CustomerOption choice = new CustomerOption();
+                    choice.setCt_id_pk(customerId);
+                    choice.setPo_id_pk(poId);
+                    choice.setMp_id_pk(customerInfoDto.getCt_type());
+                    someheadalSqlMapper.insertCustomerChoiceOption(choice);
+                }
+            }
+
+            // 3. 여러 장 이미지 insert
+            if (customerImgDtos != null && !customerImgDtos.isEmpty()) {
+                for (CustomerImgDto imgDto : customerImgDtos) {
+                    imgDto.setCt_id_pk(customerId);
+                    someheadalSqlMapper.insertFaceDesign(imgDto);
+                }
+            }
         }
+
+    public void updateCustomerInfo(CustomerInfoDto customerInfoDto){
+        someheadalSqlMapper.updateCustomerInfo(customerInfoDto);
+        
     }
 
-    // 3. 여러 장 이미지 insert
-    if (customerImgDtos != null && !customerImgDtos.isEmpty()) {
-        for (CustomerImgDto imgDto : customerImgDtos) {
-            imgDto.setCt_id_pk(customerId);
-            someheadalSqlMapper.insertFaceDesign(imgDto);
-        }
-    }
-}
 
     
     //상품리스트
@@ -155,6 +190,9 @@ public void insertCustomerAndOptions(CustomerInfoDto customerInfoDto,
     return someheadalSqlMapper.readCustomerOptions(ct_id_pk);
     }
     
+
+
+
     //고객님 신청서 상세보기인데
     public List<CustomerImgDto> readCustomerImgData(int ct_id_pk){
         return someheadalSqlMapper.readCustomerImgData(ct_id_pk);

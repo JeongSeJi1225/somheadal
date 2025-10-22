@@ -117,5 +117,9 @@ public interface SomeheadalSqlMapper {
     //public Map<String, Object> readCustomerDeliInfo(int ct_id_pk);
 
     public DeliveryInfo readCustomerDeliInfo(int ct_id_pk);
+
+    //info 업데이트
+    public void updateCustomerInfo(CustomerInfoDto customerInfoDto);
+    public void updateCustomerImg(CustomerImgDto customerImgDto);
     
 }

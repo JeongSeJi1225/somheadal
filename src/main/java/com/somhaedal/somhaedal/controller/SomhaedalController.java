@@ -26,6 +26,7 @@ import com.somhaedal.somhaedal.dto.DeliveryInfo;
 import com.somhaedal.somhaedal.dto.DeliveryOptionDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
+import com.somhaedal.somhaedal.dto.ProductOptiontDto;
 import com.somhaedal.somhaedal.service.SomheadalImpl;
 
 import jakarta.servlet.http.HttpSession;
@@ -280,14 +281,59 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         return "customerAddPage";
     }
     
-    @PostMapping("customerAddProcess")
-    public String postMethodName(@RequestParam("imageFiles") List<MultipartFile> imageFiles,
-                             CustomerImgDto customerImgDto,
-                             CustomerInfoDto customerInfoDto,
-                             @RequestParam(value = "ct_option", required = false) List<Integer> ctOptions) {
+//     @PostMapping("customerAddProcess")
+//     public String postMethodName(@RequestParam("imageFiles") List<MultipartFile> imageFiles,
+//                              CustomerImgDto customerImgDto,
+//                              CustomerInfoDto customerInfoDto,
+//                              @RequestParam(value = "ct_option", required = false) List<Integer> ctOptions) {
 
+//     List<CustomerImgDto> imgList = new ArrayList<>();
+
+//     if (imageFiles != null && !imageFiles.isEmpty()) {
+//         String rootPath = "C:/somUploadFiles/";
+//         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+//         String todayPath = sdf.format(new Date());
+//         File folder = new File(rootPath + todayPath);
+//         if (!folder.exists()) folder.mkdirs();
+
+//         for (MultipartFile file : imageFiles) {
+//             if (file.isEmpty()) continue;
+
+//             String originalFileName = file.getOriginalFilename();
+//             String uuid = UUID.randomUUID().toString();
+//             long currentTime = System.currentTimeMillis();
+//             String fileName = uuid + "_" + currentTime 
+//                                 + originalFileName.substring(originalFileName.lastIndexOf("."));
+//             String fullPath = rootPath + todayPath + fileName;
+
+//             try {
+//                 file.transferTo(new File(fullPath));
+//             } catch (Exception e) {
+//                 e.printStackTrace();
+//             }
+
+//             CustomerImgDto imgDto = new CustomerImgDto();
+//             imgDto.setCi_img_url(todayPath + fileName);
+//             imgList.add(imgDto);
+//         }
+//     }
+
+//     // 여러 장 이미지도 서비스로 넘김
+//     somheadalService.insertCustomerAndOptions(customerInfoDto, ctOptions, imgList);
+
+//     return "redirect:./customerManagerPage";
+// }
+
+
+@PostMapping("customerAddProcess")
+public String customerAddProcess(
+        @RequestParam("imageFiles") List<MultipartFile> imageFiles,
+        CustomerInfoDto customerInfoDto,
+        @RequestParam(value = "ct_option", required = false) List<Integer> ctOptions
+) throws IOException {
+
+    // 이미지 업로드 처리
     List<CustomerImgDto> imgList = new ArrayList<>();
-
     if (imageFiles != null && !imageFiles.isEmpty()) {
         String rootPath = "C:/somUploadFiles/";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
@@ -302,14 +348,10 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
             String uuid = UUID.randomUUID().toString();
             long currentTime = System.currentTimeMillis();
             String fileName = uuid + "_" + currentTime 
-                                + originalFileName.substring(originalFileName.lastIndexOf("."));
+                    + originalFileName.substring(originalFileName.lastIndexOf("."));
             String fullPath = rootPath + todayPath + fileName;
 
-            try {
-                file.transferTo(new File(fullPath));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            file.transferTo(new File(fullPath));
 
             CustomerImgDto imgDto = new CustomerImgDto();
             imgDto.setCi_img_url(todayPath + fileName);
@@ -317,7 +359,7 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         }
     }
 
-    // 여러 장 이미지도 서비스로 넘김
+    // 서비스 호출 – 고객 정보 + 옵션 + 이미지 insert
     somheadalService.insertCustomerAndOptions(customerInfoDto, ctOptions, imgList);
 
     return "redirect:./customerManagerPage";
@@ -359,6 +401,10 @@ public String detailFabricPage(HttpSession session, Model model, @RequestParam("
         //System.out.println("이미지 데이터 = " + somheadalService.readCustomerImgData(ct_id_pk));
         return "customerEditPage";
     }
+
+
+
+
     
     
     

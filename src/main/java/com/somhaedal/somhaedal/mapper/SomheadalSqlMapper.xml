@@ -140,6 +140,33 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
     )
 </insert>
 
+<update id="updateCustomerInfo"
+        parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+    update customer_info
+    set
+        ct_name = #{ct_name},
+        ct_phone = #{ct_phone},
+        ct_address = #{ct_address},
+        ct_type = #{ct_type},
+        ct_option = #{ct_option},
+        ct_memo = #{ct_memo},
+        ct_char = #{ct_char},
+        ct_char_explain = #{ct_char_explain},
+        ct_how_many = #{ct_how_many},
+        ct_end_date = #{ct_end_date},
+        ct_delivery_op = #{ct_delivery_op},
+        ct_face_cf = #{ct_face_cf},
+        ct_design_cf = #{ct_design_cf},
+        ct_deleivery = #{ct_deleivery}
+    where
+        ct_id_pk = #{ct_id_pk};
+</update>
+
+<update id ="updateCustomerImg" >
+    update customer_img set ci_img_url = '#{ci_img_url}' where ct_id_pk = #{ct_id_pk};
+</update>
+
+
 <insert id="insertCustomerChoiceOption"
         parameterType="com.somhaedal.somhaedal.dto.CustomerOption">
     INSERT INTO customer_choice_option (ct_id_pk, mp_id_pk, po_id_pk)

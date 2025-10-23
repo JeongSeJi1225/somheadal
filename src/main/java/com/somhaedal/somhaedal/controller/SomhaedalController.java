@@ -198,46 +198,46 @@ public class SomhaedalController {
         return "redirect:./fabricManagerPage";
     }
 
-@PostMapping("editFabricProcess")
-public String editFabricProcess(
-        FabricManagementDto fabricManagementDto,
-        @RequestParam("fb_id_pk") int fbIdPk,
-        @RequestParam(value = "imageFiles", required = false) MultipartFile imageFiles) throws IOException {
+    @PostMapping("editFabricProcess")
+    public String editFabricProcess(
+            FabricManagementDto fabricManagementDto,
+            @RequestParam("fb_id_pk") int fbIdPk,
+            @RequestParam(value = "imageFiles", required = false) MultipartFile imageFiles) throws IOException {
 
-    // 1. 기존 원단 정보 불러오기
-    Map<String, Object> existingFabric = somheadalService.readFabricOnlyOne(fbIdPk);
-    String existingImagePath = (String) existingFabric.get("fb_swatch_img_path");
+        // 1. 기존 원단 정보 불러오기
+        Map<String, Object> existingFabric = somheadalService.readFabricOnlyOne(fbIdPk);
+        String existingImagePath = (String) existingFabric.get("fb_swatch_img_path");
 
-    fabricManagementDto.setFb_id_pk(fbIdPk); // 기본 PK 세팅
+        fabricManagementDto.setFb_id_pk(fbIdPk); // 기본 PK 세팅
 
-    // 2. 새 이미지가 업로드 되었는지 확인
-    if (imageFiles != null && !imageFiles.isEmpty()) {
-        // 새 이미지 업로드 및 저장 경로 생성
-        String rootPath = "C:/somUploadFiles/";
-        String todayPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
-        File folder = new File(rootPath + todayPath);
-        if (!folder.exists()) folder.mkdirs();
+        // 2. 새 이미지가 업로드 되었는지 확인
+        if (imageFiles != null && !imageFiles.isEmpty()) {
+            // 새 이미지 업로드 및 저장 경로 생성
+            String rootPath = "C:/somUploadFiles/";
+            String todayPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
+            File folder = new File(rootPath + todayPath);
+            if (!folder.exists()) folder.mkdirs();
 
-        String originalFileName = imageFiles.getOriginalFilename();
-        String uuid = UUID.randomUUID().toString();
-        long currentTime = System.currentTimeMillis();
-        String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
-        String fullPath = rootPath + todayPath + fileName;
+            String originalFileName = imageFiles.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString();
+            long currentTime = System.currentTimeMillis();
+            String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
+            String fullPath = rootPath + todayPath + fileName;
 
-        imageFiles.transferTo(new File(fullPath));
+            imageFiles.transferTo(new File(fullPath));
 
-        // 새 이미지 경로 저장
-        fabricManagementDto.setFb_swatch_img_path(todayPath + fileName);
-    } else {
-        // 이미지가 없다면 기존 이미지 경로 유지
-        fabricManagementDto.setFb_swatch_img_path(existingImagePath);
+            // 새 이미지 경로 저장
+            fabricManagementDto.setFb_swatch_img_path(todayPath + fileName);
+        } else {
+            // 이미지가 없다면 기존 이미지 경로 유지
+            fabricManagementDto.setFb_swatch_img_path(existingImagePath);
+        }
+
+        // 3. DB 업데이트
+        somheadalService.updateFabrics(fabricManagementDto);
+
+        return "redirect:./detailFabricPage?fb_id_pk=" + fbIdPk;
     }
-
-    // 3. DB 업데이트
-    somheadalService.updateFabrics(fabricManagementDto);
-
-    return "redirect:./detailFabricPage?fb_id_pk=" + fbIdPk;
-}
 
 
 @GetMapping("detailFabricPage")
@@ -364,6 +364,58 @@ public String customerAddProcess(
 
     return "redirect:./customerManagerPage";
 }
+
+
+    @PostMapping("customerEditProcess")
+    public String customerEditProcess(
+            @RequestParam("ct_id_pk") int ct_id_pk,
+            CustomerInfoDto customerInfoDto,
+            @RequestParam(value = "ct_option", required = false) List<Integer> ctOptions,
+            @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles
+    ) throws IOException {
+
+        // 기존 고객 이미지 목록 불러오기
+        List<CustomerImgDto> existingImgs = somheadalService.readCustomerImgData(ct_id_pk); 
+        List<CustomerImgDto> imgList = new ArrayList<>();
+
+        // 1. 새 이미지 업로드가 있는 경우
+        if (imageFiles != null && !imageFiles.isEmpty() && imageFiles.stream().anyMatch(f -> !f.isEmpty())) {
+            String rootPath = "C:/somUploadFiles/";
+            String todayPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
+            File folder = new File(rootPath + todayPath);
+            if (!folder.exists()) folder.mkdirs();
+
+            for (MultipartFile file : imageFiles) {
+                if (file.isEmpty()) continue;
+
+                String originalFileName = file.getOriginalFilename();
+                String uuid = UUID.randomUUID().toString();
+                long currentTime = System.currentTimeMillis();
+                String fileName = uuid + "_" + currentTime 
+                        + originalFileName.substring(originalFileName.lastIndexOf("."));
+                String fullPath = rootPath + todayPath + fileName;
+
+                file.transferTo(new File(fullPath));
+
+                CustomerImgDto imgDto = new CustomerImgDto();
+                imgDto.setCi_img_url(todayPath + fileName);
+                imgList.add(imgDto);
+            }
+
+            // 새 이미지 업로드된 경우 → 기존 이미지 삭제하고 새로 insert
+            somheadalService.deleteCustomerImgs(ct_id_pk);
+                } else {
+                    // 새 이미지 없으면 기존 이미지 유지
+                    imgList = existingImgs;
+                }
+
+                // 2. 고객 정보 및 옵션 업데이트
+                customerInfoDto.setCt_id_pk(ct_id_pk);
+                somheadalService.updateCustomerAndOptions(customerInfoDto, ctOptions, imgList);
+
+                return "redirect:./customerEditPage?ct_id_pk=" + ct_id_pk;
+            }
+
 
     
 

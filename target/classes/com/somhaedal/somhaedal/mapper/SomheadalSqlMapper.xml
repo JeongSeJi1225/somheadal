@@ -116,6 +116,8 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
 	insert into customer_choice_option(ct_id_pk, mp_id_pk, po_id_pk) values(#{ct_id_pk}, #{mp_id_pk}, #{po_id_pk});
 </insert>
 
+
+
 <select id="readOptions" resultType="com.somhaedal.somhaedal.dto.ProductOptiontDto">
 	select * from product_option po group by po_name asc;
 </select>
@@ -139,32 +141,6 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
         #{ct_end_date}, now(), "미완료", "미완료", "미배송", #{ct_delivery_op}
     )
 </insert>
-
-<update id="updateCustomerInfo"
-        parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
-    update customer_info
-    set
-        ct_name = #{ct_name},
-        ct_phone = #{ct_phone},
-        ct_address = #{ct_address},
-        ct_type = #{ct_type},
-        ct_option = #{ct_option},
-        ct_memo = #{ct_memo},
-        ct_char = #{ct_char},
-        ct_char_explain = #{ct_char_explain},
-        ct_how_many = #{ct_how_many},
-        ct_end_date = #{ct_end_date},
-        ct_delivery_op = #{ct_delivery_op},
-        ct_face_cf = #{ct_face_cf},
-        ct_design_cf = #{ct_design_cf},
-        ct_deleivery = #{ct_deleivery}
-    where
-        ct_id_pk = #{ct_id_pk};
-</update>
-
-<update id ="updateCustomerImg" >
-    update customer_img set ci_img_url = '#{ci_img_url}' where ct_id_pk = #{ct_id_pk};
-</update>
 
 
 <insert id="insertCustomerChoiceOption"
@@ -257,6 +233,54 @@ GROUP BY ci.ct_id_pk, ci.ct_name, ci.ct_phone, ci.ct_how_many,
 <select id="readCustomerDeliInfo" resultType="com.somhaedal.somhaedal.dto.DeliveryInfo">
 select * from delivery_info where ct_id_pk = #{ct_id_pk};
 </select>
+
+
+<!-- 고객 기본정보 -->
+<update id="updateCustomerInfo" parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+    update customer_info
+    set
+        ct_name = #{ct_name},
+        ct_phone = #{ct_phone},
+        ct_address = #{ct_address},
+        ct_type = #{ct_type},
+        ct_option = #{ct_option},
+        ct_memo = #{ct_memo},
+        ct_char = #{ct_char},
+        ct_char_explain = #{ct_char_explain},
+        ct_how_many = #{ct_how_many},
+        ct_end_date = #{ct_end_date},
+        ct_delivery_op = #{ct_delivery_op},
+        ct_face_cf = #{ct_face_cf},
+        ct_design_cf = #{ct_design_cf},
+        ct_deleivery = #{ct_deleivery}
+    where ct_id_pk = #{ct_id_pk}
+</update>
+
+
+<!-- 옵션 (개별 행 업데이트용) -->
+<update id="updateChoiceType" parameterType="com.somhaedal.somhaedal.dto.CustomerOption">
+    update customer_choice_option
+    set
+        mp_id_pk = #{mp_id_pk},
+        po_id_pk = #{po_id_pk}
+    where
+        oc_id_pk = #{oc_id_pk}
+        and ct_id_pk = #{ct_id_pk}
+</update>
+
+
+<!-- 이미지 (개별 행 업데이트용) -->
+<update id="updateCustomerImg" parameterType="com.somhaedal.somhaedal.dto.CustomerImgDto">
+    update customer_img
+    set ci_img_url = #{ci_img_url}
+    where
+        ci_id_pk = #{ci_id_pk}
+        and ct_id_pk = #{ct_id_pk}
+</update>
+
+<delete id="deleteCustomerImgs">
+    delete from customer_img where ct_id_pk = #{ct_id_pk};
+</delete>
 
 
 </mapper>

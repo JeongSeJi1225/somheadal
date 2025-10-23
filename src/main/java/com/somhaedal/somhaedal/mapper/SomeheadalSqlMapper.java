@@ -121,5 +121,7 @@ public interface SomeheadalSqlMapper {
     //info 업데이트
     public void updateCustomerInfo(CustomerInfoDto customerInfoDto);
     public void updateCustomerImg(CustomerImgDto customerImgDto);
+    public void updateChoiceType(CustomerOption customerOption);
+    public void deleteCustomerImgs(int ct_id_pk);
     
 }

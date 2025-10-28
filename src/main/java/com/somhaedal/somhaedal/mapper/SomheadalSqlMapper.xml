@@ -235,39 +235,33 @@ select * from delivery_info where ct_id_pk = #{ct_id_pk};
 </select>
 
 
-<!-- 고객 기본정보 -->
 <update id="updateCustomerInfo" parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
     update customer_info
-    set
+    set 
         ct_name = #{ct_name},
         ct_phone = #{ct_phone},
         ct_address = #{ct_address},
         ct_type = #{ct_type},
-        ct_option = #{ct_option},
         ct_memo = #{ct_memo},
         ct_char = #{ct_char},
         ct_char_explain = #{ct_char_explain},
         ct_how_many = #{ct_how_many},
-        ct_end_date = #{ct_end_date},
-        ct_delivery_op = #{ct_delivery_op},
-        ct_face_cf = #{ct_face_cf},
-        ct_design_cf = #{ct_design_cf},
-        ct_deleivery = #{ct_deleivery}
-    where ct_id_pk = #{ct_id_pk}
+        ct_apply_date = #{ct_apply_date},
+        ct_end_date = #{ct_end_date}
+    where ct_id_pk = #{ct_id_pk};
 </update>
 
 
-<!-- 옵션 (개별 행 업데이트용) -->
+
 <update id="updateChoiceType" parameterType="com.somhaedal.somhaedal.dto.CustomerOption">
     update customer_choice_option
     set
         mp_id_pk = #{mp_id_pk},
         po_id_pk = #{po_id_pk}
     where
-        oc_id_pk = #{oc_id_pk}
-        and ct_id_pk = #{ct_id_pk}
+        ct_id_pk = #{ct_id_pk}
+        and oc_id_pk = #{oc_id_pk}
 </update>
-
 
 <!-- 이미지 (개별 행 업데이트용) -->
 <update id="updateCustomerImg" parameterType="com.somhaedal.somhaedal.dto.CustomerImgDto">
@@ -281,6 +275,11 @@ select * from delivery_info where ct_id_pk = #{ct_id_pk};
 <delete id="deleteCustomerImgs">
     delete from customer_img where ct_id_pk = #{ct_id_pk};
 </delete>
+
+<delete id="deleteCustomerOptions">
+    delete from customer_choice_option where ct_id_pk = #{ct_id_pk};
+</delete>
+
 
 
 </mapper>

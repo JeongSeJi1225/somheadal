@@ -239,33 +239,39 @@ public class SomheadalImpl {
 
     @Transactional
     public void updateCustomerAndOptions(CustomerInfoDto customerInfoDto,
-                                        List<CustomerOption> customerOptions,
-                                        List<CustomerImgDto> customerImgDtos) {
+                                     List<CustomerOption> customerOptions,
+                                     List<CustomerImgDto> customerImgDtos) {
 
-        int customerId = customerInfoDto.getCt_id_pk();
+    int customerId = customerInfoDto.getCt_id_pk();
 
-        // 1. 고객 기본정보 update
-        someheadalSqlMapper.updateCustomerInfo(customerInfoDto);
-
-        // 2. 옵션 update (oc_id_pk가 DTO에 포함되어 있어야 함)
-        if (customerOptions != null && !customerOptions.isEmpty()) {
-            for (CustomerOption option : customerOptions) {
-                option.setCt_id_pk(customerId);
-                someheadalSqlMapper.updateChoiceType(option);
-            }
-        }
-
-        // 3. 이미지 update (ci_id_pk 기준)
-        if (customerImgDtos != null && !customerImgDtos.isEmpty()) {
-            for (CustomerImgDto imgDto : customerImgDtos) {
-                imgDto.setCt_id_pk(customerId);
-                someheadalSqlMapper.updateCustomerImg(imgDto);
-            }
+    // 1. 고객 기본정보 update
+    someheadalSqlMapper.updateCustomerInfo(customerInfoDto);
+    
+    // 2. 옵션 update
+    if (customerOptions != null && !customerOptions.isEmpty()) {
+        for (CustomerOption option : customerOptions) {
+            option.setCt_id_pk(customerId);
+            someheadalSqlMapper.updateChoiceType(option);
         }
     }
 
-public void deleteCustomerImgs(int ct_id_pk);
-void updateCustomerAndOptions(CustomerInfoDto customerInfoDto, List<Integer> ctOptions, List<CustomerImgDto> imgList);
+    // 3. 이미지 insert
+    if (customerImgDtos != null && !customerImgDtos.isEmpty()) {
+        for (CustomerImgDto imgDto : customerImgDtos) {
+            imgDto.setCt_id_pk(customerId);
+            someheadalSqlMapper.insertFaceDesign(imgDto);
+        }
+    }
+}
+
+
+
+    //신청자 이미지 delete
+    public void deleteCustomerImgs(int ct_id_pk){
+
+        someheadalSqlMapper.deleteCustomerImgs(ct_id_pk);
+    }
+
 
 
 

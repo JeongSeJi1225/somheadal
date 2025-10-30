@@ -421,69 +421,143 @@ public String customerAddProcess(
     // }
 
 
-    @PostMapping("customerEditProcess")
+    // @PostMapping("customerEditProcess")
+    // public String customerEditProcess(
+    //         @RequestParam("ct_id_pk") int ctIdPk,
+    //         @RequestParam(value = "mainProduct", required = false) Integer mainProductId, // ✅ 추가
+    //         CustomerInfoDto customerInfoDto,
+    //         @RequestParam(value = "ct_option", required = false) List<Integer> ctOptions,
+    //         @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles
+    // ) throws IOException {
+
+    //     // 기존 이미지 불러오기
+    //     List<CustomerImgDto> existingImgs = somheadalService.readCustomerImgData(ctIdPk);
+    //     List<CustomerImgDto> imgList = new ArrayList<>();
+
+    //     // 이미지 처리
+    //     if (imageFiles != null && !imageFiles.isEmpty() && imageFiles.stream().anyMatch(f -> !f.isEmpty())) {
+    //         String rootPath = "C:/somUploadFiles/";
+    //         String todayPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
+    //         File folder = new File(rootPath + todayPath);
+    //         if (!folder.exists()) folder.mkdirs();
+
+    //         for (MultipartFile file : imageFiles) {
+    //             if (file.isEmpty()) continue;
+    //             String originalFileName = file.getOriginalFilename();
+    //             String uuid = UUID.randomUUID().toString();
+    //             long currentTime = System.currentTimeMillis();
+    //             String fileName = uuid + "_" + currentTime + 
+    //                     originalFileName.substring(originalFileName.lastIndexOf("."));
+    //             String fullPath = rootPath + todayPath + fileName;
+    //             file.transferTo(new File(fullPath));
+
+    //             CustomerImgDto imgDto = new CustomerImgDto();
+    //             imgDto.setCi_img_url(todayPath + fileName);
+    //             imgList.add(imgDto);
+    //         }
+
+    //         somheadalService.deleteCustomerImgs(ctIdPk);
+    //     } else {
+    //         imgList = existingImgs;
+    //     }
+
+    //     // 옵션 삭제 후 새로 insert
+    //     somheadalService.deleteCustomerOptions(ctIdPk);
+    //     List<CustomerOption> customerOptionList = new ArrayList<>();
+    //     if (ctOptions != null && !ctOptions.isEmpty()) {
+    //         for (Integer poId : ctOptions) {
+    //             CustomerOption opt = new CustomerOption();
+    //             opt.setCt_id_pk(ctIdPk);
+    //             opt.setPo_id_pk(poId);
+    //             opt.setMp_id_pk(mainProductId); // main_product 연결
+    //             customerOptionList.add(opt);
+    //         }
+    //     }
+
+    //     // 고객 정보 세팅
+    //     customerInfoDto.setCt_id_pk(ctIdPk);
+    //     customerInfoDto.setCt_type(mainProductId);
+
+    //     // 업데이트
+    //     somheadalService.updateCustomerAndOptions(customerInfoDto, customerOptionList, imgList);
+
+    //     return "redirect:./customerEditPage?ct_id_pk=" + ctIdPk;
+    // }
+
+    @PostMapping("/customerEditProcess")
     public String customerEditProcess(
             @RequestParam("ct_id_pk") int ctIdPk,
+            @RequestParam("ct_type") int mainProductId,
             CustomerInfoDto customerInfoDto,
             @RequestParam(value = "ct_option", required = false) List<Integer> ctOptions,
             @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles
     ) throws IOException {
 
-        // 1. 기존 이미지 불러오기
+        //  기존 고객 정보 / 이미지 / 옵션 불러오기
         List<CustomerImgDto> existingImgs = somheadalService.readCustomerImgData(ctIdPk);
+        List<CustomerOption> existingOptions = somheadalService.readCustomerOptions(ctIdPk);
+
+        // customerInfoDto.setCt_id_pk(ctIdPk);
+        // if (mainProductId != null) {
+        //     customerInfoDto.setCt_type(mainProductId);
+        // }
+
+        //  이미지 업로드 처리
+        String rootPath = "C:/somUploadFiles/";
+        String todayPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
+        File folder = new File(rootPath + todayPath);
+        if (!folder.exists()) folder.mkdirs();
+
         List<CustomerImgDto> imgList = new ArrayList<>();
 
-        // 2. 새 이미지 업로드
         if (imageFiles != null && !imageFiles.isEmpty() && imageFiles.stream().anyMatch(f -> !f.isEmpty())) {
-            String rootPath = "C:/somUploadFiles/";
-            String todayPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
-            File folder = new File(rootPath + todayPath);
-            if (!folder.exists()) folder.mkdirs();
-
+            // 새 이미지가 있다면 기존 이미지 삭제 후 교체
+            somheadalService.deleteCustomerImgs(ctIdPk);
             for (MultipartFile file : imageFiles) {
-                if (file.isEmpty()) continue;
-
                 String originalFileName = file.getOriginalFilename();
                 String uuid = UUID.randomUUID().toString();
                 long currentTime = System.currentTimeMillis();
-                String fileName = uuid + "_" + currentTime +
-                        originalFileName.substring(originalFileName.lastIndexOf("."));
+                String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
                 String fullPath = rootPath + todayPath + fileName;
 
                 file.transferTo(new File(fullPath));
 
                 CustomerImgDto imgDto = new CustomerImgDto();
+                imgDto.setCt_id_pk(ctIdPk);
                 imgDto.setCi_img_url(todayPath + fileName);
                 imgList.add(imgDto);
             }
-
-            // 새 이미지 업로드 시 기존 삭제
-            somheadalService.deleteCustomerImgs(ctIdPk);
         } else {
+            // 업로드 없으면 기존 이미지 유지
             imgList = existingImgs;
         }
 
-        // 3. 옵션 변환
-        List<CustomerOption> customerOptionList = new ArrayList<>();
+        //  옵션 업데이트
+        somheadalService.deleteCustomerOptions(ctIdPk); // 기존 옵션 초기화
+        
+        List<CustomerOption> optionList = new ArrayList<>();
+
         if (ctOptions != null && !ctOptions.isEmpty()) {
-            for (Integer poId : ctOptions) {
+            for (int poId : ctOptions) {
                 CustomerOption opt = new CustomerOption();
                 opt.setCt_id_pk(ctIdPk);
                 opt.setPo_id_pk(poId);
-                // mp_id_pk 같은 게 있다면 여기서 세팅
-                customerOptionList.add(opt);
+                opt.setMp_id_pk(mainProductId);
+                optionList.add(opt);
             }
+        } else {
+            optionList = existingOptions; // 선택 없으면 기존 옵션 유지
         }
 
-        // 4. 고객 ID 세팅
-        customerInfoDto.setCt_id_pk(ctIdPk);
+        //  업데이트 실행 (트랜잭션)
+        somheadalService.updateCustomerAndOptions(customerInfoDto, optionList, imgList);
 
-        // 5. 서비스 호출
-        somheadalService.updateCustomerAndOptions(customerInfoDto, customerOptionList, imgList);
-
-        // 6. 리다이렉트
+        // 리다이렉트
         return "redirect:./customerEditPage?ct_id_pk=" + ctIdPk;
     }
+
+
+
 
     
 

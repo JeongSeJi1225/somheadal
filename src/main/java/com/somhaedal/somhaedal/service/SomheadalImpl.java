@@ -152,6 +152,7 @@ public class SomheadalImpl {
                     choice.setPo_id_pk(poId);
                     choice.setMp_id_pk(customerInfoDto.getCt_type());
                     someheadalSqlMapper.insertCustomerChoiceOption(choice);
+                    
                 }
             }
 
@@ -237,40 +238,74 @@ public class SomheadalImpl {
         return someheadalSqlMapper.readCustomerDeliInfo(ct_id_pk);
     }
 
-    @Transactional
-    public void updateCustomerAndOptions(CustomerInfoDto customerInfoDto,
-                                     List<CustomerOption> customerOptions,
-                                     List<CustomerImgDto> customerImgDtos) {
+//     @Transactional
+//     public void updateCustomerAndOptions(CustomerInfoDto customerInfoDto,
+//                                      List<CustomerOption> customerOptions,
+//                                      List<CustomerImgDto> customerImgDtos) {
 
-    int customerId = customerInfoDto.getCt_id_pk();
+//     int customerId = customerInfoDto.getCt_id_pk();
 
-    // 1. 고객 기본정보 update
-    someheadalSqlMapper.updateCustomerInfo(customerInfoDto);
+//     // 1. 고객 기본정보 update
+//     someheadalSqlMapper.updateCustomerInfo(customerInfoDto);
     
-    // 2. 옵션 update
-    if (customerOptions != null && !customerOptions.isEmpty()) {
-        for (CustomerOption option : customerOptions) {
-            option.setCt_id_pk(customerId);
-            someheadalSqlMapper.updateChoiceType(option);
+//     // 2. 옵션 update
+//     if (customerOptions != null && !customerOptions.isEmpty()) {
+//         for (CustomerOption option : customerOptions) {
+//             option.setCt_id_pk(customerId);
+//             someheadalSqlMapper.updateChoiceType(option);
+//         }
+//     }
+
+//     // 3. 이미지 insert
+//     if (customerImgDtos != null && !customerImgDtos.isEmpty()) {
+//         for (CustomerImgDto imgDto : customerImgDtos) {
+//             imgDto.setCt_id_pk(customerId);
+//             someheadalSqlMapper.insertFaceDesign(imgDto);
+//         }
+//     }
+// }
+
+    
+    @Transactional
+    public void updateCustomerAndOptions(
+            CustomerInfoDto customerInfoDto,
+            List<CustomerOption> customerOptions,
+            List<CustomerImgDto> customerImgDtos
+    ) {
+        int ctIdPk = customerInfoDto.getCt_id_pk();
+
+        // 1. 고객 기본 정보 업데이트
+        someheadalSqlMapper.updateCustomerInfo(customerInfoDto);
+
+        // 2. 옵션 재등록
+        if (customerOptions != null && !customerOptions.isEmpty()) {
+            for (CustomerOption option : customerOptions) {
+                if (option.getMp_id_pk() == 0) option.setMp_id_pk(customerInfoDto.getCt_type());
+                option.setCt_id_pk(ctIdPk);
+                someheadalSqlMapper.insertCustomerChoiceOption(option);
+            }
+        }
+
+        // 3. 이미지 재등록
+        if (customerImgDtos != null && !customerImgDtos.isEmpty()) {
+            for (CustomerImgDto imgDto : customerImgDtos) {
+                imgDto.setCt_id_pk(ctIdPk);
+                someheadalSqlMapper.insertFaceDesign(imgDto);
+            }
         }
     }
 
-    // 3. 이미지 insert
-    if (customerImgDtos != null && !customerImgDtos.isEmpty()) {
-        for (CustomerImgDto imgDto : customerImgDtos) {
-            imgDto.setCt_id_pk(customerId);
-            someheadalSqlMapper.insertFaceDesign(imgDto);
-        }
+
+    // 선택 옵션/이미지 삭제
+    public void deleteCustomerOptions(int ctIdPk) {
+        someheadalSqlMapper.deleteCustomerOptions(ctIdPk);
     }
-}
 
-
-
-    //신청자 이미지 delete
-    public void deleteCustomerImgs(int ct_id_pk){
-
-        someheadalSqlMapper.deleteCustomerImgs(ct_id_pk);
+    public void deleteCustomerImgs(int ctIdPk) {
+        someheadalSqlMapper.deleteCustomerImgs(ctIdPk);
     }
+
+
 
 
 

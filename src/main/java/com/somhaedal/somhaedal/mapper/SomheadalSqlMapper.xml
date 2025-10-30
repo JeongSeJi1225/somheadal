@@ -112,9 +112,6 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
 
 
 
-<insert id="insertCtChoiceType">
-	insert into customer_choice_option(ct_id_pk, mp_id_pk, po_id_pk) values(#{ct_id_pk}, #{mp_id_pk}, #{po_id_pk});
-</insert>
 
 
 

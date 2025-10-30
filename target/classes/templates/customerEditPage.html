@@ -112,13 +112,18 @@
               <div class="mb-4">
                 <label class="form-label">타입지정</label>
                 <select class="form-select" name="ct_type">
-                  <option selected disabled>상품 유형을 선택하세요.</option>
+                  <!-- 현재 타입 표시 -->
+                  
+
+                  <!-- 나머지 타입 목록 -->
                   <option th:each="choiceProduct : ${readProducts}"
+                          th:if="${choiceProduct.mp_id_pk != customerReadApply?.ct_type}"
                           th:value="${choiceProduct.mp_id_pk}"
-                          th:text="${choiceProduct.mp_explain}"
-                          th:selected="${customerReadApply?.ct_type == choiceProduct.mp_id_pk}"></option>
+                          th:text="${choiceProduct.mp_explain}">
+                  </option>
                 </select>
               </div>
+
 
               <!-- 개수 -->
               <div class="mb-4">

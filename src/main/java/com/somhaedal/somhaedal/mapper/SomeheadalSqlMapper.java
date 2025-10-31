@@ -124,4 +124,8 @@ public interface SomeheadalSqlMapper {
     public void updateChoiceType(CustomerOption customerOption);
     public void deleteCustomerImgs(int ct_id_pk);
     public void deleteCustomerOptions(int ct_id_pk);
+
+    //info 삭제
+    
+
 }

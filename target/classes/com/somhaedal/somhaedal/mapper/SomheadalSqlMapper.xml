@@ -277,6 +277,18 @@ select * from delivery_info where ct_id_pk = #{ct_id_pk};
     delete from customer_choice_option where ct_id_pk = #{ct_id_pk};
 </delete>
 
+<delete id="deleteCustomerInfo">
+    delete from customer_info where ct_id_pk = #{ct_id_pk};
+</delete>
+
+<delete id="deleteDeleteCustomerDeli">
+    delete from delivery_info ct_id_pk = #{ct_id_pk};
+</delete>
+
+<!--고객정보 delete용-->
+
+
+
 
 
 </mapper>

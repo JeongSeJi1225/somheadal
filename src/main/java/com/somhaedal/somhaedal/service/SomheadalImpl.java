@@ -231,8 +231,9 @@ public class SomheadalImpl {
     }
 
     public void insertCustomerDeliInfo(DeliveryInfo deliveryInfo){
-        someheadalSqlMapper.insertCustomerDeliInfo(deliveryInfo);
-    }
+    someheadalSqlMapper.insertCustomerDeliInfo(deliveryInfo);
+    someheadalSqlMapper.updateDeliState(deliveryInfo.getCt_id_pk());
+}
 
     public DeliveryInfo readCustomerDeliInfo(int ct_id_pk){
         return someheadalSqlMapper.readCustomerDeliInfo(ct_id_pk);
@@ -303,6 +304,25 @@ public class SomheadalImpl {
 
     public void deleteCustomerImgs(int ctIdPk) {
         someheadalSqlMapper.deleteCustomerImgs(ctIdPk);
+    }
+
+    public void deleteInfos(int ct_id_pk){
+        someheadalSqlMapper.deleteCustomerImgs(ct_id_pk);
+        someheadalSqlMapper.deleteCustomerOptions(ct_id_pk);
+        someheadalSqlMapper.deleteCustomerInfo(ct_id_pk);
+        someheadalSqlMapper.deleteDeleteCustomerDeli(ct_id_pk);
+    }
+
+    public void updateDesignCf(int ct_id_pk){
+        someheadalSqlMapper.updateDesignCf(ct_id_pk);
+    }
+
+    public void updateFaceCf(int ct_id_pk){
+        someheadalSqlMapper.updateFaceCf(ct_id_pk);
+    }
+
+    public void updateCompleteCf(int ct_id_pk){
+        someheadalSqlMapper.updateCompleteCf(ct_id_pk);
     }
 
 

@@ -126,6 +126,13 @@ public interface SomeheadalSqlMapper {
     public void deleteCustomerOptions(int ct_id_pk);
 
     //info 삭제
-    
+    public void deleteCustomerInfo(int ct_id_pk);
+    public void deleteDeleteCustomerDeli(int ct_id_pk);
+
+    //컨펌 업데이트
+    public void updateDesignCf(int ct_id_pk);
+    public void updateFaceCf(int ct_id_pk);
+    public void updateCompleteCf(int ct_id_pk);
+    public void updateDeliState(int ct_id_pk);
 
 }

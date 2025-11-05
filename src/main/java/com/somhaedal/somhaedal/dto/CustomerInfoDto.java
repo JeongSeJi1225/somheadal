@@ -21,6 +21,7 @@ public class CustomerInfoDto {
     private String ct_char_explain;
     private int ct_how_many;
     private String ct_face_cf;
+    private String ct_complete_cf;
     private String ct_design_cf;
     private String ct_deleivery;
 

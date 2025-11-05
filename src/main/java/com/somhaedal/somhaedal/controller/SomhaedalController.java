@@ -597,12 +597,9 @@ public String customerAddProcess(
     }
 
 
-
-
     
     
-    
-        @GetMapping("another")
+    @GetMapping("another")
     public String another(HttpSession session, Model model, @RequestParam("ct_id_pk") int ct_id_pk,
                                         CustomerImgDto customerImgDto, CustomerInfoDto customerInfoDto,
                                         CustomerOption customerOption,
@@ -625,8 +622,32 @@ public String customerAddProcess(
         return "redirect:/customerDetailPage?ct_id_pk=" + deliveryInfo.getCt_id_pk();
 
     }
-        
     
+    @GetMapping("/deleteCustomerProcess")
+    public String deleteCustomerProcess(@RequestParam("ct_id_pk") int ct_id_pk) {
+        somheadalService.deleteInfos(ct_id_pk);
+        return "redirect:./customerManagerPage";
+    }
+    
+    @GetMapping("/updateDesignCf")
+    public String updateDesignCf(@RequestParam("ct_id_pk") int ct_id_pk) {
+        somheadalService.updateDesignCf(ct_id_pk);
+        return "redirect:./customerManagerPage";
+    }
+
+    @GetMapping("/updateFaceCf")
+    public String updateFaceCf(@RequestParam("ct_id_pk") int ct_id_pk) {
+        somheadalService.updateFaceCf(ct_id_pk);
+        return "redirect:./customerManagerPage";
+    }
+
+    @GetMapping("/updateCompleteCf")
+    public String updateCompleteCf(@RequestParam("ct_id_pk") int ct_id_pk) {
+        somheadalService.updateCompleteCf(ct_id_pk);
+        return "redirect:./customerManagerPage";
+    }
+
+
 
 
 

@@ -131,11 +131,11 @@ delete from fabric_management where fb_id_pk =#{fb_id_pk};
     insert into customer_info(
         ct_name, ct_phone, ct_address, ct_type, ct_option,
         ct_memo, ct_char, ct_char_explain, ct_how_many,
-        ct_end_date, ct_apply_date, ct_face_cf, ct_design_cf, ct_deleivery, ct_delivery_op
+        ct_end_date, ct_apply_date, ct_face_cf, ct_design_cf, ct_deleivery, ct_delivery_op, ct_complete_cf
     ) values (
         #{ct_name}, #{ct_phone}, #{ct_address}, #{ct_type}, #{ct_option},
         #{ct_memo}, #{ct_char}, #{ct_char_explain}, #{ct_how_many},
-        #{ct_end_date}, now(), "미완료", "미완료", "미배송", #{ct_delivery_op}
+        #{ct_end_date}, now(), "도안컨펌 미완료", "면피컨펌 미완료", "배송 미완료", #{ct_delivery_op}, "완성컨펌 미완료"
     )
 </insert>
 
@@ -175,22 +175,10 @@ select * from customer_img where ct_id_pk = #{ct_id_pk};
 </select>
 
 
-<update id="updateFaceCf">
-	update customer_info set ct_face_cf = "완료" where ct_id_pk =#{ct_id_pk};
-</update>
-
-<update id="updateDesignCf">
-	update customer_info set ct_design_cf = "완료" where ct_design_cf =#{ct_id_pk};
-</update>
-
-<update id="updateDeliveryOk">
-	update customer_info set ct_deleivery = "완료" where ct_deleivery =#{ct_id_pk};
-</update>
 
 <select id="readDeliveryOp" resultType="com.somhaedal.somhaedal.dto.DeliveryOptionDto">
 select * from delivery_option;
 </select>
-
 
 
 <select id="readSumOptionsOne" resultType="map">
@@ -269,6 +257,7 @@ select * from delivery_info where ct_id_pk = #{ct_id_pk};
         and ct_id_pk = #{ct_id_pk}
 </update>
 
+<!--고객정보 delete용-->
 <delete id="deleteCustomerImgs">
     delete from customer_img where ct_id_pk = #{ct_id_pk};
 </delete>
@@ -282,10 +271,25 @@ select * from delivery_info where ct_id_pk = #{ct_id_pk};
 </delete>
 
 <delete id="deleteDeleteCustomerDeli">
-    delete from delivery_info ct_id_pk = #{ct_id_pk};
+    delete from delivery_info where ct_id_pk = #{ct_id_pk};
 </delete>
 
-<!--고객정보 delete용-->
+<!-- 업데이트 버튼 -->
+<update id="updateDesignCf" parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+	update customer_info set ct_face_cf = '컨펌완료' where ct_id_pk = #{ct_id_pk};
+</update>
+
+<update id="updateFaceCf" parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+	update customer_info set ct_design_cf = '컨펌완료' where ct_id_pk = #{ct_id_pk};
+</update>
+
+<update id="updateCompleteCf" parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+	update customer_info set ct_complete_cf = '컨펌완료' where ct_id_pk = #{ct_id_pk};
+</update>
+
+<update id="updateDeliState" parameterType="com.somhaedal.somhaedal.dto.CustomerInfoDto">
+    update customer_info set ct_deleivery = '배송완료' where ct_id_pk =#{ct_id_pk};
+</update>
 
 
 

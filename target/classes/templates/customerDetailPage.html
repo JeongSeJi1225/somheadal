@@ -72,6 +72,51 @@
       color: #6c757d;
     }
   </style>
+
+  <script>
+  function showAlert(message, type = "danger") {
+    const alertBox = document.getElementById("deliveryAlert");
+    alertBox.textContent = message;
+    alertBox.className = `alert alert-${type} mt-2`; // Bootstrap 클래스 적용
+    alertBox.classList.remove("d-none");
+
+    // 3초 뒤 자동 사라짐
+    setTimeout(() => {
+      alertBox.classList.add("d-none");
+    }, 3000);
+  }
+
+  function validateDeliveryNumber() {
+    const input = document.getElementById("di_delivery_nb");
+    const value = input.value.trim();
+
+    // 1. 빈 값
+    if (value === "") {
+      showAlert("운송장 번호를 입력해 주세요.");
+      input.focus();
+      return false;
+    }
+
+    // 2. 숫자 이외 문자 포함
+    const numberRegex = /^[0-9]+$/;
+    if (!numberRegex.test(value)) {
+      showAlert("운송장 번호는 숫자만 입력할 수 있습니다.");
+      input.focus();
+      return false;
+    }
+
+    // 3. 등록 확인
+    if (!confirm("운송장 번호를 등록하시겠습니까?")) {
+      showAlert("등록이 취소되었습니다.", "warning");
+      return false;
+    }
+
+    // 통과 시 form 제출
+    showAlert("운송장 번호가 등록됩니다.", "success");
+    return true;
+  }
+</script>
+
 </head>
 <body>
   <div class="container-fluid">
@@ -133,18 +178,32 @@
               </div>
             </div>
 
-            <form action="./insertCustomerDeliInfo" method="post" enctype="multipart/form-data">
-              <input type="hidden" name="ct_id_pk"  th:value="${customerReadApply.ct_id_pk}" />
-            <div class="row mb-3">
-              <div class="col-md-9">
-                <input class="form-control" name="di_delivery_nb" type="text" placeholder="운송장 번호 입력">
-              </div>
-              <div class="col-md-3">
-                <button class="btn btn-success w-100">배송완료</button>
-                <!-- a href th:href로 변경-->
-              </div>
-            </div>
-            </form>
+            <form
+                action="./insertCustomerDeliInfo"
+                method="post"
+                enctype="multipart/form-data"
+                onsubmit="return validateDeliveryNumber()"
+              >
+                <input type="hidden" name="ct_id_pk" th:value="${customerReadApply.ct_id_pk}" />
+
+                <div class="row mb-3">
+                  <div class="col-md-9">
+                    <input
+                      class="form-control"
+                      name="di_delivery_nb"
+                      id="di_delivery_nb"
+                      type="text"
+                      placeholder="운송장 번호 입력"
+                    />
+                  </div>
+                  <div class="col-md-3">
+                    <button class="btn btn-success w-100" type="submit">배송완료</button>
+                  </div>
+                </div>
+
+                <!-- 경고 메시지 표시 영역 -->
+                <div id="deliveryAlert" class="alert mt-2 d-none" role="alert"></div>
+              </form>
 
 
           </div>
@@ -213,21 +272,21 @@
               </div>
             </div>
 
-            <div class="row g-3">
+            <div class="row g-3 mt-5">
               <div class="col-md-4">
                 <label class="form-label">도안 이미지</label>
                 <input class="form-control" type="file" name="imageFiles" multiple>
-                <button class="btn btn-primary w-100 mt-2">도안컨펌 완료</button>
+                <a class="btn btn-primary w-100 mt-2" th:href="@{/updateDesignCf(ct_id_pk=${customerReadApply.ct_id_pk})}"><span th:text="${customerReadApply.ct_face_cf}"></span></a>
               </div>
               <div class="col-md-4">
                 <label class="form-label">면피 이미지</label>
                 <input class="form-control" type="file" name="imageFiles" multiple>
-                <button class="btn btn-primary w-100 mt-2">면피컨펌 완료</button>
+                <a class="btn btn-primary w-100 mt-2" th:href="@{/updateFaceCf(ct_id_pk=${customerReadApply.ct_id_pk})}"><span th:text="${customerReadApply.ct_design_cf}"></span></a>
               </div>
               <div class="col-md-4">
                 <label class="form-label">완성 이미지</label>
                 <input class="form-control" type="file" name="imageFiles" multiple>
-                <button class="btn btn-primary w-100 mt-2">완성컨펌 완료</button>
+                <a class="btn btn-primary w-100 mt-2" th:href="@{/updateCompleteCf(ct_id_pk=${customerReadApply.ct_id_pk})}"><span th:text="${customerReadApply.ct_complete_cf}"></span></a>
               </div>
             </div>
           </div>
@@ -244,7 +303,7 @@
         <!-- 하단 버튼 -->
         <div class="text-end mt-4">
           <a class="btn btn-secondary px-4" th:href="@{/customerEditPage(ct_id_pk=${customerReadApply.ct_id_pk})}">수정</a>
-          <button class="btn btn-danger px-4">삭제</button>
+          <a class="btn btn-danger px-4" th:href="@{/deleteCustomerProcess(ct_id_pk=${customerReadApply.ct_id_pk})}">삭제<a>
         </div>
       </div>
     </div>

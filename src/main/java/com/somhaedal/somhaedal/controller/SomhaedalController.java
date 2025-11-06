@@ -647,6 +647,13 @@ public String customerAddProcess(
         return "redirect:./customerManagerPage";
     }
 
+    @PostMapping("/insertFaceimg")
+    public String insertFaceimg(Custmer @RequestParam("ct_id_pk") int ct_id_pk, Model model) {
+
+
+        return "redirect:/customerDetailPage?ct_id_pk=" + deliveryInfo.getCt_id_pk();
+
+    }
 
 
 

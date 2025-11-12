@@ -24,6 +24,7 @@ import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
 import com.somhaedal.somhaedal.dto.DeliveryInfo;
 import com.somhaedal.somhaedal.dto.DeliveryOptionDto;
+import com.somhaedal.somhaedal.dto.DollDesignImgDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.ProductOptiontDto;
@@ -571,6 +572,7 @@ public String customerAddProcess(
         model.addAttribute("totalSums", somheadalService.readSumOptionsOne(ct_id_pk));
         model.addAttribute("readCustomerImgData", somheadalService.readCustomerImgData(ct_id_pk));
         model.addAttribute("readCustomerDeliNb", somheadalService.readCustomerDeliInfo(ct_id_pk));
+        model.addAttribute("readDollFaceImg", somheadalService.readDollFaceImg(ct_id_pk));
         //System.out.println("ct _ id _ pk =" + somheadalService.readCustomerAdds(ct_id_pk));
         //System.out.println("options : " + somheadalService.readCustomerOptions(ct_id_pk));
         //System.out.println("이미지 데이터 = " + somheadalService.readCustomerImgData(ct_id_pk));
@@ -648,10 +650,38 @@ public String customerAddProcess(
     }
 
     @PostMapping("/insertFaceimg")
-    public String insertFaceimg(Custmer @RequestParam("ct_id_pk") int ct_id_pk, Model model) {
+    public String insertFaceimg(DollDesignImgDto dollDesignImgDto, @RequestParam("ct_id_pk") int ct_id_pk, Model model, MultipartFile imageFiles) {
 
+        // 대표 이미지 업로드
+        if (imageFiles != null && !imageFiles.isEmpty()) {
+            String rootPath = "C:/somUploadFiles/";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+            String todayPath = sdf.format(new Date());
+            File folder = new File(rootPath + todayPath);
+            if (!folder.exists()) folder.mkdirs();
 
-        return "redirect:/customerDetailPage?ct_id_pk=" + deliveryInfo.getCt_id_pk();
+            String originalFileName = imageFiles.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString();
+            long currentTime = System.currentTimeMillis();
+            String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
+            String fullPath = rootPath + todayPath + fileName;
+
+            try {
+                imageFiles.transferTo(new File(fullPath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // 파일 경로를 DTO에 저장
+            dollDesignImgDto.setDd_img_url(todayPath + fileName);
+
+ 
+        }
+
+        // DTO에 이미지 경로가 세팅된 상태로 insert
+        somheadalService.insertDollDesign(dollDesignImgDto);
+
+        return "redirect:/customerDetailPage?ct_id_pk=" + dollDesignImgDto.getCt_id_pk();
 
     }
 

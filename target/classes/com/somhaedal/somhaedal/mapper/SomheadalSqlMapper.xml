@@ -292,6 +292,18 @@ select * from delivery_info where ct_id_pk = #{ct_id_pk};
 </update>
 
 
+<insert id="insertDollDesign">
+    insert into doll_design (ct_id_pk, dd_img_url) values(#{ct_id_pk}, #{dd_img_url});
+</insert>
+
+<select id ="readDollFaceImg" parameterType="int" resultType="map">
+    select * from doll_design where ct_id_pk= #{ct_id_pk};
+</select>
+
+<insert id="insertRealFaceImg">
+    insert into real_face_img (ct_id_pk, rf_img_url) values(#{ct_id_pk}, #{rf_img_url});
+</insert>
+
 
 
 

@@ -11,6 +11,7 @@ import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
 import com.somhaedal.somhaedal.dto.DeliveryInfo;
 import com.somhaedal.somhaedal.dto.DeliveryOptionDto;
+import com.somhaedal.somhaedal.dto.DollDesignImgDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricLogDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
@@ -134,5 +135,11 @@ public interface SomeheadalSqlMapper {
     public void updateFaceCf(int ct_id_pk);
     public void updateCompleteCf(int ct_id_pk);
     public void updateDeliState(int ct_id_pk);
+
+    //전자도안 이미지 insert
+    public void insertDollDesign(DollDesignImgDto dollDesignImgDto);
+
+    //전자도안 이미지 select
+    public Map<String, Object> readDollFaceImg(int ct_id_pk);
 
 }

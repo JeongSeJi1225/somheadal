@@ -14,6 +14,7 @@ import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
 import com.somhaedal.somhaedal.dto.DeliveryInfo;
 import com.somhaedal.somhaedal.dto.DeliveryOptionDto;
+import com.somhaedal.somhaedal.dto.DollDesignImgDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.ProductOptiontDto;
@@ -326,10 +327,22 @@ public class SomheadalImpl {
     }
 
 
+    //도안 이미지 insert
+    public void insertDollDesign(DollDesignImgDto dollDesignImgDto){
+        someheadalSqlMapper.insertDollDesign(dollDesignImgDto);
+    }
+
+
+    //도안 이미지 read
+    public Map<String, Object> readDollFaceImg(int ct_id_pk){
+
+        return someheadalSqlMapper.readDollFaceImg(ct_id_pk);
+    }
 
 
 
 
     
+
  
 }

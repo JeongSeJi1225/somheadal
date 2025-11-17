@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.somhaedal.somhaedal.dto.AdminDto;
+import com.somhaedal.somhaedal.dto.CompleteImgDto;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
 import com.somhaedal.somhaedal.dto.CustomerOption;
@@ -28,6 +29,7 @@ import com.somhaedal.somhaedal.dto.DollDesignImgDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.ProductOptiontDto;
+import com.somhaedal.somhaedal.dto.RealFaceImg;
 import com.somhaedal.somhaedal.service.SomheadalImpl;
 
 import jakarta.servlet.http.HttpSession;
@@ -684,6 +686,80 @@ public String customerAddProcess(
         return "redirect:/customerDetailPage?ct_id_pk=" + dollDesignImgDto.getCt_id_pk();
 
     }
+
+
+    @PostMapping("/insertRealFaceimg")
+    public String insertRealFaceimg(RealFaceImg realFaceImg, @RequestParam("ct_id_pk") int ct_id_pk, Model model, MultipartFile imageFiles) {
+
+        // 대표 이미지 업로드
+        if (imageFiles != null && !imageFiles.isEmpty()) {
+            String rootPath = "C:/somUploadFiles/";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+            String todayPath = sdf.format(new Date());
+            File folder = new File(rootPath + todayPath);
+            if (!folder.exists()) folder.mkdirs();
+
+            String originalFileName = imageFiles.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString();
+            long currentTime = System.currentTimeMillis();
+            String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
+            String fullPath = rootPath + todayPath + fileName;
+
+            try {
+                imageFiles.transferTo(new File(fullPath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // 파일 경로를 DTO에 저장
+            realFaceImg.setRf_img_url(todayPath + fileName);
+
+ 
+        }
+
+        // DTO에 이미지 경로가 세팅된 상태로 insert
+        somheadalService.insertRealFaceImg(realFaceImg);
+
+        return "redirect:/customerDetailPage?ct_id_pk=" + realFaceImg.getCt_id_pk();
+
+    }
+
+    @PostMapping("/insertCompleteImg")
+    public String insertCompleteImg(CompleteImgDto completeImgDto, @RequestParam("ct_id_pk") int ct_id_pk, Model model, MultipartFile imageFiles) {
+
+        // 대표 이미지 업로드
+        if (imageFiles != null && !imageFiles.isEmpty()) {
+            String rootPath = "C:/somUploadFiles/";
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+            String todayPath = sdf.format(new Date());
+            File folder = new File(rootPath + todayPath);
+            if (!folder.exists()) folder.mkdirs();
+
+            String originalFileName = imageFiles.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString();
+            long currentTime = System.currentTimeMillis();
+            String fileName = uuid + "_" + currentTime + originalFileName.substring(originalFileName.lastIndexOf("."));
+            String fullPath = rootPath + todayPath + fileName;
+
+            try {
+                imageFiles.transferTo(new File(fullPath));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // 파일 경로를 DTO에 저장
+            completeImgDto.setCi_img_url(todayPath + fileName);
+
+ 
+        }
+
+        // DTO에 이미지 경로가 세팅된 상태로 insert
+        somheadalService.insertCompleteImg(completeImgDto);
+
+        return "redirect:/customerDetailPage?ct_id_pk=" + completeImgDto.getCt_id_pk();
+
+    }
+
 
 
 

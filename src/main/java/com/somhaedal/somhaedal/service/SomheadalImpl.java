@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.somhaedal.somhaedal.dto.AdminDto;
+import com.somhaedal.somhaedal.dto.CompleteImgDto;
 import com.somhaedal.somhaedal.dto.CustomerAddress;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
@@ -18,6 +19,7 @@ import com.somhaedal.somhaedal.dto.DollDesignImgDto;
 import com.somhaedal.somhaedal.dto.FabricCategoryDto;
 import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.ProductOptiontDto;
+import com.somhaedal.somhaedal.dto.RealFaceImg;
 import com.somhaedal.somhaedal.dto.ProductDto;
 import com.somhaedal.somhaedal.mapper.SomeheadalSqlMapper;
 
@@ -337,6 +339,29 @@ public class SomheadalImpl {
     public Map<String, Object> readDollFaceImg(int ct_id_pk){
 
         return someheadalSqlMapper.readDollFaceImg(ct_id_pk);
+    }
+
+    //면피 이미지 insert
+    public void insertRealFaceImg(RealFaceImg realFaceImg){
+        someheadalSqlMapper.insertRealFaceImg(realFaceImg);
+    }
+
+    //면피 이미지 read
+    public Map<String, Object> readRealFaceImg(int ct_id_pk){
+
+        return someheadalSqlMapper.readRealFaceImg(ct_id_pk);
+    }
+
+
+    //최종 이미지 insert
+    public void insertCompleteImg(CompleteImgDto CompleteImgDto){
+        someheadalSqlMapper.insertCompleteImg(CompleteImgDto);
+    }
+    
+    //최조 이미지 read
+    public Map<String, Object> readCompleteImg(int ct_id_pk){
+
+        return someheadalSqlMapper.readCompleteImg(ct_id_pk);
     }
 
 

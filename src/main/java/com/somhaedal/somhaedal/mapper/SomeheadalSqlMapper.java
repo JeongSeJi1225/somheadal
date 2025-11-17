@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.somhaedal.somhaedal.dto.AdminDto;
+import com.somhaedal.somhaedal.dto.CompleteImgDto;
 import com.somhaedal.somhaedal.dto.CustomerAddress;
 import com.somhaedal.somhaedal.dto.CustomerImgDto;
 import com.somhaedal.somhaedal.dto.CustomerInfoDto;
@@ -18,6 +19,7 @@ import com.somhaedal.somhaedal.dto.FabricManagementDto;
 import com.somhaedal.somhaedal.dto.FabricSwatchDto;
 import com.somhaedal.somhaedal.dto.ProductOptiontDto;
 import com.somhaedal.somhaedal.dto.ProductionTaskDto;
+import com.somhaedal.somhaedal.dto.RealFaceImg;
 import com.somhaedal.somhaedal.dto.ProductDto;
 import com.somhaedal.somhaedal.dto.SubMaterialDto;
 import com.somhaedal.somhaedal.dto.TaskLogDto;
@@ -141,5 +143,17 @@ public interface SomeheadalSqlMapper {
 
     //전자도안 이미지 select
     public Map<String, Object> readDollFaceImg(int ct_id_pk);
+
+    //면피 이미지 insert
+    public void insertRealFaceImg(RealFaceImg realFaceImg);
+    
+    //면피 이미지 selelct
+    public Map<String, Object> readRealFaceImg(int ct_id_pk);
+
+    //완성 이미지 insert
+    public void insertCompleteImg(CompleteImgDto CompleteImgDto);
+
+    //완성 이미지 select
+    public Map<String, Object> readCompleteImg(int ct_id_pk);
 
 }

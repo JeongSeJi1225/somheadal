@@ -293,7 +293,7 @@
               <div class="col-md-4">
                 <label class="form-label">면피 이미지</label>
                 <img th:src="@{|/somUploadFiles/${readDollFaceImg.dd_img_url}|}" alt="도안 이미지" class="img-fluid my-2" />
-                <form action="./insertFaceimg" method="post" enctype="multipart/form-data">
+                <form action="./insertRealFaceimg" method="post" enctype="multipart/form-data">
                   <input type="hidden" name="ct_id_pk" th:value="${customerReadApply.ct_id_pk}" />
                   <div class="row">
                     <div class="col-9">
@@ -304,14 +304,14 @@
                       </div>
                   </div>
                 </form>
-                <a class="btn btn-success w-100 mt-2" th:href="@{/updateDesignCf(ct_id_pk=${customerReadApply.ct_id_pk})}"><span th:text="${customerReadApply.ct_face_cf}"></span></a>
+                <a class="btn btn-success w-100 mt-2" th:href="@{/updateFaceCf(ct_id_pk=${customerReadApply.ct_id_pk})}"><span th:text="${customerReadApply.ct_design_cf}"></span></a>
               </div>
 
 
               <div class="col-md-4">
                 <label class="form-label">완성 이미지</label>
                 <img th:src="@{|/somUploadFiles/${readDollFaceImg.dd_img_url}|}" alt="도안 이미지" class="img-fluid my-2" />
-                <form action="./insertFaceimg" method="post" enctype="multipart/form-data">
+                <form action="./insertCompleteImg" method="post" enctype="multipart/form-data">
                   <input type="hidden" name="ct_id_pk" th:value="${customerReadApply.ct_id_pk}" />
                   <div class="row">
                     <div class="col-9">
@@ -322,7 +322,7 @@
                       </div>
                   </div>
                 </form>
-                <a class="btn btn-success w-100 mt-2" th:href="@{/updateDesignCf(ct_id_pk=${customerReadApply.ct_id_pk})}"><span th:text="${customerReadApply.ct_face_cf}"></span></a>
+                <a class="btn btn-success w-100 mt-2" th:href="@{/updateCompleteCf(ct_id_pk=${customerReadApply.ct_id_pk})}"><span th:text="${customerReadApply.ct_complete_cf}"></span></a>
               </div>
 
             </div>

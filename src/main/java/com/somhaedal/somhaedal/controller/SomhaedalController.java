@@ -575,6 +575,8 @@ public String customerAddProcess(
         model.addAttribute("readCustomerImgData", somheadalService.readCustomerImgData(ct_id_pk));
         model.addAttribute("readCustomerDeliNb", somheadalService.readCustomerDeliInfo(ct_id_pk));
         model.addAttribute("readDollFaceImg", somheadalService.readDollFaceImg(ct_id_pk));
+        model.addAttribute("readRealFaceImg", somheadalService.readRealFaceImg(ct_id_pk));
+        model.addAttribute("readCompleteImg", somheadalService.readCompleteImg(ct_id_pk));
         //System.out.println("ct _ id _ pk =" + somheadalService.readCustomerAdds(ct_id_pk));
         //System.out.println("options : " + somheadalService.readCustomerOptions(ct_id_pk));
         //System.out.println("이미지 데이터 = " + somheadalService.readCustomerImgData(ct_id_pk));

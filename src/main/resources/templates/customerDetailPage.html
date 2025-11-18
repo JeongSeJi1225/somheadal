@@ -275,7 +275,12 @@
             <div class="row g-3 mt-5">
               <div class="col-md-4">
                 <label class="form-label">도안 이미지</label>
-                <img th:src="@{|/somUploadFiles/${readDollFaceImg.dd_img_url}|}" alt="도안 이미지" class="img-fluid my-2" />
+                <img th:if="${readDollFaceImg != null}"
+                    th:src="@{|/somUploadFiles/${readDollFaceImg.dd_img_url}|}"
+                    class="img-fluid my-2" />
+                <span th:if="${readDollFaceImg == null}" class="text-muted">
+                  
+                </span>
                 <form action="./insertFaceimg" method="post" enctype="multipart/form-data">
                   <input type="hidden" name="ct_id_pk" th:value="${customerReadApply.ct_id_pk}" />
                   <div class="row">
@@ -292,7 +297,7 @@
 
               <div class="col-md-4">
                 <label class="form-label">면피 이미지</label>
-                <img th:src="@{|/somUploadFiles/${readDollFaceImg.dd_img_url}|}" alt="도안 이미지" class="img-fluid my-2" />
+                
                 <form action="./insertRealFaceimg" method="post" enctype="multipart/form-data">
                   <input type="hidden" name="ct_id_pk" th:value="${customerReadApply.ct_id_pk}" />
                   <div class="row">
@@ -310,7 +315,7 @@
 
               <div class="col-md-4">
                 <label class="form-label">완성 이미지</label>
-                <img th:src="@{|/somUploadFiles/${readDollFaceImg.dd_img_url}|}" alt="도안 이미지" class="img-fluid my-2" />
+                
                 <form action="./insertCompleteImg" method="post" enctype="multipart/form-data">
                   <input type="hidden" name="ct_id_pk" th:value="${customerReadApply.ct_id_pk}" />
                   <div class="row">

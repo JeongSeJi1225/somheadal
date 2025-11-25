@@ -297,7 +297,10 @@
 
               <div class="col-md-4">
                 <label class="form-label">면피 이미지</label>
-                
+                <img th:if="${readCompleteImg != null}"
+                    th:src="@{|/somUploadFiles/${readCompleteImg.ci_img_url}|}"
+                    class="img-fluid my-2" />
+                <span th:if="${readCompleteImg == null}" class="text-muted">
                 <form action="./insertRealFaceimg" method="post" enctype="multipart/form-data">
                   <input type="hidden" name="ct_id_pk" th:value="${customerReadApply.ct_id_pk}" />
                   <div class="row">
